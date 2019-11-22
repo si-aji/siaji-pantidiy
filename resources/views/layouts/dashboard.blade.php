@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ $wtitle ?? 'SIAJI' }}</title>
+        <title>{{ ($wtitle ?? 'SIAJI').(!empty($wsecond_title) ? ': '.$wsecond_title : '' ) }}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
@@ -65,7 +65,7 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="alert_section">
+                        <div class="alert_section" id="alert_section">
                             @if(Session::get('message'))
                             <blockquote class="mx-0 mt-0">
                                 <p>Action: {{ Session::get('action') }}</p>

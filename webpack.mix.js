@@ -28,6 +28,10 @@ mix.styles([
 mix.scripts([
     'resources/assets/adminlte/js/adminlte.js'
 ], 'public/adminlte/js/adminlte.js').version();
+// SIAJI Js
+mix.scripts([
+    'resources/assets/adminlte/js/siaji.js'
+], 'public/adminlte/js/siaji.js').version();
 
 // Plugins JS
 mix.scripts([

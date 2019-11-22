@@ -52,4 +52,9 @@ Route::group([
             ]);
         })->name('clear.view');
     });
+
+    // Profile
+    Route::get('/profile', 'ProfileController@index')->name('profile.index');
+    Route::put('/profile', 'ProfileController@update')->name('profile.update');
+    Route::put('/profile/password', 'ProfileController@updatePassword')->name('profile.update.password');
 });
