@@ -98,9 +98,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
-                        <button type="reset" class="btn btn-danger">Reset</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="offset-sm-2 col-sm-10 text-right text-md-right">
+                        <button type="reset" class="btn btn-sm btn-danger">Reset</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                     </div>
                 </div>
             </div>
@@ -163,8 +163,8 @@
 
         $.post("{{ route('dashboard.profile.update.password') }}", form_data, function(result){
             console.log(result);
-            console.log("Alert Section : "+$("#alert_section").length);
             $('<blockquote class="mx-0 mt-0">'
+                +'<button type="button" class="close as-close" aria-hidden="true">×</button>'
                 +'<p>Action: '+result.action+'</p>'
                 +'<small>Message: '+result.message+'</small>'
             +'</blockquote>').appendTo($('#alert_section'));

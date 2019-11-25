@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ mix('adminlte/plugins/fontawesome-free/css/all.css') }}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ mix('adminlte/css/adminlte.css') }}">
+        <link rel="stylesheet" href="{{ mix('adminlte/css/siaji.css') }}">
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         <!-- overlayScrollbars -->
@@ -68,6 +69,7 @@
                         <div class="alert_section" id="alert_section">
                             @if(Session::get('message'))
                             <blockquote class="mx-0 mt-0">
+                                <button type="button" class="close as-close" aria-hidden="true">×</button>
                                 <p>Action: {{ Session::get('action') }}</p>
                                 <small>Message: {{ Session::get('message') }}</small>
                             </blockquote>

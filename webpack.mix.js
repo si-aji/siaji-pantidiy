@@ -15,6 +15,10 @@ const mix = require('laravel-mix');
 mix.styles([
     'resources/assets/adminlte/css/adminlte.css'
 ], 'public/adminlte/css/adminlte.css').version();
+// SIAJI CSS
+mix.styles([
+    'resources/assets/adminlte/css/siaji.css'
+], 'public/adminlte/css/siaji.css').version();
 
 // Plugin CSS
 mix.styles([

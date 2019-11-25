@@ -11,3 +11,10 @@ function removeInvalid(){
     $(".form-control").removeClass('is-invalid');
     $(".invalid-feedback").remove();
 }
+
+$('.alert_section-close').click(function(){
+    $(this).parent().slideUp(function(){
+        $(this).remove();
+    });
+    console.log($(this).parent());
+});

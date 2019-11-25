@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('dashboard.index') }}" class="brand-link">
         <img src="{{ asset('adminlte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">{{ $wtitle ?? 'SIAJI' }}</span>
     </a>
     
     <!-- Sidebar -->
@@ -11,7 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name ?? '' }}</a>
+                <a href="{{ route('dashboard.index') }}" class="d-block">{{ auth()->user()->name ?? '' }}</a>
             </div>
         </div>
         @endif
@@ -516,19 +516,19 @@
                 <li class="nav-header">SETTINGS</li>
                 <li class="nav-item">
                     <a href="{{ route('dashboard.profile.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'profile' ? 'active' : '') : '' }}">
-                        <i class="nav-icon far fa-circle text-{{ !empty($menu) ? ($menu == 'profile' ? 'white' : 'primary') : 'primary' }}"></i>
+                        <i class="nav-icon fas fa-circle text-{{ !empty($menu) ? ($menu == 'profile' ? 'white' : 'primary') : 'primary' }}"></i>
                         <p class="text">Profile</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <i class="nav-icon fas fa-circle text-warning"></i>
                         <p>Warning</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
+                        <i class="nav-icon fas fa-circle text-info"></i>
                         <p>Informational</p>
                     </a>
                 </li>
