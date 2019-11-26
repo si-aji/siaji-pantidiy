@@ -5,7 +5,7 @@
 @section('content')
 <div class="register-box">
     <div class="register-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="{{ route('public.index') }}">{{ $wtitle ?? 'SIAJI' }}</a>
     </div>
       
     <div class="card">
