@@ -27,6 +27,9 @@ mix.styles([
 mix.styles([
     'resources/assets/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.css'
 ], 'public/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.css').version();
+mix.styles([
+    'resources/assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css'
+], 'public/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css').version();
 
 // AdminLTE Js
 mix.scripts([
@@ -47,3 +50,12 @@ mix.scripts([
 mix.scripts([
     'resources/assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js'
 ], 'public/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js').version();
+mix.scripts([
+    'resources/assets/adminlte/plugins/datatables/jquery.dataTables.js'
+], 'public/adminlte/plugins/datatables/jquery.dataTables.js').version();
+mix.scripts([
+    'resources/assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js'
+], 'public/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js').version();
+mix.scripts([
+    'resources/assets/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js'
+], 'public/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js').version();

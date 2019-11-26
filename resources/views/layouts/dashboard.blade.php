@@ -9,8 +9,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <!-- Meta -->
         <meta name="description" content="{{ $wdesc ?? 'SIAJI Basic CMS' }}">
+
+        @if(!empty($wfavicon))
+        <link rel="shortcut icon" href="{{ asset('settings'.'/'.$wfavicon) }}">
+        @endif
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ mix('adminlte/plugins/fontawesome-free/css/all.css') }}">
@@ -68,7 +72,7 @@
                     <div class="container-fluid">
                         <div class="alert_section" id="alert_section">
                             @if(Session::get('message'))
-                            <blockquote class="mx-0 mt-0">
+                            <blockquote class="mx-0 mt-0 quote-{{ Session::get('status') ?? 'primary' }}">
                                 <button type="button" class="close as-close" aria-hidden="true">×</button>
                                 <p>Action: {{ Session::get('action') }}</p>
                                 <small>Message: {{ Session::get('message') }}</small>

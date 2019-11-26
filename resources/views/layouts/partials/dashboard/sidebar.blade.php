@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard.index') }}" class="brand-link">
-        <img src="{{ asset('adminlte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ !empty($wlogo) ? asset('settings'.'/'.$wlogo) : asset('adminlte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">{{ $wtitle ?? 'SIAJI' }}</span>
     </a>
     
@@ -518,6 +518,12 @@
                     <a href="{{ route('dashboard.profile.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'profile' ? 'active' : '') : '' }}">
                         <i class="nav-icon fas fa-circle text-{{ !empty($menu) ? ($menu == 'profile' ? 'white' : 'primary') : 'primary' }}"></i>
                         <p class="text">Profile</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.setting.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'setting' ? 'active' : '') : '' }}">
+                        <i class="nav-icon fas fa-circle text-{{ !empty($menu) ? ($menu == 'setting' ? 'white' : 'primary') : 'primary' }}"></i>
+                        <p class="text">Settings</p>
                     </a>
                 </li>
                 <li class="nav-item">

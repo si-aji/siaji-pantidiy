@@ -3,9 +3,13 @@
     "/adminlte/css/siaji.css": "/adminlte/css/siaji.css?id=89cc42bbf4e832baafd2",
     "/adminlte/plugins/fontawesome-free/css/all.css": "/adminlte/plugins/fontawesome-free/css/all.css?id=42b8897772b8f90a5a1b",
     "/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.css": "/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.css?id=bf47ccc229e3b3368bc4",
+    "/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css": "/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css?id=1758e9d3c2304ff1d0d8",
     "/adminlte/js/adminlte.js": "/adminlte/js/adminlte.js?id=92206f4641a846afb588",
-    "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=66f9c80b963585539c25",
+    "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=0dbfe42110ab0d4eaf01",
     "/adminlte/plugins/jquery/jquery.js": "/adminlte/plugins/jquery/jquery.js?id=11c05eb286ed576526bf",
     "/adminlte/plugins/bootstrap/js/bootstrap.bundle.js": "/adminlte/plugins/bootstrap/js/bootstrap.bundle.js?id=a9247b1fe21ee409d0b3",
-    "/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js": "/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js?id=305e705f1d489499ef1d"
+    "/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js": "/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js?id=305e705f1d489499ef1d",
+    "/adminlte/plugins/datatables/jquery.dataTables.js": "/adminlte/plugins/datatables/jquery.dataTables.js?id=5c7804ee8c7e5f939a28",
+    "/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js": "/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js?id=73bd54551128bcbe4561",
+    "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js": "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js?id=07fee065ac26033deb53"
 }

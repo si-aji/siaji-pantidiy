@@ -12,7 +12,7 @@ function removeInvalid(){
     $(".invalid-feedback").remove();
 }
 
-$('.alert_section-close').click(function(){
+$('.as-close').click(function(){
     $(this).parent().slideUp(function(){
         $(this).remove();
     });
