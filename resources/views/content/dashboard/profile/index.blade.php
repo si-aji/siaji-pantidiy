@@ -1,6 +1,7 @@
 @extends('layouts.dashboard', [
     'wsecond_title' => 'Profile',
     'menu' => 'profile',
+    'sub_menu' => null,
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null

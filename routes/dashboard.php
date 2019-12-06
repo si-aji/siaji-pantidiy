@@ -53,6 +53,11 @@ Route::group([
         })->name('clear.view');
     });
 
+    // Provinsi
+    Route::get('/provinsi', 'ProvinsiController@index')->name('provinsi.index');
+    Route::post('/provinsi', 'ProvinsiController@store')->name('provinsi.store');
+    Route::put('/provinsi/{id}', 'ProvinsiController@update')->name('provinsi.update');
+
     // Profile
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
     Route::put('/profile', 'ProfileController@update')->name('profile.update');
@@ -60,4 +65,20 @@ Route::group([
 
     // Settings
     Route::resource('/setting', 'SettingsController');
+});
+
+Route::group([
+    'prefix' => 'json',
+    'middleware' => ['web', 'auth'],
+    'as' => 'json.'
+], function(){
+    Route::group([
+        'prefix' => 'datatable',
+        'as' => 'datatable.'
+    ], function(){
+        Route::get('/provinsi', 'ProvinsiController@datatableAll')->name('provinsi.all');
+    });
+
+    Route::get('/provinsi', 'ProvinsiController@jsonAll')->name('provinsi.all');
+    Route::get('/provinsi/{id}', 'ProvinsiController@jsonId')->name('provinsi.id');
 });
