@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', [
-    'wsecond_title' => 'Kabupaten',
+    'wsecond_title' => 'Kecamatan',
     'menu' => 'location',
-    'sub_menu' => 'kabupaten',
+    'sub_menu' => 'kecamatan',
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null
@@ -16,7 +16,7 @@
                 'active' => false
             ], [
                 'url' => '#',
-                'text' => 'Kabupaten',
+                'text' => 'Kecamatan',
                 'active' => true
             ]
         ]
@@ -35,25 +35,29 @@
 @section('content')
 <div class="card">
     <div class="card-header card-primary card-outline">
-        <h1 class="card-title">List Kabupaten</h1>
+        <h1 class="card-title">List Kecamatan</h1>
         <div class="card-tools">
-            <button type="button" data-toggle="modal" id="districtButton" data-target="#districtModal" class="btn btn-primary btn-sm" disabled>
+            <button type="button" data-toggle="modal" id="subdistrictButton" data-target="#subdistrictModal" class="btn btn-primary btn-sm" disabled>
                 <i class="fas fa-plus"></i> Add New
             </button>
         </div>
     </div>
     <div class="card-body">
         <div class="form-group">
-            <select class="form-control select2" name="lprovinsi_id" id="lprovinsi_id" onchange="updateTable();">
-                <option value="none" selected>- Pilih Provinsi -</option>
+            <select class="form-control select2" name="lkabupaten_id" id="lkabupaten_id" onchange="updateTable();">
+                <option value="none" selected>- Pilih Kabupaten -</option>
                 
                 @foreach($provinsi as $item)
-                <option value="{{ $item->id }}">{{ $item->provinsi_name }}</option>
+                <optgroup label="{{ $item->provinsi_name }}">
+                    @foreach($item->kabupaten as $kabupaten)
+                    <option value="{{ $kabupaten->id }}">{{ $kabupaten->kabupaten_name }}</option>
+                    @endforeach
+                </optgroup>
                 @endforeach
             </select>
         </div>
 
-        <table class="table table-bordered table-hover table-striped" id="district_table">
+        <table class="table table-bordered table-hover table-striped" id="subdistrict_table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -66,11 +70,11 @@
 @endsection
 
 @section('content_modal')
-<form method="POST" action="{{ route('dashboard.kabupaten.index') }}" class="modal fade" tabindex="-1" role="dialog" id="districtModal">
+<form method="POST" action="{{ route('dashboard.kecamatan.index') }}" class="modal fade" tabindex="-1" role="dialog" id="subdistrictModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Form Kabupaten (Insert)</h5>
+                <h5 class="modal-title">Form Kecamatan (Insert)</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -81,13 +85,18 @@
 
                 <div class="form-group">
                     <label>Provinsi</label>
-                    <input type="hidden" name="provinsi_id" id="provinsi_id">
                     <input type="text" class="form-control" id="provinsi_name" readonly>
                 </div>
 
-                <div class="form-group" id="field-kabupaten_name">
+                <div class="form-group">
+                    <label>Kabupaten</label>
+                    <input type="hidden" name="kabupaten_id" id="kabupaten_id">
+                    <input type="text" class="form-control" id="kabupaten_name" readonly>
+                </div>
+
+                <div class="form-group" id="field-kecamatan_name">
                     <label>Name</label>
-                    <input type="text" name="kabupaten_name" id="kabupaten_name" class="form-control" placeholder="Kabupaten Name">
+                    <input type="text" name="kecamatan_name" id="kecamatan_name" class="form-control" placeholder="Kecamatan Name">
                 </div>
             </div>
             <div class="modal-footer">
@@ -116,21 +125,21 @@
         $('.select2').select2();
     });
 
-    let district_table = $("#district_table").DataTable({
+    let subdistrict_table = $("#subdistrict_table").DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: "{{ route('dashboard.json.datatable.kabupaten.all') }}",
+            url: "{{ route('dashboard.json.datatable.kecamatan.all') }}",
             type: "GET",
             data: function(d){
-                d.provinsi = $("#lprovinsi_id").val()
+                d.kabupaten = $("#lkabupaten_id").val()
             }
         },
         success: function (result) {
             console.log(result);
         },
         columns: [
-            { "data": "kabupaten_name" },
+            { "data": "kecamatan_name" },
             { "data": "" }
         ],
         columnDefs: [
@@ -152,26 +161,27 @@
     function updateTable(){
         console.log("Update Table");
 
-        if($("#lprovinsi_id").val() != "none"){
-            $("#districtButton").attr('disabled', false);
-            $("#provinsi_name").val($("#lprovinsi_id option:selected").text());
-            $("#provinsi_id").val($("#lprovinsi_id").val());
+        if($("#lkabupaten_id").val() != "none"){
+            $("#subdistrictButton").attr('disabled', false);
+            $("#provinsi_name").val($("#lkabupaten_id option:selected").parent().attr('label'));
+            $("#kabupaten_name").val($("#lkabupaten_id option:selected").text());
+            $("#kabupaten_id").val($("#lkabupaten_id").val());
         } else {
             formReset();
-            $("#districtButton").attr('disabled', true);
+            $("#subdistrictButton").attr('disabled', true);
         }
 
-        $("#district_table").DataTable().ajax.reload();
+        $("#subdistrict_table").DataTable().ajax.reload();
     }
 
-    $("#districtModal").submit(function(e){
+    $("#subdistrictModal").submit(function(e){
         e.preventDefault();
         console.log("Form is being submited...");
         removeInvalid();
 
         // Form Data
         let form_data = $(e.target).serialize();
-        let target_url = $("#districtModal").attr('action');
+        let target_url = $("#subdistrictModal").attr('action');
         console.log("Target : "+target_url);
 
         let el = $(this).closest('.modal');
@@ -179,7 +189,7 @@
 
         $.post(target_url, form_data, function(result){
             console.log(result);
-            $("#district_table").DataTable().ajax.reload();
+            $("#subdistrict_table").DataTable().ajax.reload();
 
             $('<blockquote class="mx-0 mt-0">'
                 +'<button type="button" class="close as-close" aria-hidden="true">×</button>'
@@ -187,7 +197,7 @@
                 +'<small>Message: '+result.message+'</small>'
             +'</blockquote>').appendTo($('#alert_section'));
 
-            $("#districtModal").modal('hide');
+            $("#subdistrictModal").modal('hide');
         }).always(function(result){
             el.removeClass('modal-progress');
         }).fail(function(jqXHR, textStatus, errorThrown){
@@ -199,7 +209,7 @@
             });
         });
     });
-    $("#districtModal").on('hide.bs.modal', function(){
+    $("#subdistrictModal").on('hide.bs.modal', function(){
         console.log("Modal is being hide");
         $("#btn_reset").click();
     });
@@ -207,33 +217,34 @@
     function formReset(){
         removeInvalid();
 
-        $("#districtModal").attr('action', "{{ route('dashboard.kabupaten.index') }}");
-        $("#districtModal .modal-title").text('Form Kabupaten (Insert)');
+        $("#subdistrictModal").attr('action', "{{ route('dashboard.kecamatan.index') }}");
+        $("#subdistrictModal .modal-title").text('Form Kecamatan (Insert)');
 
-        if($("#lprovinsi_id").val() == "none"){
+        if($("#lkabupaten_id").val() == "none"){
             $("#provinsi_name").val("");
-            $("#provinsi_id").val("");
+            $("#kabupaten_id").val("");
+            $("#kabupaten_name").val("");
         }
 
         $("#_method").val("POST");
-        $("#kabupaten_name").val('');
+        $("#kecamatan_name").val('');
     }
 
     function actionEdit(id){
         console.log("Edit Action is running... ID is : "+id);
         $(".btn-caction").attr('disabled', true);
 
-        $.get("{{ route('dashboard.json.kabupaten.all') }}/"+id, function(result){
+        $.get("{{ route('dashboard.json.kecamatan.all') }}/"+id, function(result){
             console.log(result);
             let data = result.data;
 
-            $("#districtModal").attr('action', "{{ route('dashboard.kabupaten.index') }}/"+data.id);
-            $("#districtModal .modal-title").text('Form Kabupaten (Update)');
+            $("#subdistrictModal").attr('action', "{{ route('dashboard.kecamatan.index') }}/"+data.id);
+            $("#subdistrictModal .modal-title").text('Form Kecamatan (Update)');
 
             $("#_method").val("PUT");
-            $("#kabupaten_name").val(data.kabupaten_name);
+            $("#kecamatan_name").val(data.kecamatan_name);
 
-            $("#districtModal").modal("show");
+            $("#subdistrictModal").modal("show");
         }).always(function(result){
             $(".btn-caction").attr('disabled', false);
         }).fail(function(jqXHR, textStatus, errorThrown){

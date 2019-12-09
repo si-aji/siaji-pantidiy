@@ -9,6 +9,7 @@ class Kecamatan extends Model
     protected $table = 'sa_lkecamatan';
 
     protected $fillable = [
+        'kabupaten_id',
         'kecamatan_name'
     ];
 
