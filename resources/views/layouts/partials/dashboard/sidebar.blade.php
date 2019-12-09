@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('dashboard.kabupaten.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'kabupaten' ? 'active' : '') : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kabupaten</p>
                             </a>

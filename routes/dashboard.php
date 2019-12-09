@@ -57,6 +57,10 @@ Route::group([
     Route::get('/provinsi', 'ProvinsiController@index')->name('provinsi.index');
     Route::post('/provinsi', 'ProvinsiController@store')->name('provinsi.store');
     Route::put('/provinsi/{id}', 'ProvinsiController@update')->name('provinsi.update');
+    // Kabupaten
+    Route::get('/kabupaten', 'KabupatenController@index')->name('kabupaten.index');
+    Route::post('/kabupaten', 'KabupatenController@store')->name('kabupaten.store');
+    Route::put('/kabupaten/{id}', 'KabupatenController@update')->name('kabupaten.update');
 
     // Profile
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
@@ -77,8 +81,13 @@ Route::group([
         'as' => 'datatable.'
     ], function(){
         Route::get('/provinsi', 'ProvinsiController@datatableAll')->name('provinsi.all');
+        Route::get('/kabupaten', 'KabupatenController@datatableAll')->name('kabupaten.all');
     });
 
+    // Provinsi
     Route::get('/provinsi', 'ProvinsiController@jsonAll')->name('provinsi.all');
     Route::get('/provinsi/{id}', 'ProvinsiController@jsonId')->name('provinsi.id');
+    // Kabupaten
+    Route::get('/kabupaten', 'KabupatenController@jsonAll')->name('kabupaten.all');
+    Route::get('/kabupaten/{id}', 'KabupatenController@jsonId')->name('kabupaten.id');
 });

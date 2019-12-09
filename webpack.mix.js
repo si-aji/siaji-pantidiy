@@ -30,6 +30,12 @@ mix.styles([
 mix.styles([
     'resources/assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css'
 ], 'public/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css').version();
+mix.styles([
+    'resources/assets/adminlte/plugins/select2/css/select2.min.css'
+], 'public/adminlte/plugins/select2/css/select2.min.css').version();
+mix.styles([
+    'resources/assets/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'
+], 'public/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css').version();
 
 // AdminLTE Js
 mix.scripts([
@@ -59,3 +65,6 @@ mix.scripts([
 mix.scripts([
     'resources/assets/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js'
 ], 'public/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js').version();
+mix.scripts([
+    'resources/assets/adminlte/plugins/select2/js/select2.full.min.js'
+], 'public/adminlte/plugins/select2/js/select2.full.min.js').version();

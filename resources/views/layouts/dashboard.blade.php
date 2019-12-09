@@ -18,9 +18,6 @@
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ mix('adminlte/plugins/fontawesome-free/css/all.css') }}">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ mix('adminlte/css/adminlte.css') }}">
-        <link rel="stylesheet" href="{{ mix('adminlte/css/siaji.css') }}">
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         <!-- overlayScrollbars -->
@@ -28,6 +25,10 @@
         
         @yield('plugins_css')
         @yield('inline_css')
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ mix('adminlte/css/adminlte.css') }}">
+        <link rel="stylesheet" href="{{ mix('adminlte/css/siaji.css') }}">
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
         <div class="wrapper">

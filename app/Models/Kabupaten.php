@@ -9,6 +9,7 @@ class Kabupaten extends Model
     protected $table = 'sa_lkabupaten';
 
     protected $fillable = [
+        'provinsi_id',
         'kabupaten_name'
     ];
 
