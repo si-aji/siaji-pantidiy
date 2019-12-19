@@ -123,6 +123,24 @@ class ProvinsiController extends Controller
     }
 
     /**
+     * Select2
+     */
+    public function select2(Request $request)
+    {
+        $data = Provinsi::all();
+        if($request->has('search') && $request->search != ''){
+            // Apply search param
+            $data = Provinsi::where('provinsi_name', 'LIKE', '%'.$request->search.'%')->orderBy('provinsi_name', 'asc')->get();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Fetched',
+            'data' => $data
+        ]);
+    }
+
+    /**
      * JSON
      */
     public function jsonAll()

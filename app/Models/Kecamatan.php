@@ -17,4 +17,9 @@ class Kecamatan extends Model
     {
         return $this->belongsTo('App\Models\Kabupaten', 'kabupaten_id');
     }
+
+    public function panti()
+    {
+        return $this->hasMany('App\Models\Panti', 'kecamatan_id');
+    }
 }

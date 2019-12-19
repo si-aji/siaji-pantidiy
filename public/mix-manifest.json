@@ -6,13 +6,15 @@
     "/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css": "/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css?id=f5828ea3e6c7a89f02df",
     "/adminlte/plugins/select2/css/select2.min.css": "/adminlte/plugins/select2/css/select2.min.css?id=ba5948c0bda0f5f26bd3",
     "/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css": "/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css?id=edbf41bc52a2b786256c",
+    "/adminlte/plugins/summernote/summernote-bs4.css": "/adminlte/plugins/summernote/summernote-bs4.css?id=549b762da219736cc3a8",
     "/adminlte/js/adminlte.js": "/adminlte/js/adminlte.js?id=c2c16f86edc67f25b9c3",
-    "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=0dbfe42110ab0d4eaf01",
+    "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=3ea5233fb3118c75751f",
     "/adminlte/plugins/jquery/jquery.js": "/adminlte/plugins/jquery/jquery.js?id=320fa28debd36316365b",
     "/adminlte/plugins/bootstrap/js/bootstrap.bundle.js": "/adminlte/plugins/bootstrap/js/bootstrap.bundle.js?id=bd1604da466f7535f078",
     "/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js": "/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js?id=f8ab8c6d0ce1039d05c6",
     "/adminlte/plugins/datatables/jquery.dataTables.js": "/adminlte/plugins/datatables/jquery.dataTables.js?id=27564c7379d69ba3f582",
     "/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js": "/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js?id=0fcb36b1c246913aaf9b",
     "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js": "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js?id=36966b0a7af168632b42",
-    "/adminlte/plugins/select2/js/select2.full.min.js": "/adminlte/plugins/select2/js/select2.full.min.js?id=3bd2aa3186773fdc0792"
+    "/adminlte/plugins/select2/js/select2.full.min.js": "/adminlte/plugins/select2/js/select2.full.min.js?id=3bd2aa3186773fdc0792",
+    "/adminlte/plugins/summernote/summernote-bs4.min.js": "/adminlte/plugins/summernote/summernote-bs4.min.js?id=e1bb2dbdad541ec94d1c"
 }

@@ -150,6 +150,17 @@ class KecamatanController extends Controller
         ]);
     }
 
+    public function jsonKabupaten($kabupaten_id)
+    {
+        $data = Kecamatan::where('kabupaten_id', $kabupaten_id)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Fetched',
+            'data' => $data
+        ]);
+    }
+
     public function jsonId($id)
     {
         $data = Kecamatan::findOrFail($id);

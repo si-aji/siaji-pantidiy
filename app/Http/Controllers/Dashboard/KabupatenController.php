@@ -150,6 +150,17 @@ class KabupatenController extends Controller
         ]);
     }
 
+    public function jsonProvince($provinsi_id)
+    {
+        $data = Kabupaten::where('provinsi_id', $provinsi_id)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Fetched',
+            'data' => $data
+        ]);
+    }
+
     public function jsonId($id)
     {
         $data = Kabupaten::findOrFail($id);

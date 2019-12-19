@@ -16,4 +16,8 @@ class Provinsi extends Model
     {
         return $this->hasMany('App\Models\Kabupaten', 'provinsi_id');
     }
+    public function panti()
+    {
+        return $this->hasMany('App\Models\Panti', 'provinsi_id');
+    }
 }

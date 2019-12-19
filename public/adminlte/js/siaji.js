@@ -12,6 +12,19 @@ function removeInvalid(){
     $(".invalid-feedback").remove();
 }
 
+function generateSlug(source, destination){
+    var title = $("#"+source).val();
+    var slug = title
+        .toLowerCase()
+        .replace(/[^\w ]+/g,'')
+        .replace(/ +/g,'-');
+    if(slug.slice(-1) == "-"){
+        slug = slug.slice(0, -1);
+    }
+    
+    $("#"+destination).val(slug);
+}
+
 $('.as-close').click(function(){
     $(this).parent().slideUp(function(){
         $(this).remove();

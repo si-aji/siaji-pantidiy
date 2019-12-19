@@ -22,4 +22,8 @@ class Kabupaten extends Model
     {
         return $this->hasMany('App\Models\Kecamatan', 'kabupaten_id');
     }
+    public function panti()
+    {
+        return $this->hasMany('App\Models\Panti', 'kabupaten_id');
+    }
 }

@@ -22,15 +22,22 @@
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{ route('dashboard.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'dashboard' ? 'active' : '') : '' }}">
-                        <i class="nav-icon fas fa-circle text-{{ !empty($menu) ? ($menu == 'dashboard' ? 'white' : 'primary') : 'primary' }}"></i>
+                        <i class="nav-icon fas fa-bars"></i>
                         <p class="text">Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.panti.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'panti' ? 'active' : '') : '' }}">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p class="text">Panti</p>
                     </a>
                 </li>
 
                 <li class="nav-header">SETTINGS</li>
                 <li class="nav-item has-treeview {{ !empty($menu) ? ($menu == 'location' ? 'menu-open' : '') : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-circle"></i>
+                        <i class="nav-icon fas fa-search-location"></i>
                         <p>
                             Location Setting
                             <i class="right fas fa-angle-left"></i>
@@ -60,13 +67,13 @@
 
                 <li class="nav-item">
                     <a href="{{ route('dashboard.profile.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'profile' ? 'active' : '') : '' }}">
-                        <i class="nav-icon fas fa-circle text-{{ !empty($menu) ? ($menu == 'profile' ? 'white' : 'primary') : 'primary' }}"></i>
+                        <i class="nav-icon fas fa-user-cog"></i>
                         <p class="text">Profile</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('dashboard.setting.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'setting' ? 'active' : '') : '' }}">
-                        <i class="nav-icon fas fa-circle text-{{ !empty($menu) ? ($menu == 'setting' ? 'white' : 'primary') : 'primary' }}"></i>
+                        <i class="nav-icon fas fa-cog"></i>
                         <p class="text">Settings</p>
                     </a>
                 </li>
