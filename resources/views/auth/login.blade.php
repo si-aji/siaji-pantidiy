@@ -16,7 +16,7 @@
                 @csrf
 
                 <div class="input-group mb-3">
-                    <input type="text" name="email" class="form-control @error('username') is-invalid @enderror" placeholder="Email">
+                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control @error('username') is-invalid @enderror" placeholder="Password">
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

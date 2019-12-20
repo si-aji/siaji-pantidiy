@@ -2,7 +2,7 @@ const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
- | Mix Asset Management
+ | Mix Asset Management (Public)
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
@@ -10,7 +10,53 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+// Ayro-Ui
+mix.styles([
+    'resources/assets/ayro-ui/css/bootstrap.min.css'
+], 'public/ayro-ui/css/bootstrap.min.css').version();
+mix.styles([
+    'resources/assets/ayro-ui/css/LineIcons.css'
+], 'public/ayro-ui/css/LineIcons.css').version();
+mix.styles([
+    'resources/assets/ayro-ui/css/default.css'
+], 'public/ayro-ui/css/default.css').version();
+mix.styles([
+    'resources/assets/ayro-ui/css/style.css'
+], 'public/ayro-ui/css/style.css').version();
 
+// Ayro-UI JS
+mix.scripts([
+    'resources/assets/ayro-ui/js/vendor/modernizr-3.6.0.min.js'
+], 'public/ayro-ui/js/vendor/modernizr-3.6.0.min.js').version();
+mix.scripts([
+    'resources/assets/ayro-ui/js/vendor/jquery-1.12.4.min.js'
+], 'public/ayro-ui/js/vendor/jquery-1.12.4.min.js').version();
+mix.scripts([
+    'resources/assets/ayro-ui/js/bootstrap.min.js'
+], 'public/ayro-ui/js/bootstrap.min.js').version();
+mix.scripts([
+    'resources/assets/ayro-ui/js/popper.min.js'
+], 'public/ayro-ui/js/popper.min.js').version();
+mix.scripts([
+    'resources/assets/ayro-ui/js/imagesloaded.pkgd.min.js'
+], 'public/ayro-ui/js/imagesloaded.pkgd.min.js').version();
+mix.scripts([
+    'resources/assets/ayro-ui/js/jquery.appear.min.js'
+], 'public/ayro-ui/js/jquery.appear.min.js').version();
+mix.scripts([
+    'resources/assets/ayro-ui/js/main.js'
+], 'public/ayro-ui/js/main.js').version();
+
+/*
+ |--------------------------------------------------------------------------
+ | Mix Asset Management Dashboard
+ |--------------------------------------------------------------------------
+ |
+ | Mix provides a clean, fluent API for defining some Webpack build steps
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for the application as well as bundling up all the JS files.
+ |
+ */
 // AdminLTE CSS
 mix.styles([
     'resources/assets/adminlte/css/adminlte.css'

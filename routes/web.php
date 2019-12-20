@@ -12,6 +12,7 @@
 */
 
 Route::Auth();
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('content.public.index.index');
 })->name('index');
