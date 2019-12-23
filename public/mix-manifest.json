@@ -7,6 +7,7 @@
     "/adminlte/plugins/select2/css/select2.min.css": "/adminlte/plugins/select2/css/select2.min.css?id=ba5948c0bda0f5f26bd3",
     "/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css": "/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css?id=edbf41bc52a2b786256c",
     "/adminlte/plugins/summernote/summernote-bs4.css": "/adminlte/plugins/summernote/summernote-bs4.css?id=549b762da219736cc3a8",
+    "/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css": "/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css?id=698c8f9cbac28bf66b51",
     "/adminlte/js/adminlte.js": "/adminlte/js/adminlte.js?id=c2c16f86edc67f25b9c3",
     "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=3ea5233fb3118c75751f",
     "/adminlte/plugins/jquery/jquery.js": "/adminlte/plugins/jquery/jquery.js?id=320fa28debd36316365b",
@@ -16,5 +17,6 @@
     "/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js": "/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js?id=0fcb36b1c246913aaf9b",
     "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js": "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js?id=36966b0a7af168632b42",
     "/adminlte/plugins/select2/js/select2.full.min.js": "/adminlte/plugins/select2/js/select2.full.min.js?id=3bd2aa3186773fdc0792",
-    "/adminlte/plugins/summernote/summernote-bs4.min.js": "/adminlte/plugins/summernote/summernote-bs4.min.js?id=e1bb2dbdad541ec94d1c"
+    "/adminlte/plugins/summernote/summernote-bs4.min.js": "/adminlte/plugins/summernote/summernote-bs4.min.js?id=e1bb2dbdad541ec94d1c",
+    "/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js": "/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js?id=01c6391fb81fc7fd18bc"
 }

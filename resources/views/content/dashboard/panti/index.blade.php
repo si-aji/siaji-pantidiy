@@ -95,9 +95,10 @@
                 <table class="table table-bordered table-hover table-striped" id="panti_table">
                     <thead>
                         <tr>
+                            <th>Provinsi</th>
+                            <th>Kabupaten</th>
+                            <th>Kecamatan</th>
                             <th>Name</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -149,14 +150,15 @@
             console.log(result);
         },
         columns: [
+            { "data": "provinsi.provinsi_name" },
+            { "data": "kabupaten.kabupaten_name" },
+            { "data": "kecamatan.kecamatan_name" },
             { "data": "panti_name" },
-            { "data": "created_at" },
-            { "data": "updated_at" },
             { "data": "" }
         ],
         columnDefs: [
             {
-                "targets": 3,
+                "targets": 4,
                 "searchable": false,
                 "sortable": false,
                 "render": function(row, type, data){

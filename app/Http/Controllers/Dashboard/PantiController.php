@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Provinsi;
 use App\Models\Panti;
+use App\Models\PantiLiputan;
 use Illuminate\Http\Request;
 
 class PantiController extends Controller
@@ -81,7 +82,12 @@ class PantiController extends Controller
      */
     public function show($id)
     {
-        //
+        $liputan = null;
+        $panti = Panti::where('panti_slug', $id)->first();
+        if($panti->pantiLiputan()->exists()){
+            $liputan = PantiLiputan::where('panti_id', $panti->id)->orderBy('liputan_date', 'desc')->get();
+        }
+        return view('content.dashboard.panti.show', compact('panti', 'liputan'));
     }
 
     /**
@@ -174,7 +180,7 @@ class PantiController extends Controller
         }
 
         return datatables()
-            ->of($data)
+            ->of($data->with('provinsi', 'kabupaten', 'kecamatan'))
             ->toJson();
     }
 }

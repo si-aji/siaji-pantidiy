@@ -30,4 +30,9 @@ class Panti extends Model
     {
         return $this->belongsTo('App\Models\Kecamatan', 'kecamatan_id');
     }
+
+    public function pantiLiputan()
+    {
+        return $this->hasMany('App\Models\PantiLiputan', 'panti_id');
+    }
 }

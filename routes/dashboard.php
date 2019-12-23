@@ -55,6 +55,10 @@ Route::group([
 
     // Panti
     Route::resource('/panti', 'PantiController');
+    // Panti Liputan
+    Route::get('/panti-liputan', 'PantiLiputanController@index')->name('panti.liputan.index');
+    Route::get('/panti-liputan/{id}', 'PantiLiputanController@create')->name('panti.liputan.create');
+    Route::post('/panti-liputan/{id}', 'PantiLiputanController@store')->name('panti.liputan.store');
 
     // Provinsi
     Route::get('/provinsi', 'ProvinsiController@index')->name('provinsi.index');
@@ -91,6 +95,7 @@ Route::group([
         Route::get('/kabupaten', 'KabupatenController@datatableAll')->name('kabupaten.all');
         Route::get('/kecamatan', 'KecamatanController@datatableAll')->name('kecamatan.all');
         Route::get('/panti', 'PantiController@datatableAll')->name('panti.all');
+        Route::get('/panti_liputan', 'PantiLiputanController@datatableAll')->name('panti.liputan.all');
     });
 
     // Provinsi

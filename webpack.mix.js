@@ -45,6 +45,10 @@ mix.styles([
     // Summernote
     'resources/assets/adminlte/plugins/summernote/summernote-bs4.css'
 ], 'public/adminlte/plugins/summernote/summernote-bs4.css').version();
+mix.styles([
+    // Tempus Dominus
+    'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'
+], 'public/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css').version();
 
 // AdminLTE Js
 mix.scripts([
@@ -88,3 +92,7 @@ mix.scripts([
     // Summernote
     'resources/assets/adminlte/plugins/summernote/summernote-bs4.min.js'
 ], 'public/adminlte/plugins/summernote/summernote-bs4.min.js').version();
+mix.scripts([
+    // Tempus Dominus
+    'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'
+], 'public/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js').version();
