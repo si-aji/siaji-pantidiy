@@ -16,7 +16,8 @@ class CreateTableSaPantiLiputan extends Migration
         Schema::create('sa_panti_liputan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('panti_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('author_id')->unsigned();
+            $table->bigInteger('editor_id')->unsigned()->nullable();
             $table->dateTime('liputan_date');
             $table->string('liputan_thumbnail')->nullable();
             $table->longText('liputan_content');
@@ -27,7 +28,12 @@ class CreateTableSaPantiLiputan extends Migration
                 ->on('sa_panti')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('user_id')
+            $table->foreign('author_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('editor_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')

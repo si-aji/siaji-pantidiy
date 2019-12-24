@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', [
     'wsecond_title' => 'Panti',
     'menu' => 'panti',
-    'sub_menu' => null,
+    'sub_menu' => 'list',
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null
@@ -95,10 +95,10 @@
                 <table class="table table-bordered table-hover table-striped" id="panti_table">
                     <thead>
                         <tr>
+                            <th>Name</th>
                             <th>Provinsi</th>
                             <th>Kabupaten</th>
                             <th>Kecamatan</th>
-                            <th>Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -126,13 +126,14 @@
     });
 
     let panti_table = $("#panti_table").DataTable({
+        lengthMenu: [5, 10, 25],
         processing: true,
         serverSide: true,
         ajax: {
             url: "{{ route('dashboard.json.datatable.panti.all') }}",
             type: "GET",
             data: function(d){
-                console.log(d);
+                // console.log(d);
                 let filter_show = null;
                 if($("#filter_showall").is(':checked')){
                     filter_show = 'all';
@@ -150,14 +151,24 @@
             console.log(result);
         },
         columns: [
+            { "data": "panti_name" },
             { "data": "provinsi.provinsi_name" },
             { "data": "kabupaten.kabupaten_name" },
             { "data": "kecamatan.kecamatan_name" },
-            { "data": "panti_name" },
             { "data": "" }
         ],
         columnDefs: [
             {
+                "targets": [1, 2, 3],
+                "render": function(row, type, data){
+                    console.log(row);
+                    if(row != undefined){
+                        return row;
+                    } else {
+                        return '-';
+                    }
+                }
+            }, {
                 "targets": 4,
                 "searchable": false,
                 "sortable": false,

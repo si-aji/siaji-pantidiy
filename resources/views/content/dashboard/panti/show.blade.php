@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', [
     'wsecond_title' => 'Panti - Detail',
     'menu' => 'panti',
-    'sub_menu' => null,
+    'sub_menu' => 'list',
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null
@@ -90,6 +90,7 @@
                         <tr>
                             <th>Tanggal Liputan</th>
                             <th>Author</th>
+                            <th>Editor</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -112,6 +113,7 @@
 @section('inline_js')
 <script>
     let liputan_table = $("#liputan_table").DataTable({
+        order: [0, 'desc'],
         processing: true,
         serverSide: true,
         ajax: {
@@ -127,19 +129,30 @@
         },
         columns: [
             { "data": "liputan_date" },
-            { "data": "user.name" },
+            { "data": "author.name" },
+            { "data": "editor.name" },
             { "data": "" }
         ],
         columnDefs: [
             {
                 "targets": 2,
+                "render": function(row, type, data){
+                    // console.log(row);
+                    if(row != null){
+                        return row;
+                    } else {
+                        return "-";
+                    }
+                }
+            }, {
+                "targets": 3,
                 "searchable": false,
                 "sortable": false,
                 "render": function(row, type, data){
                     // console.log(row);
                     return "<div class='btn-group'>"
-                        +"<a href='{{ route('dashboard.panti.index') }}/"+data.id+"/edit' class='btn btn-caction btn-warning btn-sm'><i class='far fa-edit'></i></a>"
-                        +"<a href='{{ route('dashboard.panti.index') }}/"+data.id+"' class='btn btn-caction btn-info btn-sm'><i class='far fa-eye'></i></a>"
+                        +"<a href='{{ route('dashboard.panti.liputan.index') }}/"+data.panti.panti_slug+"/"+data.id+"/edit' class='btn btn-caction btn-warning btn-sm'><i class='far fa-edit'></i></a>"
+                        +"<a href='{{ route('dashboard.panti.liputan.index') }}/"+data.panti.panti_slug+"/"+data.id+"' class='btn btn-caction btn-info btn-sm'><i class='far fa-eye'></i></a>"
                     +"</div>"
                 }
             }

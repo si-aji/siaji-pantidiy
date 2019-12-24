@@ -37,8 +37,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pantiLiputan()
+    public function pantiLiputanAuthor()
     {
-        return $this->hasMany('App\Models\PantiLiputan', 'user_id');
+        return $this->hasMany('App\Models\PantiLiputan', 'author_id');
+    }
+    public function pantiLiputanEditor()
+    {
+        return $this->hasMany('App\Models\PantiLiputan', 'editor_id');
     }
 }

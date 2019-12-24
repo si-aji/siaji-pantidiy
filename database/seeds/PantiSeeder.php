@@ -26,22 +26,23 @@ class PantiSeeder extends Seeder
         Panti::truncate();
         Schema::enableForeignKeyConstraints();
 
-        for($i = 0; $i < 500; $i++){
+        for($i = 0; $i < 50; $i++){
             $provinsi = Provinsi::inRandomOrder()->first();
             $kabupaten = Kabupaten::where('provinsi_id', $provinsi->id)->inRandomOrder()->first();
             $kecamatan = Kecamatan::where('kabupaten_id', $kabupaten->id)->inRandomOrder()->first();
 
             $faker = Faker::create('id_ID');
             $name = $faker->unique()->company;
+            $slug = strtolower(str_replace(' ', '-', preg_replace('/[^\p{L}\p{N}\s]/u', '', $name)));
 
-            $panti = Panti::where('panti_slug', strtolower(str_replace(' ', '-', $name)))->first();
+            $panti = Panti::where('panti_slug', $slug)->first();
             if(empty($panti)){
                 Panti::create([
                     'provinsi_id' => $provinsi->id,
                     'kabupaten_id' => $kabupaten->id,
                     'kecamatan_id' => $kecamatan->id,
                     'panti_name' => $name,
-                    'panti_slug' => strtolower(str_replace(' ', '-', $name)),
+                    'panti_slug' => $slug,
                     'panti_alamat' => $faker->address,
                     'panti_description' => $provinsi->id,
                 ]);

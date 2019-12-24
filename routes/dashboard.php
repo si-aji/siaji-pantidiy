@@ -57,8 +57,10 @@ Route::group([
     Route::resource('/panti', 'PantiController');
     // Panti Liputan
     Route::get('/panti-liputan', 'PantiLiputanController@index')->name('panti.liputan.index');
-    Route::get('/panti-liputan/{id}', 'PantiLiputanController@create')->name('panti.liputan.create');
-    Route::post('/panti-liputan/{id}', 'PantiLiputanController@store')->name('panti.liputan.store');
+    Route::get('/panti-liputan/{slug}', 'PantiLiputanController@create')->name('panti.liputan.create');
+    Route::post('/panti-liputan/{slug}', 'PantiLiputanController@store')->name('panti.liputan.store');
+    Route::get('/panti-liputan/{slug}/{id}/edit', 'PantiLiputanController@edit')->name('panti.liputan.edit');
+    Route::put('/panti-liputan/{id}', 'PantiLiputanController@update')->name('panti.liputan.update');
 
     // Provinsi
     Route::get('/provinsi', 'ProvinsiController@index')->name('provinsi.index');
@@ -109,4 +111,12 @@ Route::group([
     Route::get('/kabupaten/{kabupaten_id}/kecamatan', 'KecamatanController@jsonKabupaten')->name('kecamatan.kabupaten');
     Route::get('/kecamatan', 'KecamatanController@jsonAll')->name('kecamatan.all');
     Route::get('/kecamatan/{id}', 'KecamatanController@jsonId')->name('kecamatan.id');
+});
+
+Route::group([
+    'prefix' => 'select2',
+    'middleware' => ['web', 'auth'],
+    'as' => 'select2.'
+], function(){
+    Route::get('/panti', 'PantiController@select2')->name('panti.select2');
 });

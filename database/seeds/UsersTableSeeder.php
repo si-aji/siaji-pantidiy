@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\User;
+use App\Models\PantiLiputan;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,14 +14,36 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        Schema::disableForeignKeyConstraints();
 
-        $store = User::create([
+        User::truncate();
+        PantiLiputan::truncate();
+
+        Schema::enableForeignKeyConstraints();
+
+        User::create([
             'name' => 'Dwi Aji',
             'email' => 'dwiaji@mail.com',
             'username' => 'dwiaji',
             'password' => bcrypt('dwiaji'),
-            'is_active' => true
+            'is_active' => true,
+            'access' => 'admin'
+        ]);
+        User::create([
+            'name' => 'SIAJI',
+            'email' => 'siaji@mail.com',
+            'username' => 'siaji',
+            'password' => bcrypt('siaji'),
+            'is_active' => true,
+            'access' => 'admin'
+        ]);
+        User::create([
+            'name' => 'User',
+            'email' => 'user@mail.com',
+            'username' => 'user',
+            'password' => bcrypt('user'),
+            'is_active' => true,
+            'access' => 'user'
         ]);
     }
 }

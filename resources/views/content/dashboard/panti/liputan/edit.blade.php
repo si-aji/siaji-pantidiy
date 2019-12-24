@@ -1,5 +1,5 @@
 @extends('layouts.dashboard', [
-    'wsecond_title' => 'Liputan Panti - Create',
+    'wsecond_title' => 'Liputan Panti - Edit',
     'menu' => 'panti',
     'sub_menu' => 'liputan',
     'alert' => [
@@ -7,7 +7,7 @@
         'message' => Session::get('message') ?? null
     ],
     'content_header' => [
-        'title' => 'Liputan Panti - Create',
+        'title' => 'Liputan Panti - Edit',
         'desc' => null,
         'breadcrumb' => [
             [
@@ -24,7 +24,7 @@
                 'active' => false
             ], [
                 'url' => '#',
-                'text' => 'Create',
+                'text' => 'Edit',
                 'active' => true
             ]
         ]
@@ -39,8 +39,10 @@
 @endsection
 
 @section('content')
-<form class="card" action="{{ route('dashboard.panti.liputan.store', $panti->panti_slug) }}" method="POST">
+<form class="card" action="{{ route('dashboard.panti.liputan.update', $liputan->id) }}" method="POST" id="liputan-form">
     @csrf
+    @method('PUT')
+
     <div class="card-header card-secondary card-outline">
         <h1 class="card-title">Liputan {{ $panti->panti_name }}</h1>
         <div class="card-tools">
@@ -96,7 +98,7 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea id="liputan_content" name="liputan_content" class="liputan_content @error('liputan_content') is-invalid @enderror">{!! old('liputan_content') !!}</textarea>
+                    <textarea id="liputan_content" name="liputan_content" class="liputan_content @error('liputan_content') is-invalid @enderror">{!! $liputan->liputan_content !!}</textarea>
         
                     @error('liputan_content')
                         <small class="text-danger">
@@ -108,7 +110,13 @@
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10 text-right text-md-right">
                         <button type="reset" id="btn-field_reset" class="btn btn-sm btn-danger">Reset</button>
+                        @if(auth()->user()->id != $liputan->author_id)
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-confirmation">
+                            <i class="fas fa-lock"></i> Submit
+                        </button>
+                        @else
                         <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -116,6 +124,37 @@
     </div>
 </form>
 @endsection
+
+@if(auth()->user()->id != $liputan->author_id)
+@section('content_modal')
+{{-- Confirmation Modal --}}
+<form class="modal fade" tabindex="-1" role="dialog" id="modal-confirmation">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Permission Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>You are not the real author, please tick checkbox below</p>
+
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="confirm_checkbox" name="confirm_checkbox" value="understand" required>
+                    <label for="confirm_checkbox" class="custom-control-label">Sure, I'm understand</label>
+                </div>
+            </div>
+            <div class="modal-footer br">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-sm btn-danger" id="confirmation-reset" onclick="removeInvalid()">Reset</button>
+                <button type="submit" class="btn btn-sm btn-primary" id="confirmation-submit" onclick="removeInvalid()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</form>
+@endsection
+@endif
 
 @section('plugins_js')
 <script src="{{ mix('adminlte/js/siaji.js') }}"></script>
@@ -145,8 +184,14 @@
     $('#liputan_date').datetimepicker({
         useCurrent: false,
         format: "YYYY-MM-DD",
-        defaultDate: "{{ old('liputan_date') ? old('liputan_date') : date('Y-m-d') }}",
+        defaultDate: "{{ $liputan->liputan_date ? $liputan->liputan_date : date('Y-m-d') }}",
         maxDate: "{{ date('Y-m-d') }}"
+    });
+
+    $("#modal-confirmation").submit(function(e){
+        e.preventDefault();
+
+        $("#liputan-form").submit();
     });
 </script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', [
     'wsecond_title' => 'Panti - Edit',
     'menu' => 'panti',
-    'sub_menu' => null,
+    'sub_menu' => 'list',
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null

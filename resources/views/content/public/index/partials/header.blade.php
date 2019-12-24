@@ -1,5 +1,4 @@
 <section class="header-area header-one mb-100">
-
     <div class="navbar-area navbar-one navbar-transparent">
         <div class="container">
             <div class="row">
@@ -51,10 +50,16 @@
                         </div>
 
                         <div class="navbar-btn d-none d-sm-inline-block">
+                            @guest
                             <ul>
                                 <li><a class="light" href="{{ route('public.login') }}">Sign In</a></li>
-                                <li><a class="solid" href="#">Sign Up</a></li>
+                                <li><a class="solid" href="{{ route('public.register') }}">Sign Up</a></li>
                             </ul>
+                            @else
+                            <ul>
+                                <li><a class="light" href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                            </ul>
+                            @endguest
                         </div>
                     </nav> <!-- navbar -->
                 </div>

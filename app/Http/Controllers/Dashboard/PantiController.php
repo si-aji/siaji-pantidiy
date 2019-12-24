@@ -83,7 +83,7 @@ class PantiController extends Controller
     public function show($id)
     {
         $liputan = null;
-        $panti = Panti::where('panti_slug', $id)->first();
+        $panti = Panti::where('panti_slug', $id)->firstOrFail();
         if($panti->pantiLiputan()->exists()){
             $liputan = PantiLiputan::where('panti_id', $panti->id)->orderBy('liputan_date', 'desc')->get();
         }
@@ -182,5 +182,37 @@ class PantiController extends Controller
         return datatables()
             ->of($data->with('provinsi', 'kabupaten', 'kecamatan'))
             ->toJson();
+    }
+
+    /**
+     * Select2
+     */
+    public function select2(Request $request)
+    {
+        $data = Panti::query();
+        $last_page = null;
+        if($request->has('search') && $request->search != ''){
+            // Apply search param
+            $data = $data->orWhereHas('provinsi', function($query) use ($request){
+                $query->where('provinsi_name', 'like', '%'.$request->search.'%');
+            })->orWhereHas('kabupaten', function($query) use ($request){
+                $query->where('kabupaten_name', 'like', '%'.$request->search.'%');
+            })->orWhereHas('kecamatan', function($query) use ($request){
+                $query->where('kecamatan_name', 'like', '%'.$request->search.'%');
+            })->orWhere('panti_name', 'like', '%'.$request->search.'%');
+        }
+
+        $data->with('provinsi', 'kabupaten', 'kecamatan');
+        if($request->has('page')){
+            $data->paginate(10);
+            $last_page = $data->paginate(10)->lastPage();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Fetched',
+            'last_page' => $last_page,
+            'data' => $data->get(),
+        ]);
     }
 }

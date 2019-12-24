@@ -10,7 +10,8 @@ class PantiLiputan extends Model
 
     protected $fillable = [
         'panti_id',
-        'user_id',
+        'author_id',
+        'editor_id',
         'liputan_date',
         'liputan_thumbnail',
         'liputan_content'
@@ -21,8 +22,12 @@ class PantiLiputan extends Model
         return $this->belongsTo('App\Models\Panti', 'panti_id');
     }
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'author_id');
+    }
+    public function editor()
+    {
+        return $this->belongsTo('App\User', 'editor_id');
     }
 }
