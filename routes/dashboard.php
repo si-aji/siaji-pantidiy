@@ -60,6 +60,7 @@ Route::group([
     Route::get('/panti-liputan/{slug}', 'PantiLiputanController@create')->name('panti.liputan.create');
     Route::post('/panti-liputan/{slug}', 'PantiLiputanController@store')->name('panti.liputan.store');
     Route::get('/panti-liputan/{slug}/{id}/edit', 'PantiLiputanController@edit')->name('panti.liputan.edit');
+    Route::get('/panti-liputan/{slug}/{id}', 'PantiLiputanController@show')->name('panti.liputan.show');
     Route::put('/panti-liputan/{id}', 'PantiLiputanController@update')->name('panti.liputan.update');
 
     // Provinsi

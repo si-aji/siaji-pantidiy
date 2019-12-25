@@ -70,9 +70,12 @@ class PantiLiputanController extends Controller
      * @param  \App\Models\PantiLiputan  $slug (slug)
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slug, $id)
     {
-        //
+        $panti = Panti::where('panti_slug', $slug)->first();
+        $liputan = PantiLiputan::findOrFail($id);
+
+        return view('content.dashboard.panti.liputan.show', compact('panti', 'liputan'));
     }
 
     /**
