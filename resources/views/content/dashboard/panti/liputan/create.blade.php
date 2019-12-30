@@ -35,7 +35,7 @@
 <!-- Summernote -->
 <link rel="stylesheet" href="{{ mix('adminlte/plugins/summernote/summernote-bs4.css') }}">
 <!-- Tempus Dominus -->
-<link rel="stylesheet" href="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+<link rel="stylesheet" href="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css') }}">
 @endsection
 
 @section('content')
@@ -122,7 +122,7 @@
 <!-- Summernote -->
 <script src="{{ mix('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <!-- Tempus Dominus -->
-<script src="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script src="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js') }}"></script>
 @endsection
 
 @section('inline_js')

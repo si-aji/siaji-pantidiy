@@ -31,3 +31,11 @@ $('.as-close').click(function(){
     });
     console.log($(this).parent());
 });
+
+function ucwords(str){
+    str = str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+        return letter.toUpperCase();
+    });
+
+    return str;
+}

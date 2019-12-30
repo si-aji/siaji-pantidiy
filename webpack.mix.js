@@ -93,8 +93,8 @@ mix.styles([
 ], 'public/adminlte/plugins/summernote/summernote-bs4.css').version();
 mix.styles([
     // Tempus Dominus
-    'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'
-], 'public/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css').version();
+    'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css'
+], 'public/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css').version();
 
 // AdminLTE Js
 mix.scripts([
@@ -104,6 +104,10 @@ mix.scripts([
 mix.scripts([
     'resources/assets/adminlte/js/siaji.js'
 ], 'public/adminlte/js/siaji.js').version();
+// Momen Js
+mix.scripts([
+    'resources/assets/adminlte/plugins/moment/moment.min.js'
+], 'public/adminlte/plugins/moment/moment.min.js').version();
 
 // Plugins JS
 mix.scripts([
@@ -140,5 +144,5 @@ mix.scripts([
 ], 'public/adminlte/plugins/summernote/summernote-bs4.min.js').version();
 mix.scripts([
     // Tempus Dominus
-    'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'
-], 'public/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js').version();
+    'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js'
+], 'public/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js').version();

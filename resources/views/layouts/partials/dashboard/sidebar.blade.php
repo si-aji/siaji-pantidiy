@@ -22,11 +22,20 @@
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{ route('dashboard.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'dashboard' ? 'active' : '') : '' }}">
-                        <i class="nav-icon fas fa-bars"></i>
+                        <i class="nav-icon fas fa-chalkboard"></i>
                         <p class="text">Dashboard</p>
                     </a>
                 </li>
 
+                <li class="nav-header">Content</li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.page.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'page' ? 'active' : '') : '' }}">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p class="text">Pages</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">Social Care</li>
                 <li class="nav-item has-treeview {{ !empty($menu) ? ($menu == 'panti' ? 'menu-open' : '') : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>

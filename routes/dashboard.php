@@ -52,6 +52,9 @@ Route::group([
             ]);
         })->name('clear.view');
     });
+    
+    // Page
+    Route::resource('/page', 'PageController');
 
     // Panti
     Route::resource('/panti', 'PantiController');
@@ -99,6 +102,7 @@ Route::group([
         Route::get('/kecamatan', 'KecamatanController@datatableAll')->name('kecamatan.all');
         Route::get('/panti', 'PantiController@datatableAll')->name('panti.all');
         Route::get('/panti_liputan', 'PantiLiputanController@datatableAll')->name('panti.liputan.all');
+        Route::get('/page', 'PageController@datatableAll')->name('page.all');
     });
 
     // Provinsi
