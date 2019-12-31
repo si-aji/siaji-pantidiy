@@ -34,6 +34,35 @@
                         <p class="text">Pages</p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview {{ !empty($menu) ? ($menu == 'post' ? 'menu-open' : '') : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Posts
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.category.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'category' ? 'active' : '') : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.keyword.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'keyword' ? 'active' : '') : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Keyword</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.keyword.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'post' ? 'active' : '') : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Post</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="nav-header">Social Care</li>
                 <li class="nav-item has-treeview {{ !empty($menu) ? ($menu == 'panti' ? 'menu-open' : '') : '' }}">

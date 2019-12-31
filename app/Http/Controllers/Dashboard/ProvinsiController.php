@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Provinsi;
 use Illuminate\Http\Request;
+
+use App\Models\Provinsi;
 
 class ProvinsiController extends Controller
 {

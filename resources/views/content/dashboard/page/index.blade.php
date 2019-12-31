@@ -61,7 +61,6 @@
 <script src="{{ mix('adminlte/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ mix('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
 <script src="http://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
-
 @endsection
 
 @section('inline_js')
@@ -109,7 +108,7 @@
                     }
                     return '<span class="right badge badge-'+badge_color+'">'+page_status+'</span>';
                 }
-            },{
+            }, {
                 "targets": 2,
                 "render": function(row, type, data){
                     return moment(row).format('MMM Do YYYY, H:mm:ss');

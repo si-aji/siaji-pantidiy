@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Models\Provinsi;
 use App\Models\Panti;
 use App\Models\PantiLiputan;
-use Illuminate\Http\Request;
 
 class PantiController extends Controller
 {

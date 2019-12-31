@@ -56,6 +56,11 @@ Route::group([
     // Page
     Route::resource('/page', 'PageController');
 
+    // Category
+    Route::resource('/category', 'CategoryController');
+    // Keyword
+    Route::resource('/keyword', 'KeywordController');
+
     // Panti
     Route::resource('/panti', 'PantiController');
     // Panti Liputan

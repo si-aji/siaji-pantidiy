@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Panti;
-use App\Models\PantiLiputan;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use App\Models\Panti;
+use App\Models\PantiLiputan;
 
 class PantiLiputanController extends Controller
 {
