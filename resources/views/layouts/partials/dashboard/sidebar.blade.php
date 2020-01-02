@@ -56,7 +56,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.keyword.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'post' ? 'active' : '') : '' }}">
+                            <a href="{{ route('dashboard.post.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'post_list' ? 'active' : '') : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Post</p>
                             </a>

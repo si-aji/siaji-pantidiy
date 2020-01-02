@@ -12,8 +12,8 @@
 */
 
 Route::group([
-    'prefix' => 'dashboard',
-    'middleware' => ['web', 'auth']
+    'prefix' => 'sys',
+    'middleware' => ['web', 'auth'],
 ], function(){
     Route::get('/', 'DashboardController@index')->name('index');
     
@@ -58,6 +58,8 @@ Route::group([
     Route::resource('/category', 'CategoryController');
     // Keyword
     Route::resource('/keyword', 'KeywordController');
+    // Post
+    Route::resource('/post', 'PostController');
 
     // Panti
     Route::resource('/panti', 'PantiController');
@@ -106,6 +108,7 @@ Route::group([
         Route::get('/panti', 'PantiController@datatableAll')->name('panti.all');
         Route::get('/panti_liputan', 'PantiLiputanController@datatableAll')->name('panti.liputan.all');
         Route::get('/page', 'PageController@datatableAll')->name('page.all');
+        Route::get('/post', 'PostController@datatableAll')->name('post.all');
     });
 
     // Provinsi

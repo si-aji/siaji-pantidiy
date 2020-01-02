@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
 use Illuminate\Http\Request;
+
+use App\Models\Category;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -15,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('content.dashboard.post.index');
     }
 
     /**
@@ -25,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::orderBy('category_title')->get();
+        return view('content.dashboard.post.create', compact('category'));
     }
 
     /**
@@ -36,9 +39,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validate_published = ['nullable'];
+        $validate_published = $validate_category = ['nullable'];
+        if($request->post_content == '<p><br/></p>'){
+            $request->merge(['post_content' => null]);
+        }
+        if($request->has('post_immediately') && $request->post_immediately == 'true'){
+            $validate_published = ['nullable'];
+        } else {
+            if($request->post_status == 'published'){
+                $validate_published = ['required'];
+            }
+        }
+        if($request->category_id != "null"){
+            $validate_category = ['nullable', 'exists:sa_category,id'];
+        }
         $request->validate([
-            'category_id' => ['nullable', 'exists:sa_category,id'],
+            'category_id' => $validate_category,
             'post_title' => ['required', 'string', 'max:255'],
             'post_slug' => ['required', 'string', 'max:255', 'unique:sa_post,post_slug'],
             'post_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png'],
@@ -48,6 +64,31 @@ class PostController extends Controller
             'post_status' => ['required', 'in:published,draft'],
             'post_published' => $validate_published
         ]);
+
+        $post = new Post;
+        $post->author_id = $request->author_id;
+        $post->category_id = $request->category_id != "null" ? $request->category_id : null;
+        $post->post_title = $request->post_title;
+        $post->post_slug = $request->post_slug;
+        $post->post_content = $request->post_content;
+        $post->post_shareable = $request->has('post_shareable') && $request->post_shareable == 'true' ? true : false;
+        $post->post_commentable = $request->has('post_commentable') && $request->post_commentable == 'true' ? true : false;
+        $post->post_status = $request->post_status;
+        if($request->has('post_immediately') && $request->post_immediately == 'true'){
+            $post->post_published = date('Y-m-d H:i:00');
+        } else {
+            if($request->post_status == 'published'){
+                $post->post_published = $request->post_published;
+            } else {
+                $post->post_published = null;
+            }
+        }
+        $post->save();
+
+        return redirect()->route('dashboard.post.index')->with([
+            'action' => 'Store',
+            'message' => 'Post successfully added'
+        ]);
     }
 
     /**
@@ -56,9 +97,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::where('post_slug', $id)->firstOrFail();
+        return view('content.dashboard.post.show', compact('post'));
     }
 
     /**
@@ -67,9 +109,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post = Post::where('post_slug', $id)->firstOrFail();
+        $category = Category::orderBy('category_title')->get();
+        return view('content.dashboard.post.edit', compact('category', 'post'));
     }
 
     /**
@@ -79,9 +123,72 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        $post = Post::where('post_slug', $id)->firstOrFail();
+
+        $validate_published = $validate_category = ['nullable'];
+        if($request->post_content == '<p><br/></p>'){
+            $request->merge(['post_content' => null]);
+        }
+        if($request->has('post_immediately') && $request->post_immediately == 'true'){
+            $validate_published = ['nullable'];
+        } else {
+            if($request->post_status == 'published'){
+                $validate_published = ['required'];
+            }
+        }
+        if($request->category_id != "null"){
+            $validate_category = ['nullable', 'exists:sa_category,id'];
+        }
+        $request->validate([
+            'category_id' => $validate_category,
+            'post_title' => ['required', 'string', 'max:255'],
+            'post_slug' => ['required', 'string', 'max:255', 'unique:sa_post,post_slug,'.$post->id],
+            'post_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png'],
+            'post_content' => ['required', 'string'],
+            'post_shareable' => ['nullable'],
+            'post_commentable' => ['nullable'],
+            'post_status' => ['required', 'in:published,draft'],
+            'post_published' => $validate_published
+        ]);
+
+        // return response()->json([
+        //     'status' => $request->post_status,
+        //     'published' => $request->post_published
+        // ]);
+
+        $post->author_id = auth()->user()->id;
+        $post->category_id = $request->category_id != "null" ? $request->category_id : null;
+        $post->post_title = $request->post_title;
+        $post->post_slug = $request->post_slug;
+        $post->post_content = $request->post_content;
+        $post->post_shareable = $request->has('post_shareable') && $request->post_shareable == 'true' ? true : false;
+        $post->post_commentable = $request->has('post_commentable') && $request->post_commentable == 'true' ? true : false;
+        $post->post_status = $request->post_status;
+        if($request->has('post_immediately') && $request->post_immediately == 'true'){
+            $post->post_published = date('Y-m-d H:i:00');
+        } else {
+            if($request->post_status == 'published'){
+                $post->post_published = $request->post_published;
+            } else {
+                $post->post_published = null;
+            }
+        }
+
+        if($post->isDirty()){
+            if($post->author_id != $request->author_id){
+                $post->editor_id = $request->author_id;
+            } else {
+                $post->editor_id = null;
+            }
+        }
+        $post->save();
+
+        return redirect()->route('dashboard.post.index')->with([
+            'action' => 'Update',
+            'message' => 'Post successfully updated'
+        ]);
     }
 
     /**
@@ -90,8 +197,21 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
         //
+    }
+
+    /**
+     * DataTable
+     */
+    public function datatableAll()
+    {
+        // DB::enableQueryLog();
+        $data = Post::query();
+
+        return datatables()
+            ->of($data->with('category', 'author'))
+            ->toJson();
     }
 }

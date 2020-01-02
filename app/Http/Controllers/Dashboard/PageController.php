@@ -66,7 +66,7 @@ class PageController extends Controller
         $page->save();
 
         return redirect()->route('dashboard.page.index')->with([
-            'action' => 'Page Store',
+            'action' => 'Store',
             'message' => 'Page successfully added'
         ]);
     }
@@ -133,7 +133,7 @@ class PageController extends Controller
         $page->save();
 
         return redirect()->route('dashboard.page.index')->with([
-            'action' => 'Page Update',
+            'action' => 'Update',
             'message' => 'Page successfully updated'
         ]);
     }
