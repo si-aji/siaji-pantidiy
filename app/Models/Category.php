@@ -13,4 +13,9 @@ class Category extends Model
         'category_slug',
         'category_description',
     ];
+
+    public function post()
+    {
+        return $this->hasMany('App\Models\Post', 'category_id');
+    }
 }

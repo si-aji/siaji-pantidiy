@@ -45,4 +45,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\PantiLiputan', 'editor_id');
     }
+    public function postAuthor()
+    {
+        return $this->hasMany('App\Models\Post', 'author_id');
+    }
+    public function postEditor()
+    {
+        return $this->hasMany('App\Models\Post', 'editor_id');
+    }
 }
