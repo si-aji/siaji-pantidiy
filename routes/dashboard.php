@@ -15,9 +15,7 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['web', 'auth']
 ], function(){
-    Route::get('/', function(){
-        return view('layouts.dashboard');
-    })->name('index');
+    Route::get('/', 'DashboardController@index')->name('index');
     
     Route::group([
         'prefix' => 'clear'
