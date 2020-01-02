@@ -157,7 +157,7 @@
 <script>
     $(document).ready(function(){
         $("#field-page_content").summernote({
-            'height': 170,
+            'height': 300,
             'placeholder': 'Start writing or type...',
         });
 

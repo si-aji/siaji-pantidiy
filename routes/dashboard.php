@@ -12,18 +12,16 @@
 */
 
 Route::group([
-    'prefix' => 'dashboard',
-    'middleware' => ['web', 'auth']
+    'prefix' => 'sys',
+    'middleware' => ['web', 'auth'],
 ], function(){
-    Route::get('/', function(){
-        return view('layouts.dashboard');
-    })->name('index');
+    Route::get('/', 'DashboardController@index')->name('index');
     
     Route::group([
         'prefix' => 'clear'
     ], function(){
         Route::get('/cache', function(){
-            Log::info('Clear Cache Artisan triggered by : '.get_class(auth()->user()).' - '.auth()->user()->id);
+            // Log::info('Clear Cache Artisan triggered by : '.get_class(auth()->user()).' - '.auth()->user()->id);
 
             Artisan::call('cache:clear');
             return redirect()->route('dashboard.index')->with([
@@ -33,7 +31,7 @@ Route::group([
         })->name('clear.cache');
 
         Route::get('/config', function(){
-            Log::info('Clear Config Cache Artisan triggered by : '.get_class(auth()->user()).' - '.auth()->user()->id);
+            // Log::info('Clear Config Cache Artisan triggered by : '.get_class(auth()->user()).' - '.auth()->user()->id);
 
             Artisan::call('config:clear');
             return redirect()->route('dashboard.index')->with([
@@ -43,7 +41,7 @@ Route::group([
         })->name('clear.config');
 
         Route::get('/view', function(){
-            Log::info('Clear View Cache Artisan triggered by : '.get_class(auth()->user()).' - '.auth()->user()->id);
+            // Log::info('Clear View Cache Artisan triggered by : '.get_class(auth()->user()).' - '.auth()->user()->id);
 
             Artisan::call('view:clear');
             return redirect()->route('dashboard.index')->with([
@@ -60,6 +58,8 @@ Route::group([
     Route::resource('/category', 'CategoryController');
     // Keyword
     Route::resource('/keyword', 'KeywordController');
+    // Post
+    Route::resource('/post', 'PostController');
 
     // Panti
     Route::resource('/panti', 'PantiController');
@@ -108,6 +108,7 @@ Route::group([
         Route::get('/panti', 'PantiController@datatableAll')->name('panti.all');
         Route::get('/panti_liputan', 'PantiLiputanController@datatableAll')->name('panti.liputan.all');
         Route::get('/page', 'PageController@datatableAll')->name('page.all');
+        Route::get('/post', 'PostController@datatableAll')->name('post.all');
     });
 
     // Provinsi

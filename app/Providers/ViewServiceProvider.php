@@ -26,10 +26,11 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', function ($view) {
+        $settings = Settings::all();
+
+        View::composer('*', function ($view) use ($settings) {
             $wtitle = $wdesc = $wlogo = $wfavicon = null;
 
-            $settings = Settings::all();
             foreach($settings as $setting){
                 if($setting->setting_key == 'title'){
                     $wtitle = $setting->setting_value;
