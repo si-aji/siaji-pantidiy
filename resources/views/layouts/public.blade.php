@@ -13,13 +13,13 @@
         <!--====== Favicon Icon ======-->
         <link rel="shortcut icon" href="{{ asset('ayro-ui/images/favicon.ico') }}" type="image/png">
         <!--====== Bootstrap css ======-->
-        <link rel="stylesheet" href="{{ asset('ayro-ui/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ mix('ayro-ui/css/bootstrap.min.css') }}">
         <!--====== Line Icons css ======-->
-        <link rel="stylesheet" href="{{ asset('ayro-ui/css/LineIcons.css') }}">
+        <link rel="stylesheet" href="{{ mix('ayro-ui/css/LineIcons.css') }}">
         <!--====== Default css ======-->
-        <link rel="stylesheet" href="{{ asset('ayro-ui/css/default.css') }}">
+        <link rel="stylesheet" href="{{ mix('ayro-ui/css/default.css') }}">
         <!--====== Style css ======-->
-        <link rel="stylesheet" href="{{ asset('ayro-ui/css/style.css') }}">
+        <link rel="stylesheet" href="{{ mix('ayro-ui/css/style.css') }}">
 
         @yield('plugins_css')
         @yield('inline_css')

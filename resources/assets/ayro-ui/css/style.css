@@ -3356,6 +3356,61 @@ p {
   color: #6c6c6c;
   margin-top: 24px; }
 
+/*===== ARTICLE ONE =====*/
+.article-one {
+  position: relative;
+  background-color: #f4f6f7;
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+.article-one .card-blog {
+  margin: 10px 0;
+  border-radius: .5rem;
+  border: unset;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.16);
+}
+.article-one .card-blog.card-higlight {
+
+}
+.article-one .card-blog.card-higlight .blog-img {
+  width: 240px;
+  object-fit: cover;
+  background-size: cover;
+}
+.article-one .card-blog.card-higlight .card-body {
+  display: flex !important;
+}
+.article-one .card-blog.card-higlight .card-body .blog-content {
+  display: block !important;
+  padding-left: 1rem;
+}
+.article-one .card-blog .card-footer {
+  border: none;
+  background: linear-gradient(25deg, #ddd, #f4f6f7);
+  border-radius: .5rem;
+}
+
+.article-one .card-event {
+  margin: 10px 0;
+  border-radius: .5rem;
+  background: transparent;
+  border: unset;
+}
+.article-one .card-event .card-title {
+  position: relative;
+  padding-left: 2rem;
+}
+.article-one .card-event .card-title:before {
+  position: absolute;
+  content: '';
+  width: 1.5rem;
+  height: 5px;
+  background-color: #2bdbdc;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
 /*===== SERVICES ONE =====*/
 .services-one {
   position: relative;
