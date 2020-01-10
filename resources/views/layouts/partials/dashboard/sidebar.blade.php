@@ -132,6 +132,12 @@
                         <p class="text">Settings</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.roles-setting.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'roles' ? 'active' : '') : '' }}">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p class="text">Roles Settings</p>
+                    </a>
+                </li>
 
                 @if(auth()->user())
                 <li class="nav-item">

@@ -91,6 +91,9 @@ Route::group([
 
     // Settings
     Route::resource('/setting', 'SettingsController');
+
+    // Role Setting
+    Route::resource('/roles-setting', 'RoleController');
 });
 
 Route::group([
