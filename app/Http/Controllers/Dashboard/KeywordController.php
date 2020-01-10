@@ -123,7 +123,11 @@ class KeywordController extends Controller
         $last_page = null;
         if($request->has('search') && $request->search != ''){
             // Apply search param
-            $data = $data->where('keyword_title', 'like', '%'.$request->search.'%');
+            if($request->search == '.'){
+                
+            } else {
+                $data = $data->where('keyword_title', 'like', '%'.$request->search.'%');
+            }
         }
 
         if($request->has('page')){

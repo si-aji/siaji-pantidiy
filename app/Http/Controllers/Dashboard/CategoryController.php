@@ -38,9 +38,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $notin = [
+            'Uncategorize',
+            'Uncategorized',
+            'uncategorize',
+            'uncategorized',
+            'Un Categorize',
+            'Un Categorized',
+            'Un categorize',
+            'Un categorized',
+            'un Categorize',
+            'un Categorized',
+            'un-categorize',
+            'un-categorized',
+        ];
         $request->validate([
-            'category_title' => ['required', 'string', 'max:255', 'unique:sa_category,category_title'],
-            'category_slug' => ['required', 'string', 'max:255', 'unique:sa_category,category_slug'],
+            'category_title' => ['required', 'string', 'max:255', 'unique:sa_category,category_title', 'not_in:'.implode(',', $notin)],
+            'category_slug' => ['required', 'string', 'max:255', 'unique:sa_category,category_slug', 'not_in:'.implode(',', $notin)],
             'category_description' => ['nullable', 'string', 'max:255'],
         ]);
 
@@ -89,10 +103,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $notin = [
+            'Uncategorize',
+            'Uncategorized',
+            'uncategorize',
+            'uncategorized',
+            'Un Categorize',
+            'Un Categorized',
+            'Un categorize',
+            'Un categorized',
+            'un Categorize',
+            'un Categorized',
+            'un-categorize',
+            'un-categorized',
+        ];
         $category = Category::where('category_slug', $id)->firstOrFail();
         $request->validate([
-            'category_title' => ['required', 'string', 'max:255', 'unique:sa_category,category_title,'.$category->id],
-            'category_slug' => ['required', 'string', 'max:255', 'unique:sa_category,category_slug,'.$category->id],
+            'category_title' => ['required', 'string', 'max:255', 'unique:sa_category,category_title,'.$category->id, 'not_in:'.implode(',', $notin)],
+            'category_slug' => ['required', 'string', 'max:255', 'unique:sa_category,category_slug,'.$category->id, 'not_in:'.implode(',', $notin)],
             'category_description' => ['nullable', 'string', 'max:255'],
         ]);
 

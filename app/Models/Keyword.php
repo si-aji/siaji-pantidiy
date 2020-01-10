@@ -13,8 +13,8 @@ class Keyword extends Model
         'keyword_slug',
     ];
 
-    public function keyword()
+    public function post()
     {
-        return $this->belongsToMany('App\Models\Keyword', 'sa_post_keyword', 'keyword_id', 'post_id');
+        return $this->belongsToMany('App\Models\Post', 'sa_post_keyword', 'keyword_id', 'post_id');
     }
 }

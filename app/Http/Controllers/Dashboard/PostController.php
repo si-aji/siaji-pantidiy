@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
+use App\Models\Keyword;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -186,6 +187,28 @@ class PostController extends Controller
         }
         $post->save();
 
+        if($post->keyword()->exists()){
+            $old_keyword = $post->keyword()->pluck('keyword_id')->toArray();
+
+            if(!empty($request->keyword_id)){
+                $add_keyword = arr_diff($request->keyword_id, $old_keyword, 'add');
+                $remove_keyword = arr_diff($request->keyword_id, $old_keyword, 'remove');
+
+                if(!empty($add_keyword)){
+                    $post->keyword()->attach($add_keyword);
+                }
+                if(!empty($remove_keyword)){
+                    $post->keyword()->detach($remove_keyword);
+                }
+            } else {
+                $post->keyword()->delete();
+            }
+        } else {
+            if(!empty($request->keyword_id)){
+                $post->keyword()->attach($request->keyword_id);
+            }
+        }
+
         return redirect()->route('dashboard.post.index')->with([
             'action' => 'Update',
             'message' => 'Post successfully updated'
@@ -210,6 +233,19 @@ class PostController extends Controller
     {
         // DB::enableQueryLog();
         $data = Post::query();
+
+        return datatables()
+            ->of($data->with('category', 'author'))
+            ->toJson();
+    }
+    public function datatableKeyword($slug)
+    {
+        $keyword = Keyword::where('keyword_slug', $slug)->first();
+        // DB::enableQueryLog();
+        $data = Post::query();
+        $data = $data->whereHas('keyword', function($query) use ($keyword){
+            $query->where('keyword_id', $keyword->id);
+        });
 
         return datatables()
             ->of($data->with('category', 'author'))

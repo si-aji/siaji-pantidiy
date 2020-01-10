@@ -182,6 +182,7 @@
                             @endforeach
                         @endif
                     </select>
+                    <small class="text-muted">Type "." (dot without quote) to show all stored keyword.</small>
 
                     @error('keyword_id')
                     <div class="invalid-feedback">
@@ -253,6 +254,63 @@
 <script>
     $(document).ready(function(){
         $('.select2').select2();
+        $("#field-keyword_id").select2({
+            placeholder: 'Search for a keyword',
+            minimumInputLength: 1,
+            allowClear: true,
+            ajax: {
+                url: "{{ route('dashboard.select2.keyword.select2') }}",
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                },
+                processResults: function (data, params) {
+                    var items = $.map(data.data, function(obj){
+                        obj.id = obj.id;
+                        obj.text = obj.keyword_title;
+
+                        return obj;
+                    });
+                    params.page = params.page || 1;
+
+                    // console.log(items);
+                    // Transforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: items,
+                        pagination: {
+                            more: params.page < data.last_page
+                        }
+                    };
+                },
+            },
+            templateResult: function (item) {
+                // console.log(item);
+                // No need to template the searching text
+                if (item.loading) {
+                    return item.text;
+                }
+                
+                var term = select2_query.term || '';
+                var $result = markMatch(item.text, term);
+
+                return $result;
+            },
+            language: {
+                searching: function (params) {
+                    // Intercept the query as it is happening
+                    select2_query = params;
+                    
+                    // Change this to be appropriate for your application
+                    return 'Searching...';
+                }
+            }
+        });
 
         $("#field-post_content").summernote({
             'height': 350,

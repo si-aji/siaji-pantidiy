@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <th>Short Description</th>
-                <td>{{ $category->category_description }}</td>
+                <td>{{ $category->category_description ?? '-' }}</td>
             </tr>
         </table>
     </div>

@@ -12,7 +12,7 @@
 */
 
 Route::group([
-    'prefix' => 'sys',
+    'prefix' => env('DASHBOARD_PREFIX', 'dashboard'),
     'middleware' => ['web', 'auth'],
 ], function(){
     Route::get('/', 'DashboardController@index')->name('index');
@@ -112,6 +112,7 @@ Route::group([
         Route::get('/panti_liputan', 'PantiLiputanController@datatableAll')->name('panti.liputan.all');
         Route::get('/page', 'PageController@datatableAll')->name('page.all');
         Route::get('/post', 'PostController@datatableAll')->name('post.all');
+        Route::get('/post/keyword/{slug}', 'PostController@datatableKeyword')->name('post.keyword');
     });
 
     // Provinsi

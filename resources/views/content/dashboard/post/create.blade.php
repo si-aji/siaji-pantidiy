@@ -180,6 +180,7 @@
                     <label>Keyword</label>
                     <select class="form-control @error('keyword_id') is-invalid @enderror" name="keyword_id[]" id="field-keyword_id" multiple="multiple">
                     </select>
+                    <small class="text-muted">Type "." (dot without quote) to show all stored keyword.</small>
 
                     @error('keyword_id')
                     <div class="invalid-feedback">
@@ -216,7 +217,7 @@
         $('.select2').select2();
         $("#field-keyword_id").select2({
             placeholder: 'Search for a keyword',
-            minimumInputLength: 2,
+            minimumInputLength: 1,
             allowClear: true,
             ajax: {
                 url: "{{ route('dashboard.select2.keyword.select2') }}",
