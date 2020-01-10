@@ -84,6 +84,7 @@ class PostController extends Controller
             }
         }
         $post->save();
+        $post->keyword()->attach($request->keyword_id);
 
         return redirect()->route('dashboard.post.index')->with([
             'action' => 'Store',

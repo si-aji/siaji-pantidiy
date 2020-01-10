@@ -113,4 +113,29 @@ class KeywordController extends Controller
     {
         //
     }
+
+    /**
+     * Select2
+     */
+    public function select2(Request $request)
+    {
+        $data = Keyword::query();
+        $last_page = null;
+        if($request->has('search') && $request->search != ''){
+            // Apply search param
+            $data = $data->where('keyword_title', 'like', '%'.$request->search.'%');
+        }
+
+        if($request->has('page')){
+            $data->paginate(10);
+            $last_page = $data->paginate(10)->lastPage();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Fetched',
+            'last_page' => $last_page,
+            'data' => $data->get(),
+        ]);
+    }
 }

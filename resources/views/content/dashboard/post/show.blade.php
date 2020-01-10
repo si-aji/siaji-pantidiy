@@ -74,6 +74,16 @@
                     {!! $post->post_content !!}
                 </td>
             </tr>
+            @if($post->keyword()->exists())
+            <tr>
+                <td>Keyword</td>
+                <td>
+                    @foreach($post->keyword as $keyword)
+                    <a href="{{ route('dashboard.keyword.show', $keyword->keyword_slug) }}" class="badge badge-secondary p-2">{{ $keyword->keyword_title }}</a>
+                    @endforeach
+                </td>
+            </tr>
+            @endif
         </table>
     </div>
 </div>

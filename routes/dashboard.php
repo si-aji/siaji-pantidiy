@@ -130,4 +130,5 @@ Route::group([
     'as' => 'select2.'
 ], function(){
     Route::get('/panti', 'PantiController@select2')->name('panti.select2');
+    Route::get('/keyword', 'KeywordController@select2')->name('keyword.select2');
 });

@@ -34,4 +34,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\User', 'editor_id');
     }
+
+    public function keyword()
+    {
+        return $this->belongsToMany('App\Models\Keyword', 'sa_post_keyword', 'post_id', 'keyword_id');
+    }
 }

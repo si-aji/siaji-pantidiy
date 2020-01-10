@@ -12,4 +12,9 @@ class Keyword extends Model
         'keyword_title',
         'keyword_slug',
     ];
+
+    public function keyword()
+    {
+        return $this->belongsToMany('App\Models\Keyword', 'sa_post_keyword', 'keyword_id', 'post_id');
+    }
 }

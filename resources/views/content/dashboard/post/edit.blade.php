@@ -164,11 +164,29 @@
                     <div class='invalid-feedback'>{{ $message }}</div>
                     @enderror
                 </div>
+
                 <div class="form-group">
                     <textarea name="post_content" id="field-post_content" class="form-control @error('post_content') is-invalid @enderror">{!! $post->post_content !!}</textarea>
                     
                     @error('post_content')
                     <div class='invalid-feedback'>{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group" id="form-keyword_id">
+                    <label>Keyword</label>
+                    <select class="form-control @error('keyword_id') is-invalid @enderror" name="keyword_id[]" id="field-keyword_id" multiple="multiple">
+                        @if($post->keyword()->exists())
+                            @foreach($post->keyword as $keyword)
+                        <option value="{{ $keyword->id }}" selected>{{ $keyword->keyword_title }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+
+                    @error('keyword_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
 
