@@ -175,13 +175,20 @@
 
                 <div class="form-group" id="form-keyword_id">
                     <label>Keyword</label>
-                    <select class="form-control @error('keyword_id') is-invalid @enderror" name="keyword_id[]" id="field-keyword_id" multiple="multiple">
-                        @if($post->keyword()->exists())
-                            @foreach($post->keyword as $keyword)
-                        <option value="{{ $keyword->id }}" selected>{{ $keyword->keyword_title }}</option>
-                            @endforeach
-                        @endif
-                    </select>
+                    <div class="input-group">
+                        <select class="form-control @error('keyword_id') is-invalid @enderror" name="keyword_id[]" id="field-keyword_id" multiple="multiple">
+                            @if($post->keyword()->exists())
+                                @foreach($post->keyword as $keyword)
+                            <option value="{{ $keyword->id }}" selected>{{ $keyword->keyword_title }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-keyword"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    
                     <small class="text-muted">Type "." (dot without quote) to show all stored keyword.</small>
 
                     @error('keyword_id')
@@ -209,8 +216,8 @@
 </form>
 @endsection
 
-@if(auth()->user()->id != $post->author_id)
 @section('content_modal')
+@if(auth()->user()->id != $post->author_id)
 {{-- Confirmation Modal --}}
 <form class="modal fade" tabindex="-1" role="dialog" id="modal-confirmation">
     <div class="modal-dialog" role="document">
@@ -237,8 +244,46 @@
         </div>
     </div>
 </form>
-@endsection
 @endif
+
+{{-- Password Modal --}}
+<form class="modal fade" tabindex="-1" role="dialog" id="modal-keyword">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new Keyword</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" id="field-keyword_title">
+                    <label for="field-keyword_title">Title</label>
+                    <input type="text" name="keyword_title" id="keyword_title" class="form-control @error('keyword_title') is-invalid @enderror" placeholder="Keyword Title" value="{{ old('keyword_title') }}" onkeyup="generateSlug('keyword_title', 'keyword_slug')">
+                    
+                    @error('keyword_title')
+                    <div class='invalid-feedback'>{{ $message }}</div>
+                    @enderror
+                </div>
+        
+                <div class="form-group" id="field-keyword_slug">
+                    <label for="field-keyword_title">Slug</label>
+                    <input type="text" name="keyword_slug" id="keyword_slug" class="form-control @error('keyword_slug') is-invalid @enderror" placeholder="Keyword Slug" value="{{ old('keyword_slug') }}">
+                    
+                    @error('keyword_slug')
+                    <div class='invalid-feedback'>{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="modal-footer br">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-sm btn-danger" id="modal-keyword_reset" onclick="removeInvalid('modal-keyword')">Reset</button>
+                <button type="submit" class="btn btn-sm btn-primary" id="modal-keyword_submit" onclick="removeInvalid('modal-keyword')">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+@endsection
 
 @section('plugins_js')
 <script src="{{ mix('adminlte/js/siaji.js') }}"></script>
@@ -364,5 +409,45 @@
             $('#field-post_published').datetimepicker('disable');
         }
     }
+
+    $("#modal-keyword").submit(function(e){
+        e.preventDefault();
+        console.log("Keyword Form is being submited");
+        $("#modal-keyword_reset").attr('disabled', true);
+        $("#modal-keyword_submit").attr('disabled', true);
+
+        // Form Data
+        let form_data = $(e.target).serialize();
+        $.post("{{ route('dashboard.keyword.store') }}", form_data, function(result){
+            console.log(result);
+
+            var data = result.data;
+            var select_option = {
+                id: data.id,
+                text: data.keyword_title
+            };
+            var newOption = new Option(select_option.text, select_option.id, true, true);
+
+            console.log(select_option);
+            $('#field-keyword_id').append(newOption).trigger('change');
+
+            $("#modal-keyword").modal('hide');
+        }).always(function(result){
+            $("#modal-keyword_reset").attr('disabled', false);
+            $("#modal-keyword_submit").attr('disabled', false);
+        }).fail(function(jqXHR, textStatus, errorThrown){
+            console.log("Ajax Fail");
+            console.log(jqXHR);
+            $.each(jqXHR.responseJSON.errors, function(key, result){
+                $("#"+key).addClass('is-invalid');
+                $("#field-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
+            });
+        });
+    });
+
+    $("#modal-keyword").on('hide.bs.modal', function(){
+        console.log("Modal is being hide");
+        $("#modal-keyword_reset").click();
+    });
 </script>
 @endsection

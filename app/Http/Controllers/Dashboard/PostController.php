@@ -84,6 +84,7 @@ class PostController extends Controller
                 $post->post_published = null;
             }
         }
+
         $post->save();
         $post->keyword()->attach($request->keyword_id);
 

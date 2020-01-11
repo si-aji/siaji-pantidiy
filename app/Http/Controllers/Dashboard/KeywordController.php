@@ -48,6 +48,13 @@ class KeywordController extends Controller
         $keyword->keyword_slug = $request->keyword_slug;
         $keyword->save();
 
+        if($request->ajax()){
+            return response()->json([
+                'action' => 'Store',
+                'message' => 'Keyword successfully added',
+                'data' => $keyword
+            ]);
+        }
         return redirect()->route('dashboard.keyword.index')->with([
             'action' => 'Store',
             'message' => 'Keyword successfully added'
@@ -139,7 +146,7 @@ class KeywordController extends Controller
             'status' => 'success',
             'message' => 'Data Fetched',
             'last_page' => $last_page,
-            'data' => $data->get(),
+            'data' => $data->orderBy('keyword_title', 'asc')->get(),
         ]);
     }
 }

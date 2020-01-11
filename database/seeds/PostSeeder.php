@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\Models\Post;
+use DB;
 
 class PostSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class PostSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         Post::truncate();
+        DB::table('sa_post_keyword')->truncate();
 
         Schema::enableForeignKeyConstraints();
     }
