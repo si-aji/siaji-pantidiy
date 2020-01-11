@@ -251,4 +251,17 @@ class PostController extends Controller
             ->of($data->with('category', 'author'))
             ->toJson();
     }
+    public function datatableCategory($slug)
+    {
+        $category = Category::where('category_slug', $slug)->first();
+        // DB::enableQueryLog();
+        $data = Post::query();
+        $data = $data->whereHas('category', function($query) use ($category){
+            $query->where('category_id', $category->id);
+        });
+
+        return datatables()
+            ->of($data->with('category', 'author'))
+            ->toJson();
+    }
 }

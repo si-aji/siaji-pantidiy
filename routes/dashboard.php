@@ -113,6 +113,7 @@ Route::group([
         Route::get('/page', 'PageController@datatableAll')->name('page.all');
         Route::get('/post', 'PostController@datatableAll')->name('post.all');
         Route::get('/post/keyword/{slug}', 'PostController@datatableKeyword')->name('post.keyword');
+        Route::get('/post/category/{slug}', 'PostController@datatableCategory')->name('post.category');
     });
 
     // Provinsi
