@@ -35,4 +35,8 @@ class Panti extends Model
     {
         return $this->hasMany('App\Models\PantiLiputan', 'panti_id');
     }
+    public function donation()
+    {
+        return $this->hasMany('App\Models\Donation', 'panti_id');
+    }
 }

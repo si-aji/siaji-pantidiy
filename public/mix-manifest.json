@@ -20,7 +20,7 @@
     "/adminlte/plugins/summernote/summernote-bs4.css": "/adminlte/plugins/summernote/summernote-bs4.css?id=549b762da219736cc3a8",
     "/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css": "/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css?id=698c8f9cbac28bf66b51",
     "/adminlte/js/adminlte.js": "/adminlte/js/adminlte.js?id=c2c16f86edc67f25b9c3",
-    "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=dc0830211f08bf3b4c47",
+    "/adminlte/js/siaji.js": "/adminlte/js/siaji.js?id=12e6f91027344b56569b",
     "/adminlte/plugins/moment/moment.min.js": "/adminlte/plugins/moment/moment.min.js?id=761502841c035afcf6a9",
     "/adminlte/plugins/jquery/jquery.js": "/adminlte/plugins/jquery/jquery.js?id=320fa28debd36316365b",
     "/adminlte/plugins/bootstrap/js/bootstrap.bundle.js": "/adminlte/plugins/bootstrap/js/bootstrap.bundle.js?id=bd1604da466f7535f078",
@@ -30,5 +30,5 @@
     "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js": "/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js?id=36966b0a7af168632b42",
     "/adminlte/plugins/select2/js/select2.full.min.js": "/adminlte/plugins/select2/js/select2.full.min.js?id=3bd2aa3186773fdc0792",
     "/adminlte/plugins/summernote/summernote-bs4.min.js": "/adminlte/plugins/summernote/summernote-bs4.min.js?id=e1bb2dbdad541ec94d1c",
-    "/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js": "/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js?id=5132cca2ecd38098b01c"
+    "/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js": "/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js?id=42c918eaf398046c0652"
 }

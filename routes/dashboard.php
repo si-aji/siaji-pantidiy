@@ -70,6 +70,8 @@ Route::group([
     Route::get('/panti-liputan/{slug}/{id}/edit', 'PantiLiputanController@edit')->name('panti.liputan.edit');
     Route::get('/panti-liputan/{slug}/{id}', 'PantiLiputanController@show')->name('panti.liputan.show');
     Route::put('/panti-liputan/{id}', 'PantiLiputanController@update')->name('panti.liputan.update');
+    // Donation
+    Route::resource('/donation', 'DonationController');
 
     // Provinsi
     Route::get('/provinsi', 'ProvinsiController@index')->name('provinsi.index');
@@ -114,6 +116,7 @@ Route::group([
         Route::get('/post', 'PostController@datatableAll')->name('post.all');
         Route::get('/post/keyword/{slug}', 'PostController@datatableKeyword')->name('post.keyword');
         Route::get('/post/category/{slug}', 'PostController@datatableCategory')->name('post.category');
+        Route::get('/donation', 'DonationController@datatableAll')->name('donation.all');
     });
 
     // Provinsi

@@ -86,6 +86,12 @@
                                 <p>Liputan</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.donation.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'donation' ? 'active' : '') : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Donation</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

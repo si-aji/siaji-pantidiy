@@ -32,7 +32,6 @@
 <link rel="stylesheet" href="{{ mix('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
 
-
 @section('content')
 <div class="card">
     <div class="card-header card-primary card-outline">
@@ -102,7 +101,7 @@
 <script>
     $(document).ready(function(){
         let select2_query = {};
-        $('.select2').select2({
+        $('#panti-select').select2({
             placeholder: 'Search Panti',
             minimumInputLength: 3,
             allowClear: true,

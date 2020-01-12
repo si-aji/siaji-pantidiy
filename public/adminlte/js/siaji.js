@@ -7,9 +7,14 @@
 
 "use strict";
 
-function removeInvalid(){
-    $(".form-control").removeClass('is-invalid');
-    $(".invalid-feedback").remove();
+function removeInvalid(options = null){
+    if(options != null){
+        $("#"+options+" .form-control").removeClass('is-invalid');
+        $("#"+options+" .invalid-feedback").remove();
+    } else {
+        $(".form-control").removeClass('is-invalid');
+        $(".invalid-feedback").remove();
+    }
 }
 
 function generateSlug(source, destination){
