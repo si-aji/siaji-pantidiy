@@ -7,15 +7,22 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <form class="form-inline ml-3" id="feature_search">
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" id="navbar_search">
             <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
+                <button class="btn btn-navbar" type="button">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
         </div>
+
+        <ul id="feature_result">
+            <li class="placeholder">Start to type</li>
+            @foreach($feature as $value)
+            <li class="result"><a href="{{ $value['url'] }}">{{ $value['name'] }}</a></li>
+            @endforeach
+        </ul>
     </form>
 
     <!-- Right navbar links -->

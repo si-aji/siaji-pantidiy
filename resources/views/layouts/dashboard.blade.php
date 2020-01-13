@@ -99,6 +99,7 @@
 
         <!-- jQuery -->
         <script src="{{ mix('adminlte/plugins/jquery/jquery.js') }}"></script>
+        <script src="{{ mix('adminlte/js/siaji.js') }}"></script>
         <!-- Bootstrap 4 -->
         <script src="{{ mix('adminlte/plugins/bootstrap/js/bootstrap.bundle.js') }}"></script>
         <!-- overlayScrollbars -->

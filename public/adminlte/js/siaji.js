@@ -6,6 +6,29 @@
  */
 
 "use strict";
+$(document).ready(function(){
+    $("#navbar_search").bind('keydown keypress keyup change', function(){
+        let value = $(this).val().toLowerCase();
+
+        if(value != "" && value != undefined && value != null){
+            $("#feature_result > li.placeholder").text('Search Result');
+
+            $("#feature_result > li.result").hide().filter(function() {
+                return $(this).text().toLowerCase().indexOf(value) > -1;
+            }).show();
+        } else {
+            $("#feature_result > li.placeholder").text('Start to type');
+
+            $("#feature_result > li.result").hide();
+        }
+    });
+});
+
+$("#navbar_search").focusin(function(){
+    $("#feature_result").addClass('show');
+}).focusout(function () {
+    $("#feature_result").removeClass('show');
+});
 
 function removeInvalid(options = null){
     if(options != null){
