@@ -64,7 +64,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="field-post_slug">URL Slug</label>
+                                <label for="field-post_slug">URL Slug{!! printRequired() !!}</label>
                                 <input type="text" name="post_slug" id="field-post_slug" class="form-control form-control-sm @error('post_slug') is-invalid @enderror" placeholder="URL Slug" onkeyup="slug_preview('field-post_slug', 'field-slug_preview');" value="{{ old('post_slug') }}">
                                 
                                 @error('post_slug')
@@ -87,7 +87,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="field-post_status">Status</label>
+                                <label for="field-post_status">Status{!! printRequired() !!}</label>
                                 <select name="post_status" id="field-post_status" class="form-control form-control-sm @error('post_status') is-invalid @enderror" onchange="checkStatus()">
                                     <option value="draft" {{ old('post_status') == 'draft' ? 'selected' : '' }}>Draft</option>
                                     <option value="published" {{ old('post_status') == 'published' ? 'selected' : '' }}>Published</option>
@@ -106,7 +106,7 @@
                             </div>
 
                             <div class="form-group" id="form-post_published" style="{{ old('post_immediately') == 'true' ? 'display:none;' : (old('post_status') == 'draft' ? 'display:none' : '') }}">
-                                <label>Date Published</label>
+                                <label>Date Published{!! printRequired('**', 'Date Published is Required if Status is Published and Publish Immediately not checked') !!}</label>
                                 <input type="text" name="post_published" id="field-post_published" class="form-control @error('post_published') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-post_published">
         
                                 @error('post_published')
@@ -160,7 +160,7 @@
             </div>
             <div class="col-12 col-lg-9">
                 <div class="form-group">
-                    <label for="field-post_title">Title</label>
+                    <label for="field-post_title">Title{!! printRequired() !!}</label>
                     <input type="text" name="post_title" id="field-post_title" class="form-control @error('post_title') is-invalid @enderror" placeholder="Post Title" onkeyup="generateSlug('field-post_title', 'field-post_slug');slug_preview('field-post_title', 'field-slug_preview')" value="{{ old('post_title') }}">
                     
                     @error('post_title')

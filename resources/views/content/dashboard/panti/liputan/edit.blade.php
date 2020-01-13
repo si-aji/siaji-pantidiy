@@ -87,7 +87,7 @@
                 <input type="hidden" name="author_id" value="{{ auth()->user()->id }}" readonly>
                 
                 <div class="form-group">
-                    <label for="liputan_date">Tanggal Liputan</label>
+                    <label for="liputan_date">Tanggal Liputan{!! printRequired() !!}</label>
                     <input type="text" name="liputan_date" id="liputan_date" class="form-control @error('liputan_date') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#liputan_date" placeholder="Tanggal Liputan">
             
                     @error('liputan_date')

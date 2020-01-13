@@ -41,7 +41,7 @@
     </div>
     <div class="card-body">
         <div class="form-group">
-            <label for="field-keyword_title">Title</label>
+            <label for="field-keyword_title">Title{!! printRequired() !!}</label>
             <input type="text" name="keyword_title" id="field-keyword_title" class="form-control @error('keyword_title') is-invalid @enderror" placeholder="Keyword Title" value="{{ old('keyword_title') }}" onkeyup="generateSlug('field-keyword_title', 'field-keyword_slug')">
             
             @error('keyword_title')
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            <label for="field-keyword_title">Slug</label>
+            <label for="field-keyword_title">Slug{!! printRequired() !!}</label>
             <input type="text" name="keyword_slug" id="field-keyword_slug" class="form-control @error('keyword_slug') is-invalid @enderror" placeholder="Keyword Slug" value="{{ old('keyword_slug') }}">
             
             @error('keyword_slug')

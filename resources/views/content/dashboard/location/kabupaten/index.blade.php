@@ -80,13 +80,13 @@
                 <input type="hidden" name="_method" id="_method" value="POST">
 
                 <div class="form-group">
-                    <label>Provinsi</label>
+                    <label>Provinsi{!! printRequired() !!}</label>
                     <input type="hidden" name="provinsi_id" id="provinsi_id">
                     <input type="text" class="form-control" id="provinsi_name" readonly>
                 </div>
 
                 <div class="form-group" id="field-kabupaten_name">
-                    <label>Name</label>
+                    <label>Name{!! printRequired() !!}</label>
                     <input type="text" name="kabupaten_name" id="kabupaten_name" class="form-control" placeholder="Kabupaten Name">
                 </div>
             </div>

@@ -66,7 +66,7 @@
                 <input type="hidden" name="_method" id="_method" value="POST">
 
                 <div class="form-group" id="field-provinsi_name">
-                    <label>Name</label>
+                    <label>Name{!! printRequired() !!}</label>
                     <input type="text" name="provinsi_name" id="provinsi_name" class="form-control" placeholder="Provinsi Name">
                 </div>
             </div>

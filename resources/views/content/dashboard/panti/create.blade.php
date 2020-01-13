@@ -50,7 +50,7 @@
     </div>
     <div class="card-body">
         <div class="form-group">
-            <label for="field-panti_name">Panti Name</label>
+            <label for="field-panti_name">Panti Name{!! printRequired() !!}</label>
             <input type="text" name="panti_name" id="field-panti_name" class="form-control @error('panti_name') is-invalid @enderror" placeholder="Panti Name" onkeyup="generateSlug('field-panti_name', 'field-panti_slug')" value="{{ old('panti_name') }}">
             
             @error('panti_name')
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            <label for="field-panti_slug">Panti Slug</label>
+            <label for="field-panti_slug">Panti Slug{!! printRequired() !!}</label>
             <input type="text" name="panti_slug" id="field-panti_slug" class="form-control @error('panti_slug') is-invalid @enderror" placeholder="Panti Slug" value="{{ old('panti_slug') }}">
             
             @error('panti_name')
@@ -68,7 +68,7 @@
         </div>
 
         <div class="form-group">
-            <label for="field-panti_address">Addess</label>
+            <label for="field-panti_address">Address</label>
             <textarea name="panti_address" class="form-control @error('panti_slug') is-invalid @enderror" id="field-panti_address" placeholder="Panti Address">{{ old('panti_address') }}</textarea>
             
             @error('panti_address')
@@ -92,7 +92,7 @@
             </div>
 
             <div class="form-group col-12 col-lg-4">
-                <label for="field-lkabupaten_id">Kabupaten</label>
+                <label for="field-lkabupaten_id">Kabupaten{!! printRequired('**', 'Kabupaten is Required if Provinsi is selected') !!}</label>
                 <select class="form-control select2 @error('kabupaten_id') is-invalid @enderror" name="kabupaten_id" id="field-lkabupaten_id" disabled onchange="checkKabupaten()">
                     <option value="none" selected>- Pilih Kabupaten -</option>
                 </select>
@@ -102,7 +102,7 @@
             </div>
 
             <div class="form-group col-12 col-lg-4">
-                <label for="field-lkecamatan_id">Kecamatan</label>
+                <label for="field-lkecamatan_id">Kecamatan{!! printRequired('**', 'Kabupaten is Required if Provinsi is selected') !!}</label>
                 <select class="form-control select2 @error('kecamatan_id') is-invalid @enderror" name="kecamatan_id" id="field-lkecamatan_id" disabled>
                     <option value="none" selected>- Pilih Kecamatan -</option>
                 </select>

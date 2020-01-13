@@ -41,7 +41,7 @@
     </div>
     <div class="card-body">
         <div class="form-group">
-            <label for="field-roles_name">Name</label>
+            <label for="field-roles_name">Name{!! printRequired() !!}</label>
             <input type="text" name="roles_name" id="field-roles_name" class="form-control @error('roles_name') is-invalid @enderror" placeholder="Roles Name" value="{{ old('roles_name') }}">
             @error('roles_name')
             <div class='invalid-feedback'>{{ $message }}</div>
@@ -55,8 +55,8 @@
                     <th>
                         Access
                         <div class="btn-group float-right">
-                            <button type="button" class="btn btn-sm btn-warning" id="allow_all" onclick="checkAll();" style="display:none">Check All</button>
-                            <button type="button" class="btn btn-sm btn-info" id="notallow_all" onclick="uncheckAll();" style="display:none">Un-Check All</button>
+                            <button type="button" class="btn btn-xs btn-warning" id="allow_all" onclick="checkAll();" style="display:none">Check All</button>
+                            <button type="button" class="btn btn-xs btn-info" id="notallow_all" onclick="uncheckAll();" style="display:none">Un-Check All</button>
                         </div>
                     </th>
                 </tr>

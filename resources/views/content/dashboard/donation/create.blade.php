@@ -51,7 +51,7 @@
     </div>
     <div class="card-body">
         <div class="form-group" id="field-panti_id">
-            <label for="panti_id">Panti</label>
+            <label for="panti_id">Panti{!! printRequired() !!}</label>
             <select class="form-control select2" name="panti_id" id="panti_id">
             </select>
         </div>
@@ -65,7 +65,7 @@
         </div>
 
         <div class="form-group" id="form-amount_needed">
-            <label for="field-amount_needed">Amount Needed</label>
+            <label for="field-amount_needed">Amount Needed{!! printRequired() !!}</label>
             <input type="number" name="amount_needed" min="0" id="field-amount_needed" class="form-control @error('amount_needed') is-invalid @enderror" placeholder="Amount Needed">
             @error('amount_needed')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="form-group" id="field-donation_description">
-            <label for="donation_description">Description</label>
+            <label for="donation_description">Description{!! printRequired() !!}</label>
             <textarea name="donation_description" id="donation_description" class="form-control @error('donation_description') is-invalid @enderror">{!! old('donation_description') !!}</textarea>
             
             @error('donation_description')
@@ -83,7 +83,7 @@
 
         <div class="form-row">
             <div class="col-12 col-md-6 form-group" id="form-donation_start">
-                <label for="field-donation_start">Start</label>
+                <label for="field-donation_start">Start{!! printRequired() !!}</label>
                 <input type="text" name="donation_start" id="field-donation_start" class="form-control @error('donation_start') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_start">
                 @error('donation_start')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -91,7 +91,7 @@
             </div>
 
             <div class="col-12 col-md-6 form-group" id="form-donation_end">
-                <label for="field-donation_end">End</label>
+                <label for="field-donation_end">End{!! printRequired('**', 'Donation End is Required if Checkbox is checked') !!}</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">

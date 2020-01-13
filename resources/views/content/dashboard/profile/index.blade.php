@@ -69,7 +69,7 @@
 
             <div class="card-body form-horizontal">
                 <div class="form-group row">
-                    <label for="field-name" class="col-sm-2 col-form-label">Name</label>
+                    <label for="field-name" class="col-sm-2 col-form-label">Name{!! printRequired() !!}</label>
                     <div class="col-sm-10">
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Name" id="field-name" value="{{ auth()->user()->name }}">
                         @error('name')
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="field-email" class="col-sm-2 col-form-label">Email</label>
+                    <label for="field-email" class="col-sm-2 col-form-label">Email{!! printRequired() !!}</label>
                     <div class="col-sm-10">
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" id="field-email" value="{{ auth()->user()->email }}">
                         @error('email')
@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="field-username" class="col-sm-2 col-form-label">Username</label>
+                    <label for="field-username" class="col-sm-2 col-form-label">Username{!! printRequired() !!}</label>
                     <div class="col-sm-10">
                         <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Username" id="field-username" value="{{ auth()->user()->username }}">
                         @error('username')
@@ -125,15 +125,15 @@
                 @method('PUT')
                 <p>Change password, new password apply on next login attempt</p>
                 <div class="form-group" id="field-password">
-                    <label>Password</label>
+                    <label>Password{!! printRequired() !!}</label>
                     <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                 </div>
                 <div class="form-group" id="field-password_confirmation">
-                    <label>Password Confirmation</label>
+                    <label>Password Confirmation{!! printRequired() !!}</label>
                     <input type="password" class="form-control" id="password_confirmation" placeholder="Re-type Password" name="password_confirmation">
                 </div>
                 <div class="form-group" id="field-old_password">
-                    <label>Password Old Password</label>
+                    <label>Password Old Password{!! printRequired() !!}</label>
                     <input type="password" class="form-control" id="old_password" placeholder="Old Password" name="old_password">
                 </div>
             </div>

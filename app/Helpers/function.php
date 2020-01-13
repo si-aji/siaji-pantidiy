@@ -15,3 +15,7 @@ function arr_diff($new_arr, $old_arr, $method)
 
     return $data;
 }
+
+function printRequired($text = '*', $title = 'Required'){
+    return "<small class='text-danger' title='".$title."'>".$text."</small>";
+}
