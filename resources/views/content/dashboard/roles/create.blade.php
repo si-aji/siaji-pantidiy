@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-group">
+        <div class="form-group" id="form-roles_name">
             <label for="field-roles_name">Name{!! printRequired() !!}</label>
             <input type="text" name="roles_name" id="field-roles_name" class="form-control @error('roles_name') is-invalid @enderror" placeholder="Roles Name" value="{{ old('roles_name') }}">
             @error('roles_name')

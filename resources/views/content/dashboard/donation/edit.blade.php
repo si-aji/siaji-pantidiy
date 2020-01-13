@@ -51,14 +51,14 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-group" id="field-panti">
+        <div class="form-group" id="form-panti">
             <label for="panti">Panti</label>
-            <input type="text" name="panti" id="panti" class="form-control" value="{{ $donation->panti->panti_name }}" readonly>
+            <input type="text" name="panti" id="field-panti_id" class="form-control" value="{{ $donation->panti->panti_name }}" readonly>
         </div>
 
-        <div class="form-group" id="field-donation_title">
+        <div class="form-group" id="form-donation_title">
             <label for="donation_title">Title</label>
-            <input type="text" name="donation_title" id="donation_title" class="form-control @error('donation_title') is-invalid @enderror" placeholder="Donation Title" value="{{ $donation->donation_title }}">
+            <input type="text" name="donation_title" id="field-donation_title" class="form-control @error('donation_title') is-invalid @enderror" placeholder="Donation Title" value="{{ $donation->donation_title }}">
             @error('donation_title')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -74,7 +74,7 @@
 
         <div class="form-group" id="field-donation_description">
             <label for="donation_description">Description{!! printRequired() !!}</label>
-            <textarea name="donation_description" id="donation_description" class="form-control @error('donation_description') is-invalid @enderror">{!! $donation->donation_description !!}</textarea>
+            <textarea name="donation_description" id="field-donation_description" class="form-control @error('donation_description') is-invalid @enderror">{!! $donation->donation_description !!}</textarea>
             
             @error('donation_description')
             <div class='invalid-feedback'>{{ $message }}</div>

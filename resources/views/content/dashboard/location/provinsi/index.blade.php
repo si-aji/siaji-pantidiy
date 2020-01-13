@@ -65,9 +65,9 @@
                 @csrf
                 <input type="hidden" name="_method" id="_method" value="POST">
 
-                <div class="form-group" id="field-provinsi_name">
+                <div class="form-group" id="form-provinsi_name">
                     <label>Name{!! printRequired() !!}</label>
-                    <input type="text" name="provinsi_name" id="provinsi_name" class="form-control" placeholder="Provinsi Name">
+                    <input type="text" name="provinsi_name" id="field-provinsi_name" class="form-control" placeholder="Provinsi Name">
                 </div>
             </div>
             <div class="modal-footer">
@@ -143,8 +143,8 @@
             console.log("Ajax Fail");
             console.log(jqXHR);
             $.each(jqXHR.responseJSON.errors, function(key, result){
-                $("#"+key).addClass('is-invalid');
-                $("#field-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
+                $("#field-"+key).addClass('is-invalid');
+                $("#form-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
             });
         });
     });
@@ -160,7 +160,7 @@
         $("#provinceModal .modal-title").text('Form Provinsi (Insert)');
 
         $("#_method").val("POST");
-        $("#provinsi_name").val('');
+        $("#field-provinsi_name").val('');
     }
 
     function actionEdit(id){
@@ -175,7 +175,7 @@
             $("#provinceModal .modal-title").text('Form Provinsi (Update)');
 
             $("#_method").val("PUT");
-            $("#provinsi_name").val(data.provinsi_name);
+            $("#field-provinsi_name").val(data.provinsi_name);
 
             $("#provinceModal").modal("show");
         }).always(function(result){

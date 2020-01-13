@@ -50,15 +50,15 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-group" id="field-panti_id">
+        <div class="form-group" id="form-panti_id">
             <label for="panti_id">Panti{!! printRequired() !!}</label>
-            <select class="form-control select2" name="panti_id" id="panti_id">
+            <select class="form-control select2" name="panti_id" id="field-panti_id">
             </select>
         </div>
 
-        <div class="form-group" id="field-donation_title">
+        <div class="form-group" id="form-donation_title">
             <label for="donation_title">Title</label>
-            <input type="text" name="donation_title" id="donation_title" class="form-control @error('donation_title') is-invalid @enderror" placeholder="Donation Title">
+            <input type="text" name="donation_title" id="field-donation_title" class="form-control @error('donation_title') is-invalid @enderror" placeholder="Donation Title">
             @error('donation_title')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -66,15 +66,15 @@
 
         <div class="form-group" id="form-amount_needed">
             <label for="field-amount_needed">Amount Needed{!! printRequired() !!}</label>
-            <input type="number" name="amount_needed" min="0" id="field-amount_needed" class="form-control @error('amount_needed') is-invalid @enderror" placeholder="Amount Needed">
+            <input type="number" name="amount_needed" min="0" id="form-amount_needed" class="form-control @error('amount_needed') is-invalid @enderror" placeholder="Amount Needed">
             @error('amount_needed')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
 
-        <div class="form-group" id="field-donation_description">
+        <div class="form-group" id="form-donation_description">
             <label for="donation_description">Description{!! printRequired() !!}</label>
-            <textarea name="donation_description" id="donation_description" class="form-control @error('donation_description') is-invalid @enderror">{!! old('donation_description') !!}</textarea>
+            <textarea name="donation_description" id="field-donation_description" class="form-control @error('donation_description') is-invalid @enderror">{!! old('donation_description') !!}</textarea>
             
             @error('donation_description')
             <div class='invalid-feedback'>{{ $message }}</div>
@@ -131,7 +131,7 @@
 <script>
     $(document).ready(function(){
         let select2_query = {};
-        $('#panti_id').select2({
+        $('#field-panti_id').select2({
             placeholder: 'Search Panti',
             minimumInputLength: 3,
             allowClear: true,
@@ -229,7 +229,7 @@
             $('#field-donation_start').datetimepicker('maxDate', e.date);
         });
 
-        $("#donation_description").summernote({
+        $("#field-donation_description").summernote({
             'height': 250,
             'placeholder': 'Start writing or type...',
         });

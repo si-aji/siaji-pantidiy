@@ -83,20 +83,20 @@
                 @csrf
                 <input type="hidden" name="_method" id="_method" value="POST">
 
-                <div class="form-group">
+                <div class="form-group" id="form-provinsi_name">
                     <label>Provinsi{!! printRequired() !!}</label>
-                    <input type="text" class="form-control" id="provinsi_name" readonly>
+                    <input type="text" class="form-control" id="field-provinsi_name" readonly>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="form-kabupaten_id">
                     <label>Kabupaten{!! printRequired() !!}</label>
-                    <input type="hidden" name="kabupaten_id" id="kabupaten_id">
-                    <input type="text" class="form-control" id="kabupaten_name" readonly>
+                    <input type="hidden" name="kabupaten_id" id="field-kabupaten_id">
+                    <input type="text" class="form-control" id="field-kabupaten_name" readonly>
                 </div>
 
-                <div class="form-group" id="field-kecamatan_name">
+                <div class="form-group" id="form-kecamatan_name">
                     <label>Name</label>
-                    <input type="text" name="kecamatan_name" id="kecamatan_name" class="form-control" placeholder="Kecamatan Name">
+                    <input type="text" name="kecamatan_name" id="field-kecamatan_name" class="form-control" placeholder="Kecamatan Name">
                 </div>
             </div>
             <div class="modal-footer">
@@ -163,9 +163,9 @@
 
         if($("#lkabupaten_id").val() != "none"){
             $("#subdistrictButton").attr('disabled', false);
-            $("#provinsi_name").val($("#lkabupaten_id option:selected").parent().attr('label'));
-            $("#kabupaten_name").val($("#lkabupaten_id option:selected").text());
-            $("#kabupaten_id").val($("#lkabupaten_id").val());
+            $("#field-provinsi_name").val($("#lkabupaten_id option:selected").parent().attr('label'));
+            $("#field-kabupaten_name").val($("#lkabupaten_id option:selected").text());
+            $("#field-kabupaten_id").val($("#lkabupaten_id").val());
         } else {
             formReset();
             $("#subdistrictButton").attr('disabled', true);
@@ -204,8 +204,8 @@
             console.log("Ajax Fail");
             console.log(jqXHR);
             $.each(jqXHR.responseJSON.errors, function(key, result){
-                $("#"+key).addClass('is-invalid');
-                $("#field-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
+                $("#field-"+key).addClass('is-invalid');
+                $("#form-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
             });
         });
     });
@@ -221,13 +221,13 @@
         $("#subdistrictModal .modal-title").text('Form Kecamatan (Insert)');
 
         if($("#lkabupaten_id").val() == "none"){
-            $("#provinsi_name").val("");
-            $("#kabupaten_id").val("");
-            $("#kabupaten_name").val("");
+            $("#field-provinsi_name").val("");
+            $("#field-kabupaten_id").val("");
+            $("#field-kabupaten_name").val("");
         }
 
         $("#_method").val("POST");
-        $("#kecamatan_name").val('');
+        $("#field-kecamatan_name").val('');
     }
 
     function actionEdit(id){
@@ -242,7 +242,7 @@
             $("#subdistrictModal .modal-title").text('Form Kecamatan (Update)');
 
             $("#_method").val("PUT");
-            $("#kecamatan_name").val(data.kecamatan_name);
+            $("#field-kecamatan_name").val(data.kecamatan_name);
 
             $("#subdistrictModal").modal("show");
         }).always(function(result){

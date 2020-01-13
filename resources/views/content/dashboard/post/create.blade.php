@@ -63,7 +63,7 @@
                             </h4>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group" id="form-post_slug">
                                 <label for="field-post_slug">URL Slug{!! printRequired() !!}</label>
                                 <input type="text" name="post_slug" id="field-post_slug" class="form-control form-control-sm @error('post_slug') is-invalid @enderror" placeholder="URL Slug" onkeyup="slug_preview('field-post_slug', 'field-slug_preview');" value="{{ old('post_slug') }}">
                                 
@@ -86,7 +86,7 @@
                             </h4>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group" id="form-post_status">
                                 <label for="field-post_status">Status{!! printRequired() !!}</label>
                                 <select name="post_status" id="field-post_status" class="form-control form-control-sm @error('post_status') is-invalid @enderror" onchange="checkStatus()">
                                     <option value="draft" {{ old('post_status') == 'draft' ? 'selected' : '' }}>Draft</option>
@@ -98,10 +98,10 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="form-post_immediately">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="post_immediately" value="true" id="post_immediately" onchange="checkImmediately();" {{ old('post_immediately') == 'true' ? 'checked' : '' }}>
-                                    <label for="post_immediately" class="custom-control-label">Publish Immediately</label>
+                                    <input class="custom-control-input" type="checkbox" name="post_immediately" value="true" id="field-post_immediately" onchange="checkImmediately();" {{ old('post_immediately') == 'true' ? 'checked' : '' }}>
+                                    <label for="field-post_immediately" class="custom-control-label">Publish Immediately</label>
                                 </div>
                             </div>
 
@@ -142,24 +142,24 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="form-post_shareable">
                             <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" name="post_shareable" value="true" id="post_shareable" {{ old('post_shareable') == 'true' ? 'checked' : '' }}>
-                                <label for="post_shareable" class="custom-control-label">Allow Share</label>
+                                <input class="custom-control-input" type="checkbox" name="post_shareable" value="true" id="field-post_shareable" {{ old('post_shareable') == 'true' ? 'checked' : '' }}>
+                                <label for="field-post_shareable" class="custom-control-label">Allow Share</label>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="form-post_commentable">
                             <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" name="post_commentable" value="true" id="post_commentable" {{ old('post_commentable') == 'true' ? 'checked' : '' }}>
-                                <label for="post_commentable" class="custom-control-label">Allow Comment</label>
+                                <input class="custom-control-input" type="checkbox" name="post_commentable" value="true" id="field-post_commentable" {{ old('post_commentable') == 'true' ? 'checked' : '' }}>
+                                <label for="field-post_commentable" class="custom-control-label">Allow Comment</label>
                             </div>
                         </div>
                     </div>
                 </div>{{-- Accordion --}}
             </div>
             <div class="col-12 col-lg-9">
-                <div class="form-group">
+                <div class="form-group" id="form-post_title">
                     <label for="field-post_title">Title{!! printRequired() !!}</label>
                     <input type="text" name="post_title" id="field-post_title" class="form-control @error('post_title') is-invalid @enderror" placeholder="Post Title" onkeyup="generateSlug('field-post_title', 'field-post_slug');slug_preview('field-post_title', 'field-slug_preview')" value="{{ old('post_title') }}">
                     
@@ -168,7 +168,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="form-post_content">
                     <textarea name="post_content" id="field-post_content" class="form-control @error('post_content') is-invalid @enderror">{!! old('post_content') !!}</textarea>
                     
                     @error('post_content')
@@ -177,7 +177,7 @@
                 </div>
 
                 <div class="form-group" id="form-keyword_id">
-                    <label>Keyword</label>
+                    <label for="field-keyword_id">Keyword</label>
                     <div class="input-group">
                         <select class="form-control @error('keyword_id') is-invalid @enderror" name="keyword_id[]" id="field-keyword_id" multiple="multiple">
                         </select>
@@ -197,7 +197,7 @@
 
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10 text-right text-md-right">
-                        <button type="reset" id="btn-field_reset" class="btn btn-sm btn-danger">Reset</button>
+                        <button type="reset" id="btn-field_reset" class="btn btn-sm btn-danger" onclick="setTimeout(function(){checkStatus()});">Reset</button>
                         <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                     </div>
                 </div>
@@ -219,18 +219,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group" id="field-keyword_title">
+                <div class="form-group" id="form-keyword_title">
                     <label for="field-keyword_title">Title</label>
-                    <input type="text" name="keyword_title" id="keyword_title" class="form-control @error('keyword_title') is-invalid @enderror" placeholder="Keyword Title" value="{{ old('keyword_title') }}" onkeyup="generateSlug('keyword_title', 'keyword_slug')">
+                    <input type="text" name="keyword_title" id="field-keyword_title" class="form-control @error('keyword_title') is-invalid @enderror" placeholder="Keyword Title" value="{{ old('keyword_title') }}" onkeyup="generateSlug('keyword_title', 'keyword_slug')">
                     
                     @error('keyword_title')
                     <div class='invalid-feedback'>{{ $message }}</div>
                     @enderror
                 </div>
         
-                <div class="form-group" id="field-keyword_slug">
+                <div class="form-group" id="form-keyword_slug">
                     <label for="field-keyword_title">Slug</label>
-                    <input type="text" name="keyword_slug" id="keyword_slug" class="form-control @error('keyword_slug') is-invalid @enderror" placeholder="Keyword Slug" value="{{ old('keyword_slug') }}">
+                    <input type="text" name="keyword_slug" id="field-keyword_slug" class="form-control @error('keyword_slug') is-invalid @enderror" placeholder="Keyword Slug" value="{{ old('keyword_slug') }}">
                     
                     @error('keyword_slug')
                     <div class='invalid-feedback'>{{ $message }}</div>
@@ -349,7 +349,7 @@
     }
 
     function checkImmediately(){
-        let check_immediately = $("#post_immediately").is(':checked');
+        let check_immediately = $("#field-post_immediately").is(':checked');
         let post_status = $("#field-post_status");
         if(check_immediately){
             post_status.val('published').change();
@@ -360,7 +360,7 @@
 
     function checkStatus(){
         let post_status = $("#field-post_status").val();
-        let check_immediately = $("#post_immediately").is(':checked');
+        let check_immediately = $("#field-post_immediately").is(':checked');
 
         if(post_status == 'published' && !(check_immediately)){
             $("#form-post_published").slideDown();

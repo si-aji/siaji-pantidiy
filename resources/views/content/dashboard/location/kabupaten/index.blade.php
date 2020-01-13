@@ -79,15 +79,15 @@
                 @csrf
                 <input type="hidden" name="_method" id="_method" value="POST">
 
-                <div class="form-group">
+                <div class="form-group" id="form-provinsi_id">
                     <label>Provinsi{!! printRequired() !!}</label>
-                    <input type="hidden" name="provinsi_id" id="provinsi_id">
-                    <input type="text" class="form-control" id="provinsi_name" readonly>
+                    <input type="hidden" name="provinsi_id" id="field-provinsi_id">
+                    <input type="text" class="form-control" id="field-provinsi_name" readonly>
                 </div>
 
-                <div class="form-group" id="field-kabupaten_name">
+                <div class="form-group" id="form-kabupaten_name">
                     <label>Name{!! printRequired() !!}</label>
-                    <input type="text" name="kabupaten_name" id="kabupaten_name" class="form-control" placeholder="Kabupaten Name">
+                    <input type="text" name="kabupaten_name" id="field-kabupaten_name" class="form-control" placeholder="Kabupaten Name">
                 </div>
             </div>
             <div class="modal-footer">
@@ -154,8 +154,8 @@
 
         if($("#lprovinsi_id").val() != "none"){
             $("#districtButton").attr('disabled', false);
-            $("#provinsi_name").val($("#lprovinsi_id option:selected").text());
-            $("#provinsi_id").val($("#lprovinsi_id").val());
+            $("#field-provinsi_name").val($("#lprovinsi_id option:selected").text());
+            $("#field-provinsi_id").val($("#lprovinsi_id").val());
         } else {
             formReset();
             $("#districtButton").attr('disabled', true);
@@ -194,8 +194,8 @@
             console.log("Ajax Fail");
             console.log(jqXHR);
             $.each(jqXHR.responseJSON.errors, function(key, result){
-                $("#"+key).addClass('is-invalid');
-                $("#field-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
+                $("#field-"+key).addClass('is-invalid');
+                $("#form-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
             });
         });
     });
@@ -211,12 +211,12 @@
         $("#districtModal .modal-title").text('Form Kabupaten (Insert)');
 
         if($("#lprovinsi_id").val() == "none"){
-            $("#provinsi_name").val("");
-            $("#provinsi_id").val("");
+            $("#field-provinsi_name").val("");
+            $("#field-provinsi_id").val("");
         }
 
         $("#_method").val("POST");
-        $("#kabupaten_name").val('');
+        $("#field-kabupaten_name").val('');
     }
 
     function actionEdit(id){
@@ -231,7 +231,7 @@
             $("#districtModal .modal-title").text('Form Kabupaten (Update)');
 
             $("#_method").val("PUT");
-            $("#kabupaten_name").val(data.kabupaten_name);
+            $("#field-kabupaten_name").val(data.kabupaten_name);
 
             $("#districtModal").modal("show");
         }).always(function(result){

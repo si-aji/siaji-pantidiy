@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-group">
+        <div class="form-group" id="form-category_title">
             <label for="field-category_title">Title{!! printRequired() !!}</label>
             <input type="text" name="category_title" id="field-category_title" class="form-control @error('category_title') is-invalid @enderror" placeholder="Category Title" value="{{ $category->category_title }}" onkeyup="generateSlug('field-category_title', 'field-category_slug')">
             
@@ -50,8 +50,8 @@
             @enderror
         </div>
 
-        <div class="form-group">
-            <label for="field-category_title">Slug{!! printRequired() !!}</label>
+        <div class="form-group" id="form-category_slug">
+            <label for="field-category_slug">Slug{!! printRequired() !!}</label>
             <input type="text" name="category_slug" id="field-category_slug" class="form-control @error('category_slug') is-invalid @enderror" placeholder="Category Slug" value="{{ $category->category_slug }}">
             
             @error('category_slug')
@@ -59,7 +59,7 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form-category_description">
             <label for="field-category_description">Short Description</label>
             <textarea name="category_description" id="field-category_description" class="form-control @error('category_description') is-invalid @enderror" placeholder="Category Short Description">{{ $category->category_description }}</textarea>
             

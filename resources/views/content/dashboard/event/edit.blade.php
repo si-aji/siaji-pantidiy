@@ -144,11 +144,11 @@
             minDate: "{{ !empty($event->event_start) ? date('Y-m-d H:i:00', strtotime($event->event_start)) : date('Y-m-d H:i:00') }}",
             defaultDate: "{{ $event->event_end ? date('Y-m-d H:i:00', strtotime($event->event_end)) : date('Y-m-d H:i:00') }}"
         });
-        $("#form-event_start").on("change.datetimepicker", function (e) {
-            $('#form-event_end').datetimepicker('minDate', e.date);
+        $("#field-event_start").on("change.datetimepicker", function (e) {
+            $('#field-event_end').datetimepicker('minDate', e.date);
         });
-        $("#form-event_end").on("change.datetimepicker", function (e) {
-            $('#form-event_start').datetimepicker('maxDate', e.date);
+        $("#field-event_end").on("change.datetimepicker", function (e) {
+            $('#field-event_start').datetimepicker('maxDate', e.date);
         });
 
         $("#field-event_description").summernote({

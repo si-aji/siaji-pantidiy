@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-group">
+        <div class="form-group" id="form-panti_name">
             <label for="field-panti_name">Panti Name{!! printRequired() !!}</label>
             <input type="text" name="panti_name" id="field-panti_name" class="form-control @error('panti_name') is-invalid @enderror" placeholder="Panti Name" onkeyup="generateSlug('field-panti_name', 'field-panti_slug')" value="{{ old('panti_name') }}">
             
@@ -58,7 +58,7 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form-panti_slug">
             <label for="field-panti_slug">Panti Slug{!! printRequired() !!}</label>
             <input type="text" name="panti_slug" id="field-panti_slug" class="form-control @error('panti_slug') is-invalid @enderror" placeholder="Panti Slug" value="{{ old('panti_slug') }}">
             
@@ -67,7 +67,7 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form-panti_address">
             <label for="field-panti_address">Address</label>
             <textarea name="panti_address" class="form-control @error('panti_slug') is-invalid @enderror" id="field-panti_address" placeholder="Panti Address">{{ old('panti_address') }}</textarea>
             
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form-">
             <label for="field-panti_description">Description</label>
             <textarea name="panti_description" id="field-panti_description" class="form-control @error('panti_description') is-invalid @enderror" placeholder="Description about Panti"></textarea>
             @error('panti_description')

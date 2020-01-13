@@ -84,9 +84,9 @@
                 <input type="hidden" name="panti_id" value="{{ $panti->id }}" readonly>
                 <input type="hidden" name="author_id" value="{{ auth()->user()->id }}" readonly>
                 
-                <div class="form-group">
+                <div class="form-group" id="form-liputan_date">
                     <label for="liputan_date">Tanggal Liputan{!! printRequired() !!}</label>
-                    <input type="text" name="liputan_date" id="liputan_date" class="form-control @error('liputan_date') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#liputan_date" placeholder="Tanggal Liputan">
+                    <input type="text" name="liputan_date" id="field-liputan_date" class="form-control @error('liputan_date') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-liputan_date" placeholder="Tanggal Liputan">
             
                     @error('liputan_date')
                         <div class="invalid-feedback">
@@ -95,8 +95,8 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <textarea id="liputan_content" name="liputan_content" class="liputan_content @error('liputan_content') is-invalid @enderror">{!! old('liputan_content') !!}</textarea>
+                <div class="form-group" id="form-liputan_content">
+                    <textarea id="field-liputan_content" name="liputan_content" class="liputan_content @error('liputan_content') is-invalid @enderror">{!! old('liputan_content') !!}</textarea>
         
                     @error('liputan_content')
                         <small class="text-danger">
@@ -128,7 +128,7 @@
 @section('inline_js')
 <script>
     $(document).ready(function(){
-        $("#liputan_content").summernote({
+        $("#field-liputan_content").summernote({
             height: 200,
             placeholder: "Some text here...",
             toolbar: [
@@ -142,7 +142,7 @@
         });
     });
 
-    $('#liputan_date').datetimepicker({
+    $('#field-liputan_date').datetimepicker({
         useCurrent: false,
         format: "YYYY-MM-DD",
         defaultDate: "{{ old('liputan_date') ? old('liputan_date') : date('Y-m-d') }}",

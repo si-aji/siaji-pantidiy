@@ -60,7 +60,7 @@
                             </h4>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group" id="form-page_slug">
                                 <label for="field-page_slug">URL Slug{!! printRequired() !!}</label>
                                 <input type="text" name="page_slug" id="field-page_slug" class="form-control form-control-sm @error('page_slug') is-invalid @enderror" placeholder="URL Slug" onkeyup="slug_preview('field-page_slug', 'field-slug_preview');" value="{{ $page->page_slug }}">
                                 
@@ -83,7 +83,7 @@
                             </h4>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group" id="form-page_status">
                                 <label for="field-page_status">Status{!! printRequired() !!}</label>
                                 <select name="page_status" id="field-page_status" class="form-control form-control-sm @error('page_status') is-invalid @enderror" onchange="checkStatus()">
                                     <option value="draft" {{ $page->page_status == 'draft' ? 'selected' : '' }}>Draft</option>
@@ -95,10 +95,10 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="form-page_immediately">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="page_immediately" value="true" id="page_immediately" onchange="checkImmediately();" {{ old('page_immediately') == 'true' ? 'checked' : '' }}>
-                                    <label for="page_immediately" class="custom-control-label">Publish Immediately</label>
+                                    <input class="custom-control-input" type="checkbox" name="page_immediately" value="true" id="field-page_immediately" onchange="checkImmediately();" {{ old('page_immediately') == 'true' ? 'checked' : '' }}>
+                                    <label for="field-page_immediately" class="custom-control-label">Publish Immediately</label>
                                 </div>
                             </div>
 
@@ -117,7 +117,7 @@
                 </div>{{-- Accordion --}}
             </div>
             <div class="col-12 col-lg-9">
-                <div class="form-group">
+                <div class="form-group" id="form-page_title">
                     <label for="field-page_title">Title{!! printRequired() !!}</label>
                     <input type="text" name="page_title" id="field-page_title" class="form-control @error('page_title') is-invalid @enderror" placeholder="Page Title" onkeyup="generateSlug('field-page_title', 'field-page_slug');slug_preview('field-page_title', 'field-slug_preview')" value="{{ $page->page_title }}">
                     
@@ -125,7 +125,7 @@
                     <div class='invalid-feedback'>{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="form-page_content">
                     <textarea name="page_content" id="field-page_content" class="form-control @error('page_content') is-invalid @enderror">{!! $page->page_content !!}</textarea>
                     
                     @error('page_content')
@@ -135,7 +135,7 @@
 
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10 text-right text-md-right">
-                        <button type="reset" id="btn-field_reset" class="btn btn-sm btn-danger">Reset</button>
+                        <button type="reset" id="btn-field_reset" class="btn btn-sm btn-danger" onclick="setTimeout(function(){checkStatus()});">Reset</button>
                         <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
     }
 
     function checkImmediately(){
-        let check_immediately = $("#page_immediately").is(':checked');
+        let check_immediately = $("#field-page_immediately").is(':checked');
         let page_status = $("#field-page_status");
         if(check_immediately){
             page_status.val('published').change();
@@ -198,7 +198,7 @@
 
     function checkStatus(){
         let page_status = $("#field-page_status").val();
-        let check_immediately = $("#page_immediately").is(':checked');
+        let check_immediately = $("#field-page_immediately").is(':checked');
 
         if(page_status == 'published' && !(check_immediately)){
             $("#form-page_published").slideDown();
