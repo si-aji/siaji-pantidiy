@@ -12,6 +12,22 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    protected $options;
+    public function __construct()
+    {
+        $this->options = [
+            'pages' => ['list', 'create', 'edit', 'delete'],
+            'post' => ['list', 'create', 'edit', 'delete'],
+            'category' => ['list', 'create', 'edit'],
+            'keyword' => ['list', 'create', 'edit'],
+            'panti_list' => ['list', 'create', 'edit'],
+            'panti_liputan' => ['list', 'create', 'edit'],
+            'location_provinsi' => ['list', 'create', 'edit'],
+            'location_kabupaten' => ['list', 'create', 'edit'],
+            'location_kecamatan' => ['list', 'create', 'edit'],
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,18 +46,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $options = [
-            'pages' => ['list', 'create', 'edit', 'delete'],
-            'post' => ['list', 'create', 'edit', 'delete'],
-            'category' => ['list', 'create', 'edit'],
-            'keyword' => ['list', 'create', 'edit'],
-            'panti_list' => ['list', 'create', 'edit'],
-            'panti_liputan' => ['list', 'create', 'edit'],
-            'location_provinsi' => ['list', 'create', 'edit'],
-            'location_kabupaten' => ['list', 'create', 'edit'],
-            'location_kecamatan' => ['list', 'create', 'edit'],
-        ];
-
+        $options = $this->options;
         return view('content.dashboard.roles.create', compact('options'));
     }
 
@@ -105,23 +110,11 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $options = $this->options;
         $role = Role::findOrFail($id);
         $old_options = Permission::join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
             ->where('role_has_permissions.role_id', $id)
             ->get()->pluck('name');
-
-        $options = [
-            'pages' => ['list', 'create', 'edit', 'delete'],
-            'post' => ['list', 'create', 'edit', 'delete'],
-            'category' => ['list', 'create', 'edit'],
-            'keyword' => ['list', 'create', 'edit'],
-            'panti_list' => ['list', 'create', 'edit'],
-            'panti_liputan' => ['list', 'create', 'edit'],
-            'location_provinsi' => ['list', 'create', 'edit'],
-            'location_kabupaten' => ['list', 'create', 'edit'],
-            'location_kecamatan' => ['list', 'create', 'edit'],
-        ];
-
 
         return view('content.dashboard.roles.edit', compact('role', 'options', 'old_options'));
     }

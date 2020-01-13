@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', [
     'wsecond_title' => 'Donation - Create',
-    'menu' => 'panti',
-    'sub_menu' => 'donation',
+    'menu' => 'donation',
+    'sub_menu' => null,
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null

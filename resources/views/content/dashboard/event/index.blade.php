@@ -1,13 +1,13 @@
 @extends('layouts.dashboard', [
-    'wsecond_title' => 'Donation',
-    'menu' => 'donation',
+    'wsecond_title' => 'Event',
+    'menu' => 'event',
     'sub_menu' => null,
     'alert' => [
         'action' => Session::get('action') ?? null,
         'message' => Session::get('message') ?? null
     ],
     'content_header' => [
-        'title' => 'Donation',
+        'title' => 'Event',
         'desc' => null,
         'breadcrumb' => [
             [
@@ -16,7 +16,7 @@
                 'active' => false
             ], [
                 'url' => '#',
-                'text' => 'Donation',
+                'text' => 'Event',
                 'active' => true
             ]
         ]
@@ -31,20 +31,20 @@
 @section('content')
 <div class="card">
     <div class="card-header card-primary card-outline">
-        <h1 class="card-title">List Donation</h1>
+        <h1 class="card-title">List Event</h1>
         <div class="card-tools">
-            <a href="{{ route('dashboard.donation.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('dashboard.event.create') }}" class="btn btn-primary btn-sm">
                 <i class="fas fa-plus"></i> Add New
             </a>
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-bordered table-hover table-striped" id="donation_table">
+        <table class="table table-bordered table-hover table-striped" id="event_table">
             <thead>
                 <tr>
-                    <th>Panti</th>
-                    <th>Donation Start</th>
-                    <th>Donation End</th>
+                    <th>Title</th>
+                    <th>Start</th>
+                    <th>End</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -66,42 +66,37 @@
 @section('inline_js')
 <script>
     $(document).ready(function() {
-        $.fn.dataTable.moment( 'MMMM Do, YYYY' );
+        $.fn.dataTable.moment( 'dddd, MMMM Do, YYYY' );
     });
 
-    let donation_table = $("#donation_table").DataTable({
+    let event_table = $("#event_table").DataTable({
         order: [1, 'desc'],
         lengthMenu: [5, 10, 25],
         processing: true,
         serverSide: true,
         ajax: {
-            url: "{{ route('dashboard.json.datatable.donation.all') }}",
+            url: "{{ route('dashboard.json.datatable.event.all') }}",
             type: "GET",
         },
         success: function (result) {
             console.log(result);
         },
         columns: [
-            { "data": "panti.panti_name" },
-            { "data": "donation_start" },
-            { "data": "donation_end" },
+            { "data": "event_title" },
+            { "data": "event_start" },
+            { "data": "event_end" },
             { "data": "" }
         ],
         columnDefs: [
             {
                 "targets": 1,
                 "render": function(row, type, data){
-                    return moment(row).format('MMMM Do, YYYY');
+                    return moment(row).format('MMM Do YYYY, H:mm:ss')
                 }
             }, {
                 "targets": 2,
                 "render": function(row, type, data){
-                    let donation_end = '-';
-                    if(data.donation_hasdeadline){
-                        donation_end = moment(row).format('MMMM Do, YYYY');
-                    }
-
-                    return donation_end;
+                    return moment(row).format('MMM Do YYYY, H:mm:ss');
                 }
             }, {
                 "targets": 3,
@@ -110,8 +105,8 @@
                 "render": function(row, type, data){
                     // console.log(row);
                     return "<div class='btn-group'>"
-                        +"<a href='{{ route('dashboard.donation.index') }}/"+data.id+"/edit' class='btn btn-caction btn-warning btn-sm'><i class='far fa-edit'></i></a>"
-                        +"<a href='{{ route('dashboard.donation.index') }}/"+data.id+"' class='btn btn-caction btn-info btn-sm'><i class='far fa-eye'></i></a>"
+                        +"<a href='{{ route('dashboard.event.index') }}/"+data.event_slug+"/edit' class='btn btn-caction btn-warning btn-sm'><i class='far fa-edit'></i></a>"
+                        +"<a href='{{ route('dashboard.event.index') }}/"+data.event_slug+"' class='btn btn-caction btn-info btn-sm'><i class='far fa-eye'></i></a>"
                     +"</div>"
                 }
             }

@@ -76,7 +76,8 @@ class DonationController extends Controller
      */
     public function show($id)
     {
-        //
+        $donation = Donation::findOrFail($id);
+        return view('content.dashboard.donation.show', compact('donation'));
     }
 
     /**

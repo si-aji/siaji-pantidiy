@@ -61,6 +61,9 @@ Route::group([
     // Post
     Route::resource('/post', 'PostController');
 
+    // Event
+    Route::resource('/event', 'EventController');
+
     // Panti
     Route::resource('/panti', 'PantiController');
     // Panti Liputan
@@ -117,6 +120,7 @@ Route::group([
         Route::get('/post/keyword/{slug}', 'PostController@datatableKeyword')->name('post.keyword');
         Route::get('/post/category/{slug}', 'PostController@datatableCategory')->name('post.category');
         Route::get('/donation', 'DonationController@datatableAll')->name('donation.all');
+        Route::get('/event', 'EventController@datatableAll')->name('event.all');
     });
 
     // Provinsi

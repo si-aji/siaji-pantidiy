@@ -63,6 +63,12 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.event.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'event' ? 'active' : '') : '' }}">
+                        <i class="nav-icon fas fa-calendar-day"></i>
+                        <p class="text">Event</p>
+                    </a>
+                </li>
 
                 <li class="nav-header">Social Care</li>
                 <li class="nav-item has-treeview {{ !empty($menu) ? ($menu == 'panti' ? 'menu-open' : '') : '' }}">
@@ -86,13 +92,13 @@
                                 <p>Liputan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard.donation.index') }}" class="nav-link {{ !empty($sub_menu) ? ($sub_menu == 'donation' ? 'active' : '') : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Donation</p>
-                            </a>
-                        </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.donation.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'donation' ? 'active' : '') : '' }}">
+                        <i class="nav-icon fas fa-hands-helping"></i>
+                        <p class="text">Donation</p>
+                    </a>
                 </li>
 
                 <li class="nav-header">SETTINGS</li>
@@ -140,7 +146,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('dashboard.roles-setting.index') }}" class="nav-link {{ !empty($menu) ? ($menu == 'roles' ? 'active' : '') : '' }}">
-                        <i class="nav-icon fas fa-cog"></i>
+                        <i class="nav-icon fas fa-check-square"></i>
                         <p class="text">Roles Settings</p>
                     </a>
                 </li>
