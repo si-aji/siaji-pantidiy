@@ -1,46 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!--====== Required meta tags ======-->
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="description" content="">
-        <meta name="author" content="Ayro UI">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!--====== Title ======-->
-        <title>{{ ($wtitle ?? 'SIAJI').(!empty($wsecond_title) ? ': '.$wsecond_title : '' ) }}</title>
-        <!--====== Favicon Icon ======-->
-        <link rel="shortcut icon" href="{{ asset('ayro-ui/images/favicon.ico') }}" type="image/png">
-        <!--====== Bootstrap css ======-->
-        <link rel="stylesheet" href="{{ mix('ayro-ui/css/bootstrap.min.css') }}">
-        <!--====== Line Icons css ======-->
-        <link rel="stylesheet" href="{{ mix('ayro-ui/css/LineIcons.css') }}">
-        <!--====== Default css ======-->
-        <link rel="stylesheet" href="{{ mix('ayro-ui/css/default.css') }}">
-        <!--====== Style css ======-->
-        <link rel="stylesheet" href="{{ mix('ayro-ui/css/style.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-        @yield('plugins_css')
-        @yield('inline_css')
-    </head>
-    <body>
-        @yield('content')
+    <!-- Title -->
+    <title>Fancy - Creative Agency Template</title>
 
-        <!--====== jquery js ======-->
-        <script src="{{ asset('ayro-ui/js/vendor/modernizr-3.6.0.min.js') }}"></script>
-        <script src="{{ asset('ayro-ui/js/vendor/jquery-1.12.4.min.js') }}"></script>
-        <!--====== Bootstrap js ======-->
-        <script src="{{ asset('ayro-ui/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('ayro-ui/js/popper.min.js') }}"></script>
-        <!--====== Images Loaded js ======-->
-        <script src="{{ asset('ayro-ui/js/imagesloaded.pkgd.min.js') }}"></script>
-        <!--====== Appear js ======-->
-        <script src="{{ asset('ayro-ui/js/jquery.appear.min.js') }}"></script>
-        <!--====== Main js ======-->
-        <script src="{{ asset('ayro-ui/js/main.js') }}"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('fancy/img/core-img/favicon.ico') }}">
 
-        @yield('plugins_js')
-        @yield('inline_js')
-    </body>
-</html>
+    <!-- Core Stylesheet -->
+    <link href="{{ mix('fancy/css/style.css') }}" rel="stylesheet">
+
+    <!-- Responsive CSS -->
+    <link href="{{ mix('fancy/css/responsive/responsive.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    @include('layouts.partials.public.preload')
+
+    <!-- Search Form Area -->
+    @include('layouts.partials.public.search')
+
+    <!-- ***** Header Area Start ***** -->
+    @include('layouts.partials.public.navbar')
+    <!-- ***** Header Area End ***** -->
+
+    @yield('content')
+
+    <!-- ***** Footer Area Start ***** -->
+    @include('layouts.partials.public.footer')
+    <!-- ***** Footer Area End ***** -->
+
+    <!-- jQuery-2.2.4 js -->
+    <script src="{{ mix('fancy/js/jquery/jquery-2.2.4.min.js') }}"></script>
+    <!-- Popper js -->
+    <script src="{{ mix('fancy/js/bootstrap/popper.min.js') }}"></script>
+    <!-- Bootstrap-4 js -->
+    <script src="{{ mix('fancy/js/bootstrap/bootstrap.min.js') }}"></script>
+    <!-- All Plugins js -->
+    <script src="{{ mix('fancy/js/others/plugins.js') }}"></script>
+    <!-- Active JS -->
+    <script src="{{ mix('fancy/js/active.js') }}"></script>
+</body>

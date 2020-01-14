@@ -1,67 +1,44 @@
-<div class="navbar-area navbar-one fixed-top w-100" style="position:fixed !important;z-index:9999;">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="#">
-                        <img src="{{ asset('ayro-ui/images/logo-4.svg') }}" alt="Logo">
-                    </a>
-
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarOne" aria-controls="navbarOne" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="toggler-icon"></span>
-                        <span class="toggler-icon"></span>
-                        <span class="toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
-                        <ul class="navbar-nav m-auto">
-                            <li class="nav-item">
-                                <a class="active" href="#">ABOUT<button class="sub-nav-toggler"> <i class="lni-chevron-down"></i> </button></a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="#">MENU ITEM 1</a></li>
-                                    <li><a href="#">MENU ITEM 2 <i class="lni-chevron-right"></i><button class="sub-nav-toggler"> <i class="lni-chevron-down"></i> </button></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">SUB MENU 1 <i class="lni-chevron-right"></i></a></li>
-                                            <li><a href="#">SUB MENU 2</a></li>
-                                            <li><a href="#">SUB MENU 3</a></li>
-                                            <li><a href="#">SUB MENU 4</a></li>
-                                            <li><a href="#">SUB MENU 5</a></li>
-                                            <li><a href="#">SUB MENU 6</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">MENU ITEM 3</a></li>
-                                    <li><a href="#">MENU ITEM 4</a></li>
-                                    <li><a href="#">MENU ITEM 5</a></li>
-                                    <li><a href="#">MENU ITEM 6</a></li>
-                                </ul>
+<header class="header_area" id="header">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-12 h-100">
+                <nav class="h-100 navbar navbar-expand-lg align-items-center">
+                    <a class="navbar-brand" href="index.html">fancy</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#fancyNav" aria-controls="fancyNav" aria-expanded="false" aria-label="Toggle navigation"><span class="ti-menu"></span></button>
+                    <div class="collapse navbar-collapse" id="fancyNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="index.html">Home</a>
+                                    <a class="dropdown-item" href="static-page.html">Static Page</a>
+                                    <a class="dropdown-item" href="contact.html">Contact</a>
+                                </div>
                             </li>
                             <li class="nav-item">
-                                <a href="#">SERVICES</a>
+                                <a class="nav-link" href="#">Work</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#">RESOURCES</a>
+                                <a class="nav-link" href="static-page.html">Blog</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#">CONTACT</a>
+                                <a class="nav-link" href="#">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
                             </li>
                         </ul>
+                        <!-- Search & Shop Btn Area -->
+                        <div class="fancy-search-and-shop-area">
+                            <a id="search-btn" href="#"><i class="icon_search" aria-hidden="true"></i></a>
+                            <a id="shop-btn" href="#"><i class="icon_bag_alt" aria-hidden="true"></i></a>
+                        </div>
                     </div>
-
-                    <div class="navbar-btn d-none d-sm-inline-block">
-                        @guest
-                        <ul>
-                            <li><a class="light" href="{{ route('public.login') }}">Sign In</a></li>
-                            <li><a class="solid" href="{{ route('public.register') }}">Sign Up</a></li>
-                        </ul>
-                        @else
-                        <ul>
-                            <li><a class="light" href="{{ route('dashboard.index') }}">Dashboard</a></li>
-                        </ul>
-                        @endguest
-                    </div>
-                </nav> <!-- navbar -->
+                </nav>
             </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</div>
+        </div>
+    </div>
+</header>

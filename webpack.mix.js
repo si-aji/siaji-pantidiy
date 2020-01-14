@@ -10,42 +10,87 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-// Ayro-Ui
+// Fancy
 mix.styles([
-    'resources/assets/ayro-ui/css/bootstrap.min.css'
-], 'public/ayro-ui/css/bootstrap.min.css').version();
+    'resources/assets/fancy/css/style.css'
+], 'public/fancy/css/style.css').version();
 mix.styles([
-    'resources/assets/ayro-ui/css/LineIcons.css'
-], 'public/ayro-ui/css/LineIcons.css').version();
+    'resources/assets/fancy/css/responsive/responsive.css'
+], 'public/fancy/css/responsive/responsive.css').version();
 mix.styles([
-    'resources/assets/ayro-ui/css/default.css'
-], 'public/ayro-ui/css/default.css').version();
+    'resources/assets/fancy/css/bootstrap/bootstrap.min.css'
+], 'public/fancy/css/bootstrap/bootstrap.min.css').version();
 mix.styles([
-    'resources/assets/ayro-ui/css/style.css'
-], 'public/ayro-ui/css/style.css').version();
+    'resources/assets/fancy/css/others/animate.css'
+], 'public/fancy/css/others/animate.css').version();
+mix.styles([
+    'resources/assets/fancy/css/others/magnific-popup.css'
+], 'public/fancy/css/others/magnific-popup.css').version();
+mix.styles([
+    'resources/assets/fancy/css/others/owl.carousel.min.css'
+], 'public/fancy/css/others/owl.carousel.min.css').version();
+mix.styles([
+    'resources/assets/fancy/css/others/font-awesome.min.css'
+], 'public/fancy/css/others/font-awesome.min.css').version();
+mix.styles([
+    'resources/assets/fancy/css/others/elegant-font.css'
+], 'public/fancy/css/others/elegant-font.css').version();
+mix.styles([
+    'resources/assets/fancy/css/others/themify-icons.css'
+], 'public/fancy/css/others/themify-icons.css').version();
+// Fancy Js
+mix.scripts([
+    'resources/assets/fancy/js/jquery/jquery-2.2.4.min.js'
+], 'public/fancy/js/jquery/jquery-2.2.4.min.js').version();
+mix.scripts([
+    'resources/assets/fancy/js/bootstrap/popper.min.js'
+], 'public/fancy/js/bootstrap/popper.min.js').version();
+mix.scripts([
+    'resources/assets/fancy/js/bootstrap/bootstrap.min.js'
+], 'public/fancy/js/bootstrap/bootstrap.min.js').version();
+mix.scripts([
+    'resources/assets/fancy/js/others/plugins.js'
+], 'public/fancy/js/others/plugins.js').version();
+mix.scripts([
+    'resources/assets/fancy/js/active.js'
+], 'public/fancy/js/active.js').version();
 
-// Ayro-UI JS
-mix.scripts([
-    'resources/assets/ayro-ui/js/vendor/modernizr-3.6.0.min.js'
-], 'public/ayro-ui/js/vendor/modernizr-3.6.0.min.js').version();
-mix.scripts([
-    'resources/assets/ayro-ui/js/vendor/jquery-1.12.4.min.js'
-], 'public/ayro-ui/js/vendor/jquery-1.12.4.min.js').version();
-mix.scripts([
-    'resources/assets/ayro-ui/js/bootstrap.min.js'
-], 'public/ayro-ui/js/bootstrap.min.js').version();
-mix.scripts([
-    'resources/assets/ayro-ui/js/popper.min.js'
-], 'public/ayro-ui/js/popper.min.js').version();
-mix.scripts([
-    'resources/assets/ayro-ui/js/imagesloaded.pkgd.min.js'
-], 'public/ayro-ui/js/imagesloaded.pkgd.min.js').version();
-mix.scripts([
-    'resources/assets/ayro-ui/js/jquery.appear.min.js'
-], 'public/ayro-ui/js/jquery.appear.min.js').version();
-mix.scripts([
-    'resources/assets/ayro-ui/js/main.js'
-], 'public/ayro-ui/js/main.js').version();
+// // Ayro-Ui
+// mix.styles([
+//     'resources/assets/ayro-ui/css/bootstrap.min.css'
+// ], 'public/ayro-ui/css/bootstrap.min.css').version();
+// mix.styles([
+//     'resources/assets/ayro-ui/css/LineIcons.css'
+// ], 'public/ayro-ui/css/LineIcons.css').version();
+// mix.styles([
+//     'resources/assets/ayro-ui/css/default.css'
+// ], 'public/ayro-ui/css/default.css').version();
+// mix.styles([
+//     'resources/assets/ayro-ui/css/style.css'
+// ], 'public/ayro-ui/css/style.css').version();
+// // Ayro-UI JS
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/vendor/modernizr-3.6.0.min.js'
+// ], 'public/ayro-ui/js/vendor/modernizr-3.6.0.min.js').version();
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/vendor/jquery-1.12.4.min.js'
+// ], 'public/ayro-ui/js/vendor/jquery-1.12.4.min.js').version();
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/bootstrap.min.js'
+// ], 'public/ayro-ui/js/bootstrap.min.js').version();
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/popper.min.js'
+// ], 'public/ayro-ui/js/popper.min.js').version();
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/imagesloaded.pkgd.min.js'
+// ], 'public/ayro-ui/js/imagesloaded.pkgd.min.js').version();
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/jquery.appear.min.js'
+// ], 'public/ayro-ui/js/jquery.appear.min.js').version();
+// mix.scripts([
+//     'resources/assets/ayro-ui/js/main.js'
+// ], 'public/ayro-ui/js/main.js').version();
+
 
 /*
  |--------------------------------------------------------------------------

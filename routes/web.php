@@ -16,3 +16,7 @@ Route::Auth();
 Route::get('/', function () {
     return view('content.public.index.index');
 })->name('index');
+
+Route::get('/fancy-template', function(){
+    return view('layouts.fancy');
+});
