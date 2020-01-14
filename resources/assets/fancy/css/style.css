@@ -543,13 +543,14 @@ li {
 .fancy-top-features-area {
     position: relative;
     z-index: 99;
+    margin-bottom: 4.5rem;
 }
 
 .fancy-top-features-content {
     position: absolute;
     width: 100%;
     z-index: 99;
-    bottom: 50%;
+    bottom: 0;
     -webkit-transform: translateY(50%);
     transform: translateY(50%);
     left: 0;

@@ -39,4 +39,13 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Models\Keyword', 'sa_post_keyword', 'post_id', 'keyword_id');
     }
+
+    // Laravel Scope
+    public function scopeGetPublishedArticles()
+    {
+        return $this->where([
+            ['post_status', 'published'],
+            ['post_published', '<=', date('Y-m-d H:i:s')]
+        ])->orderBy('post_published', 'desc');
+    }
 }

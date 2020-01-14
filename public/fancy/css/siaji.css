@@ -1,0 +1,33 @@
+#feature-pantisearch {
+}
+#feature-pantisearch #panti-title {
+    width: 100%;
+    padding-top: 1rem;
+    text-align: center;
+    background: #fff;
+    margin: 0;
+    font-size: 29px;
+    color: #232d37;
+    border-radius: .25rem;
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+}
+#feature-pantisearch #panti-submit {
+    width: 100%;
+    padding: 1rem;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+    border-top: unset;
+}
+#feature-pantisearch #panti-submit:not([disabled]):hover {
+    cursor: pointer;
+}
+#feature_pantisearch.progress::after {
+    position: absolute;
+    content: "Please Wait";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(96, 125, 139, .75);
+}

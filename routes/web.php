@@ -13,10 +13,11 @@
 
 Route::Auth();
 
-Route::get('/', function () {
-    return view('content.public.index.index');
-})->name('index');
+Route::group([
+    'namespace' => 'Front'
+], function(){
+    Route::get('/', 'HomeController')->name('index');
 
-Route::get('/fancy-template', function(){
-    return view('layouts.fancy');
+    Route::get('/panti', 'PantiController@index')->name('panti');
+    Route::get('/{type}/{slug}', 'SinglePageController@index')->name('page');
 });

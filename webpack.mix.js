@@ -15,6 +15,9 @@ mix.styles([
     'resources/assets/fancy/css/style.css'
 ], 'public/fancy/css/style.css').version();
 mix.styles([
+    'resources/assets/fancy/css/siaji.css'
+], 'public/fancy/css/siaji.css').version();
+mix.styles([
     'resources/assets/fancy/css/responsive/responsive.css'
 ], 'public/fancy/css/responsive/responsive.css').version();
 mix.styles([
@@ -38,6 +41,9 @@ mix.styles([
 mix.styles([
     'resources/assets/fancy/css/others/themify-icons.css'
 ], 'public/fancy/css/others/themify-icons.css').version();
+mix.styles([
+    'resources/assets/fancy/css/others/select2/select2.css'
+], 'public/fancy/css/others/select2/select2.css').version();
 // Fancy Js
 mix.scripts([
     'resources/assets/fancy/js/jquery/jquery-2.2.4.min.js'
