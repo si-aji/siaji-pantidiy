@@ -300,6 +300,10 @@ li {
     left: 0;
 }
 
+.btn:hover {
+    cursor: pointer;
+}
+
 .fancy-btn {
     color: #fff;
     font-size: 13px;

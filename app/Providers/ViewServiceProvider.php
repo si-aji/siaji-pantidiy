@@ -85,6 +85,9 @@ class ViewServiceProvider extends ServiceProvider
                 ], [
                     'name' => 'Clear View Cache',
                     'url' => route('dashboard.clear.view')
+                ], [
+                    'name' => 'Error Log',
+                    'url' => route('log-viewer::dashboard')
                 ]
             ]);
 

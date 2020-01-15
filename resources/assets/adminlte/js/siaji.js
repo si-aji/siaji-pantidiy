@@ -24,10 +24,13 @@ $(document).ready(function(){
     });
 });
 
-$("#navbar_search").focusin(function(){
-    $("#feature_result").addClass('show');
-}).focusout(function () {
-    $("#feature_result").removeClass('show');
+$("#navbar_search").bind('keydown keypress keyup change click focusin focusout', function(){
+    console.log();
+    if($(this).val() != ""){
+        $("#feature_result").addClass('show');
+    } else {
+        $("#feature_result").removeClass('show');
+    }
 });
 
 function removeInvalid(options = null){

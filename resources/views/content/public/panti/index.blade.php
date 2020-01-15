@@ -1,4 +1,6 @@
-@extends('layouts.public')
+@extends('layouts.public', [
+    'wsecond_title' => 'List Panti'
+])
 
 @section('plugins_css')
 <!-- Select2 -->
@@ -8,9 +10,28 @@
 @endsection
 
 @section('content')
-    @include('content.public.index.partials.hero')
-    @include('content.public.index.partials.panti_search')
-    @include('content.public.index.partials.blog')
+@include('layouts.partials.public.content-header', [
+    'page_title' => 'List Panti',
+    'breadcrumb' => [
+        [
+            'breadcrumb_title' => 'Panti',
+            'is_active' => true,
+            'url' => null,
+            'breadcrumb_icon' => null
+        ]
+    ]
+])
+
+<section class="section-padding-100 container" id="panti-area">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            @include('content.public.panti.partials.filter')
+        </div>
+        <div class="col-12 col-md-8">
+            @include('content.public.panti.partials.panti')
+        </div>
+    </div>
+</section>
 @endsection
 
 @section('plugins_js')
@@ -22,10 +43,12 @@
 <script>
     $(document).ready(function(){
         $('.select2').select2();
+
+        checkProvince();
     });
 
     function checkProvince(){
-        // console.log('Check Province is running...');
+        console.log('Check Province is running...');
         let province = $("#field-provinsi_id").val();
         let kabupaten = $("#field-kabupaten_id");
         let panti_submit = $("#panti-submit");
@@ -49,7 +72,15 @@
                         text: data.kabupaten_name
                     };
 
-                    var newOption = new Option(arr.text, arr.id, false, false);
+                    if("{{ !empty($kabupaten) }}" == "1"){
+                        if("{{ !empty($kabupaten) ? $kabupaten->id : '' }}" == data.id){
+                            var newOption = new Option(arr.text, arr.id, false, true);
+                        } else {
+                            var newOption = new Option(arr.text, arr.id, false, false);
+                        }
+                    } else {
+                        var newOption = new Option(arr.text, arr.id, false, false);
+                    }
                     kabupaten.append(newOption);
                 });
 
@@ -89,7 +120,15 @@
                         text: data.kecamatan_name
                     };
 
-                    var newOption = new Option(arr.text, arr.id, false, false);
+                    if("{{ !empty($kecamatan) }}" == "1"){
+                        if("{{ !empty($kecamatan) ? $kecamatan->id : '' }}" == data.id){
+                            var newOption = new Option(arr.text, arr.id, false, true);
+                        } else {
+                            var newOption = new Option(arr.text, arr.id, false, false);
+                        }
+                    } else {
+                        var newOption = new Option(arr.text, arr.id, false, false);
+                    }
                     kecamatan.append(newOption).trigger('change');
                 });
 

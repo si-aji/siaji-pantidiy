@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 
 use App\Models\Post;
-use DB;
 
 class PostSeeder extends Seeder
 {
