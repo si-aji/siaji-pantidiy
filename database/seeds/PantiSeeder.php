@@ -44,7 +44,7 @@ class PantiSeeder extends Seeder
                     'panti_name' => $name,
                     'panti_slug' => $slug,
                     'panti_alamat' => $faker->address,
-                    'panti_description' => $faker->randomHtml(2,3),
+                    'panti_description' => $faker->text($maxNbChars = 1000),
                 ]);
             }
         }

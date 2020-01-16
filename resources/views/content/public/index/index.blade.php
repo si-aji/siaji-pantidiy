@@ -30,6 +30,8 @@
         let kabupaten = $("#field-kabupaten_id");
         let panti_submit = $("#panti-submit");
 
+        $("#field-provinsi_id").attr('disabled', true);
+        
         kabupaten.empty();
         let arr = {
             id: 'all',
@@ -55,9 +57,12 @@
 
                 kabupaten.attr('disabled', false).trigger('change');
             }).always(function(){
+                $("#field-provinsi_id").attr('disabled', false);
+                $("#field-kabupaten_id").attr('disabled', false);
                 panti_submit.text('Submit').attr('disabled', false);
             });
         } else {
+            $("#field-provinsi_id").attr('disabled', false);
             kabupaten.attr('disabled', true);
             panti_submit.text('Submit').attr('disabled', false);
         }
@@ -68,6 +73,10 @@
         let kabupaten = $("#field-kabupaten_id").val();
         let kecamatan = $("#field-kecamatan_id");
         let panti_submit = $("#panti-submit");
+
+        $("#field-provinsi_id").attr('disabled', true);
+        $("#field-kabupaten_id").attr('disabled', true);
+        $("#field-kecamatan_id").attr('disabled', true);
 
         kecamatan.empty();
         let arr = {
@@ -95,6 +104,9 @@
 
                 kecamatan.attr('disabled', false);
             }).always(function(){
+                $("#field-provinsi_id").attr('disabled', false);
+                $("#field-kabupaten_id").attr('disabled', false);
+                $("#field-kecamatan_id").attr('disabled', false);
                 panti_submit.text('Submit').attr('disabled', false);
             });
         } else {

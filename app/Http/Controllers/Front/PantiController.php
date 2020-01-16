@@ -21,7 +21,7 @@ class PantiController extends Controller
     {
         $kabupaten = $kecamatan = null;
         $provinsi = Provinsi::orderBy('provinsi_name', 'asc')->get();
-        $panti = Panti::orderBy('kecamatan_id', 'asc');
+        $panti = Panti::orderBy('id', 'desc');
 
         if(isset($_GET['provinsi'])){
             if($_GET['provinsi'] != 'all'){
@@ -38,7 +38,12 @@ class PantiController extends Controller
                 }
             }
         }
-        $panti = $panti->simplePaginate(4);
+        if(isset($_GET['keyword'])){
+            if($_GET['keyword'] != ''){
+                $panti->where('panti_name', 'like', '%'.$_GET['keyword'].'%');
+            }
+        }
+        $panti = $panti->paginate(4);
 
         return view('content.public.panti.index', compact(
             'provinsi',
@@ -54,8 +59,21 @@ class PantiController extends Controller
      * @param  \App\Models\Panti  $panti
      * @return \Illuminate\Http\Response
      */
-    public function show(Panti $panti)
+    public function show($slug)
     {
-        //
+        $panti = Panti::wherePantiSlug($slug)->firstOrFail();
+
+        $prev = Panti::where('id', '>', $panti->id)->min('id');
+        if($prev){ $prev = Panti::find($prev); }
+        $next = Panti::where('id', '<', $panti->id)->max('id');
+        if($next){ $next = Panti::find($next); }
+
+        // return response()->json([
+        //     'prev' => $prev ? $prev->id.' / '.$prev->panti_slug : '-',
+        //     'current' => $panti->id,
+        //     'next' => $next ? $next->id.' / '.$next->panti_slug : '-',
+        // ]);
+
+        return view('content.public.panti.show', compact('panti', 'prev', 'next'));
     }
 }

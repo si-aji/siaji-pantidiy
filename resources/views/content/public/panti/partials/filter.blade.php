@@ -3,6 +3,11 @@
 
     <div class="filter-body">
         <div class="form-group">
+            <label for="field-keyword">Keyword</label>
+            <input type="text" name="keyword" id="field-keyword" class="form-control" placeholder="Panti Name" value="{{ isset($_GET['keyword']) ? ($_GET['keyword'] ?? '') : '' }}">
+        </div>
+
+        <div class="form-group">
             <label for="field-provinsi_id">Provinsi</label>
             <select class="form-control select2" name="provinsi" id="field-provinsi_id" onchange="checkProvince()">
                 <option value="all">All</option>

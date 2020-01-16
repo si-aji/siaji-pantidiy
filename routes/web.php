@@ -19,5 +19,6 @@ Route::group([
     Route::get('/', 'HomeController')->name('index');
 
     Route::get('/panti', 'PantiController@index')->name('panti');
+    Route::get('/panti/{slug}', 'PantiController@show')->name('panti.show');
     Route::get('/{type}/{slug}', 'SinglePageController@index')->name('page');
 });
