@@ -43,7 +43,7 @@
     <div class="card-header card-primary card-outline">
         <h1 class="card-title">Add new Panti</h1>
         <div class="card-tools">
-            <a href="{{ route('dashboard.panti.create') }}" class="btn btn-warning btn-sm">
+            <a href="{{ route('dashboard.panti.index') }}" class="btn btn-warning btn-sm">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>
@@ -112,13 +112,53 @@
             </div>
         </div>
 
-        <div class="form-group" id="form-">
-            <label for="field-panti_description">Description</label>
-            <textarea name="panti_description" id="field-panti_description" class="form-control @error('panti_description') is-invalid @enderror" placeholder="Description about Panti"></textarea>
+        <div class="form-group" id="form-panti_description">
+            <label for="field-panti_description">Description{!! printRequired() !!}</label>
+            <textarea name="panti_description" id="field-panti_description" class="form-control @error('panti_description') is-invalid @enderror" placeholder="Description about Panti">{!! old('panti_description') !!}</textarea>
             @error('panti_description')
             <div class='invalid-feedback'>{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="form-group" id="form-contact">
+            @if(old('data_contact'))
+                @foreach(old('data_contact') as $key => $value)
+            <div class="contact_container">
+                <hr class="mb-1"/>
+                <div class="form-row">
+                    <div class="col-12 col-md-6 form-group mb-1">
+                        <label>Contact Type</label>
+                        <select class="form-control" name="data_contact[{{ $key }}][contact_type]">
+                            @foreach($contact_type as $val)
+                            <option value="{{ $val }}" {{ old('data_contact.'.$key.'.contact_type') == $val ? 'selected' : '' }}>{{ ucwords($val) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-1 col-12 col-md-6">
+                        <label>Contact Value</label>
+                        <div class="input-group">
+                            <input type="text" name="data_contact[{{ $key }}][contact_value]" class="form-control @error('data_contact.'.$key.'.contact_value') is-invalid @enderror" placeholder="Contact Value" value="{{ old('data_contact.'.$key.'.contact_value') }}">
+                            
+                            <div class="input-group-append">
+                                <button class="btn btn-danger contact_remove" type="button">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            @error('data_contact.'.$key.'.contact_value')
+                            <div class='invalid-feedback'>{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                @php $old_contactkey = $key; @endphp
+                @endforeach
+            @endif
+        </div>
+        <button type="button" id="contact-add" class="btn btn-primary">Add Contact</button>
 
         <div class="form-group row">
             <div class="offset-sm-2 col-sm-10 text-right text-md-right">
@@ -142,7 +182,7 @@
 @section('inline_js')
 <script>
     $(document).ready(function(){
-        console.log("Lama {{ old('kabupaten_id') }}");
+        // console.log("Lama {{ old('kabupaten_id') }}");
         checkProvince();
 
         $('.select2').select2();
@@ -150,10 +190,72 @@
             'height': 170,
             'placeholder': 'Description about Panti',
         });
+
+        // Add more Contact
+        let contact_start = {{ isset($old_contactkey) ? $old_contactkey + 1 : '1' }};
+        let wrap = $("#form-contact");
+        let contact_add = $("#contact-add");
+        let contact_type = 'contact_type';
+        let contact_value = 'contact_value';
+        contact_add.click(function(e){
+            e.preventDefault();
+            $(
+                '<div class="contact_container" style="display:none">'
+                    +'<hr class="mb-1"/>'
+                    +'<div class="form-row">'
+                        +'<div class="col-12 col-md-6 form-group mb-1">'
+                            +'<label>Contact Type</label>'
+                            +'<select class="form-control" name="data_contact['+contact_start+']['+contact_type+']">'
+                                @foreach($contact_type as $val)
+                                +'<option value="{{ $val }}">{{ ucwords($val) }}</option>'
+                                @endforeach
+                            +'</select>'
+                        +'</div>'
+
+                        +'<div class="form-group mb-1 col-12 col-md-6">'
+                            +'<label>Contact Value</label>'
+                            +'<div class="input-group">'
+                                +'<input type="text" name="data_contact['+contact_start+']['+contact_value+']" class="form-control" placeholder="Contact Value">'
+                                
+                                +'<div class="input-group-append">'
+                                    +'<button class="btn btn-danger contact_remove" type="button">'
+                                        +'<i class="fas fa-times"></i>'
+                                    +'</button>'
+                                +'</div>'
+                            +'</div>'
+                        +'</div>'
+                    +'</div>'
+                +'</div>'
+            ).appendTo(wrap).slideDown();
+
+            contact_start++;
+        });
+
+        wrap.on('click','.contact_remove', function(e){
+            console.log("Panti Contact is being removed via wrap");
+            e.preventDefault();
+
+            $(this).closest('.contact_container').slideUp(function(){
+                let contact_el = $(this);
+                setTimeout(function(){
+                    contact_el.remove();
+                });
+            });
+        });
+        $(".contact_remove").on('click', function(e){
+            console.log("Panti Contact is being removed via contact_remove class");
+            e.preventDefault();
+            $(this).closest('.contact_container').slideUp(function(){
+                let contact_el = $(this);
+                setTimeout(function(){
+                    contact_el.remove();
+                });
+            });
+        });
     });
 
     function checkProvince(){
-        console.log('Check Province is running...');
+        // console.log('Check Province is running...');
         let province = $("#field-lprovinsi_id").val();
         let kabupaten = $("#field-lkabupaten_id");
 
@@ -178,7 +280,7 @@
 
                     if("{{ old('kabupaten_id') }}" != "none"){
                         if("{{ old('kabupaten_id') }}" == data.id){
-                            console.log("Kabupaten Lama sama dengan id");
+                            // console.log("Kabupaten Lama sama dengan id");
                             var newOption = new Option(arr.text, arr.id, false, true);
                         } else {
                             var newOption = new Option(arr.text, arr.id, false, false);
@@ -196,7 +298,7 @@
     }
 
     function checkKabupaten(){
-        console.log('Check Kabupaten is running...');
+        // console.log('Check Kabupaten is running...');
         let province = $("#field-lprovinsi_id").val();
         let kabupaten = $("#field-lkabupaten_id").val();
         let kecamatan = $("#field-lkecamatan_id");
@@ -212,7 +314,7 @@
 
         if(province != 'none' && kabupaten != 'none'){
             $.get("{{ url('json/kabupaten') }}/"+kabupaten+"/kecamatan", function(result){
-                console.log(result);
+                // console.log(result);
                 let data = result.data;
                 $.each(data, function(key, data){
                     let arr = {
@@ -222,7 +324,7 @@
 
                     if("{{ old('kecamatan_id') }}" != "none"){
                         if("{{ old('kecamatan_id') }}" == data.id){
-                            console.log("Kecamatan Lama sama dengan id");
+                            // console.log("Kecamatan Lama sama dengan id");
                             var newOption = new Option(arr.text, arr.id, false, true);
                         } else {
                             var newOption = new Option(arr.text, arr.id, false, false);

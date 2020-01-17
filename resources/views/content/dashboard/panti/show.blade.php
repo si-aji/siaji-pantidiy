@@ -79,8 +79,34 @@
             </tr>
         </table>
 
+        @if(!empty($panti->pantiContact()->exists()))
+        <div class="card mt-3">
+            <div class="card-header card-secondary card-outline">
+                <h6 class="mb-0">Contact Panti</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover table-striped" id="contact_table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($panti->pantiContact as $value)
+                        <tr id="rows_{{ $value->id }}">
+                            <td>{{ ucwords($value->contact_type) }}</td>
+                            <td>{{ $value->contact_value }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @endif
+
         @if(!empty($liputan))
-        <div class="card">
+        <div class="card mt-3">
             <div class="card-header card-secondary card-outline">
                 <h6 class="mb-0">Liputan Panti</h6>
             </div>
