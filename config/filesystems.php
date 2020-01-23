@@ -55,10 +55,15 @@ return [
         //     'visibility' => 'public',
         // ],
 
+        // 'public_uploads' => [
+        //     'driver' => 'local',
+        //     'root'   => public_path() . '/uploads',
+        // ],
+
         'public' => [
             'driver' => 'local',
             'root'   => public_path(),
-            'url' => env('APP_URL').'/public',
+            'url' => public_path(),
             'visibility' => 'public',
         ],
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Storage;
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -9,6 +12,25 @@ use App\Models\Page;
 
 class PageController extends Controller
 {
+    protected $file_location = 'img/page';
+    
+    /**
+     * Image Upload
+     * 
+     * @param files
+     */
+    private function imageUpload($file)
+    {
+        if(is_file($file)){
+            $uploadedFile = $file;        
+            $filename = 'page-'.(Carbon::now()->timestamp+rand(1,1000));
+            $path = $uploadedFile->storeAs($this->file_location, $filename.'.'.$uploadedFile->getClientOriginalExtension());
+            return $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+        }
+
+        return null;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,11 +71,13 @@ class PageController extends Controller
                 $validate_published = ['required'];
             }
         }
+
         $request->validate([
             'page_title' => ['required', 'string', 'max:191'],
             'page_slug' => ['required', 'string', 'max:191', 'unique:sa_page,page_slug'],
             'page_status' => ['required', 'string', 'in:draft,published'],
             'page_published' => $validate_published,
+            'page_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'],
             'page_content' => ['required', 'string']
         ]);
 
@@ -63,6 +87,9 @@ class PageController extends Controller
         $page->page_status = $request->page_status;
         $page->page_published = ($request->has('page_immediately') && $request->page_immediately == 'true' ? date('Y-m-d H:i:00') : ($request->page_status == 'published' ? $request->page_published : null));
         $page->page_content = $request->page_content;
+        if($request->hasFile('page_thumbnail')){
+            $page->page_thumbnail = $this->imageUpload($request->page_thumbnail);
+        }
         $page->save();
 
         return redirect()->route('dashboard.page.index')->with([
@@ -122,6 +149,7 @@ class PageController extends Controller
             'page_slug' => ['required', 'string', 'max:191', 'unique:sa_page,page_slug,'.$page->id],
             'page_status' => ['required', 'string', 'in:draft,published'],
             'page_published' => $validate_published,
+            'page_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'],
             'page_content' => ['required', 'string']
         ]);
 
@@ -130,6 +158,10 @@ class PageController extends Controller
         $page->page_status = $request->page_status;
         $page->page_published = ($request->has('page_immediately') && $request->page_immediately == 'true' ? date('Y-m-d H:i:00') : ($request->page_status == 'published' ? $request->page_published : null));
         $page->page_content = $request->page_content;
+        if($request->hasFile('page_thumbnail')){
+            Storage::delete($this->file_location.'/'.$page->page_thumbnail);
+            $page->page_thumbnail = $this->imageUpload($request->page_thumbnail);
+        }
         $page->save();
 
         return redirect()->route('dashboard.page.index')->with([

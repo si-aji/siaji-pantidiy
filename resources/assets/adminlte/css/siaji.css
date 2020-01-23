@@ -1,3 +1,4 @@
+/* Dashboard - Search */
 #feature_search {
     position: relative;
 }
@@ -38,6 +39,18 @@
 }
 #feature_search #feature_result li.result {
     display: none;
+}
+
+/* Dashboard - Img Preview */
+.sa-preview {
+
+}
+.sa-preview .img-preview {
+    width: 100%;
+    max-width: 300px;
+    background: #e9ecef !important;
+    padding: .25rem;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.25);
 }
 
 @media (max-width: 576px) {

@@ -55,6 +55,18 @@
                 <td>{{ $page->page_status == 'published' ? ($page->page_published > date('Y-m-d H:i:s') ? 'Scheduled - '.date('M d o, H:i:s', strtotime($page->page_published)) : ucwords($page->page_status).' - '.date('M d o, H:i:s', strtotime($page->page_published))) : ucwords($page->page_status) }}</td>
             </tr>
             <tr>
+                <th>Thumbnail</th>
+                <td>
+                    @if(!empty($page->page_thumbnail))
+                    <div class="sa-preview mb-2">
+                        <img class="img-responsive img-preview" src="{{ asset('img/page'.'/'.$page->page_thumbnail) }}">
+                    </div>
+                    @else
+                    -
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <th>Content</th>
                 <td>
                     {!! $page->page_content !!}

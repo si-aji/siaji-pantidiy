@@ -56,6 +56,47 @@ function generateSlug(source, destination){
     $("#"+destination).val(slug);
 }
 
+function generatePreview(input, form_field = 'thumbnail'){
+    console.log("Generate Preview is running...");
+    console.log("Form Field : "+form_field);
+
+    let preview_container = input.closest('#form-'+form_field).find('.sa-preview .img-preview');
+    let preview_remove = input.closest('#form-'+form_field).find('.btn-preview_remove');
+
+    // console.log(preview_container);
+    // console.log(preview_remove);
+
+    if (input[0].files[0] && input[0].files[0]) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            preview_container.attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input[0].files[0]);
+        preview_remove.prop('disabled', false);
+    } else {
+        $(preview_remove).click();
+    }
+}
+function removePreview(input, old_value = '', form_field = 'thumbnail'){
+    console.log("Remove Preview is running...");
+
+    input.prop('disabled', true);
+    let preview_container = input.closest('#form-'+form_field).find('.sa-preview .img-preview');
+    let preview_input = input.closest('#form-'+form_field).find('.custom-file-input');
+    let preview_label = input.closest('#form-'+form_field).find('.custom-file-label');
+    
+    console.log(preview_container);
+
+    if(old_value != ''){
+        preview_container.attr('src', old_value);
+    } else {
+        preview_container.removeAttr('src');
+    }
+    preview_input.val('');
+    preview_label.text('Choose file');
+}
+
 $('.as-close').click(function(){
     $(this).parent().slideUp(function(){
         $(this).remove();

@@ -35,7 +35,7 @@
 @endsection
 
 @section('content')
-<form class="card" action="{{ route('dashboard.page.store') }}" method="POST">
+<form class="card" action="{{ route('dashboard.page.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="card-header card-primary card-outline">
@@ -72,6 +72,31 @@
                             <small>
                                 <a href="javascrit:void(0)" class="text-muted">{{ url('/').old('page_slug') }}/<span class="mb-0" id="field-slug_preview"></span></a>
                             </small>
+                        </div>
+                    </div>
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                Thumbnail
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group" id="form-page_thumbnail">
+                                <div class="sa-preview mb-2">
+                                    <button type="button" class="btn btn-sm btn-danger d-block mb-2 mx-auto btn-preview_remove" onclick="removePreview($(this),  '', 'page_thumbnail')" disabled>Reset Preview</button>
+                                    <img class="img-responsive img-preview">
+                                </div>
+
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input @error('page_thumbnail') is-invalid @enderror" name="page_thumbnail" id="customFile" onchange="generatePreview($(this), 'page_thumbnail')">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+
+                                    @error('page_thumbnail')
+                                    <div class='invalid-feedback'>{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -150,11 +175,15 @@
 <script src="{{ mix('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <!-- Tempus Dominus -->
 <script src="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ mix('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        bsCustomFileInput.init();
+
         $("#field-page_content").summernote({
             'height': 300,
             'placeholder': 'Start writing or type...',

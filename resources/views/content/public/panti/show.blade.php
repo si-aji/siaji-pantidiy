@@ -35,19 +35,19 @@
                     <li {!! empty($prev) ? 'class="disabled"' : '' !!}>
                         @if(!empty($prev))
                         <a href="{{ route('public.panti.show', $prev->panti_slug) }}">
-                            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>
                         @else
-                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         @endif
                     </li>
                     <li {!! empty($next) ? 'class="disabled"' : '' !!}>
                         @if(!empty($next))
                         <a href="{{ route('public.panti.show', $next->panti_slug) }}">
-                            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </a>
                         @else
-                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         @endif
                     </li>
                 </ul>

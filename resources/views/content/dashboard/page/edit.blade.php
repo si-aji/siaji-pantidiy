@@ -35,7 +35,7 @@
 @endsection
 
 @section('content')
-<form class="card" action="{{ route('dashboard.page.update', $page->page_slug) }}" method="POST">
+<form class="card" action="{{ route('dashboard.page.update', $page->page_slug) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -73,6 +73,31 @@
                             <small>
                                 <a href="javascrit:void(0)" class="text-muted">{{ url('/').'/'.$page->page_slug }}/<span class="mb-0" id="field-slug_preview"></span></a>
                             </small>
+                        </div>
+                    </div>
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                Thumbnail
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group" id="form-page_thumbnail">
+                                <div class="sa-preview mb-2">
+                                    <button type="button" class="btn btn-sm btn-danger d-block mb-2 mx-auto btn-preview_remove" onclick="removePreview($(this),  '{{ asset('img/page'.'/'.$page->page_thumbnail) }}', 'page_thumbnail')" disabled>Reset Preview</button>
+                                    <img class="img-responsive img-preview" {{ !empty($page->page_thumbnail) ? 'src='.asset('img/page'.'/'.$page->page_thumbnail) : '' }}>
+                                </div>
+
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="page_thumbnail" id="customFile" onchange="generatePreview($(this), 'page_thumbnail')">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+
+                                @error('page_thumbnail')
+                                <div class='invalid-feedback'>{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 

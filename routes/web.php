@@ -18,6 +18,15 @@ Route::group([
 ], function(){
     Route::get('/', 'HomeController')->name('index');
 
+    Route::group([
+        'middleware' => ['web', 'auth'],
+    ], function(){
+        // Show PHP Version
+        Route::get('/php', function(){
+            return phpinfo();
+        });
+    });
+
     Route::get('/panti', 'PantiController@index')->name('panti');
     Route::get('/panti/{slug}', 'PantiController@show')->name('panti.show');
     Route::get('/{type}/{slug}', 'SinglePageController@index')->name('page');
