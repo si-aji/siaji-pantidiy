@@ -47,6 +47,18 @@
                 <td>{{ $event->event_title ?? '-' }}</td>
             </tr>
             <tr>
+                <th>Thumbnail</th>
+                <td>
+                    @if(!empty($event->event_thumbnail))
+                    <div class="sa-preview mb-2">
+                        <img class="img-responsive img-preview" src="{{ asset('img/event'.'/'.$event->event_thumbnail) }}">
+                    </div>
+                    @else
+                    -
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <th>Start</th>
                 <td>{{ date('F d, Y / H:i', strtotime($event->event_start)) }}</td>
             </tr>

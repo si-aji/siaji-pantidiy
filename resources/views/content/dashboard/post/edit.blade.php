@@ -38,7 +38,7 @@
 @endsection
 
 @section('content')
-<form class="card" action="{{ route('dashboard.post.update', $post->post_slug) }}" method="POST">
+<form class="card" action="{{ route('dashboard.post.update', $post->post_slug) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input type="hidden" name="author_id" value="{{ auth()->user()->id }}" readonly>
@@ -77,6 +77,31 @@
                             <small>
                                 <a href="javascrit:void(0)" class="text-muted">{{ url('/').'/'.$post->post_slug }}/<span class="mb-0" id="field-slug_preview"></span></a>
                             </small>
+                        </div>
+                    </div>
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                Thumbnail
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group" id="form-post_thumbnail">
+                                <div class="sa-preview mb-2">
+                                    <button type="button" class="btn btn-sm btn-danger d-block mb-2 mx-auto btn-preview_remove" onclick="removePreview($(this),  '{{ asset('img/post'.'/'.$post->post_thumbnail) }}', 'post_thumbnail')" disabled>Reset Preview</button>
+                                    <img class="img-responsive img-preview" {{ !empty($post->post_thumbnail) ? 'src='.asset('img/post'.'/'.$post->post_thumbnail) : '' }}>
+                                </div>
+    
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="post_thumbnail" id="customFile" onchange="generatePreview($(this), 'post_thumbnail')">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+    
+                                @error('post_thumbnail')
+                                <div class='invalid-feedback'>{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -293,11 +318,15 @@
 <script src="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ mix('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ mix('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        bsCustomFileInput.init();
+        
         $('.select2').select2();
         $("#field-keyword_id").select2({
             placeholder: 'Search for a keyword',

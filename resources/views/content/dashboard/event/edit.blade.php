@@ -38,7 +38,7 @@
 @endsection
 
 @section('content')
-<form class="card" action="{{ route('dashboard.event.update', $event->event_slug) }}" method="POST">
+<form class="card" action="{{ route('dashboard.event.update', $event->event_slug) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -65,6 +65,30 @@
             @error('event_slug')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+        </div>
+
+        <div class="form-group" id="form-event_thumbnail">
+            <label>Thumbnail</label>
+
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="sa-preview">
+                        <button type="button" class="btn btn-sm btn-danger d-block mb-2 mx-auto btn-preview_remove" onclick="removePreview($(this),  '{{ asset('img/event'.'/'.$event->event_thumbnail) }}', 'event_thumbnail')" disabled>Reset Preview</button>
+                        <img class="img-responsive img-preview" {{ !empty($event->event_thumbnail) ? 'src='.asset('img/event'.'/'.$event->event_thumbnail) : '' }}>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-md-8">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="event_thumbnail" id="customFile" onchange="generatePreview($(this), 'event_thumbnail')">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+        
+                    @error('event_thumbnail')
+                    <div class='invalid-feedback'>{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
         </div>
 
         <div class="form-group" id="form-event_description">
@@ -120,11 +144,15 @@
 <script src="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ mix('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ mix('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        bsCustomFileInput.init();
+
         $('#field-event_start').datetimepicker({
             buttons: {
                 showClear: true,

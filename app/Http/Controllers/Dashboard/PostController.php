@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Storage;
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -11,6 +14,25 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    protected $file_location = 'img/post';
+    
+    /**
+     * Image Upload
+     * 
+     * @param files
+     */
+    private function imageUpload($file)
+    {
+        if(is_file($file)){
+            $uploadedFile = $file;        
+            $filename = 'post-'.(Carbon::now()->timestamp+rand(1,1000));
+            $path = $uploadedFile->storeAs($this->file_location, $filename.'.'.$uploadedFile->getClientOriginalExtension());
+            return $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+        }
+
+        return null;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +80,7 @@ class PostController extends Controller
             'category_id' => $validate_category,
             'post_title' => ['required', 'string', 'max:255'],
             'post_slug' => ['required', 'string', 'max:255', 'unique:sa_post,post_slug'],
-            'post_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png'],
+            'post_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'],
             'post_content' => ['required', 'string'],
             'post_shareable' => ['nullable'],
             'post_commentable' => ['nullable'],
@@ -84,7 +106,9 @@ class PostController extends Controller
                 $post->post_published = null;
             }
         }
-
+        if($request->hasFile('post_thumbnail')){
+            $post->post_thumbnail = $this->imageUpload($request->post_thumbnail);
+        }
         $post->save();
         $post->keyword()->attach($request->keyword_id);
 
@@ -148,7 +172,7 @@ class PostController extends Controller
             'category_id' => $validate_category,
             'post_title' => ['required', 'string', 'max:255'],
             'post_slug' => ['required', 'string', 'max:255', 'unique:sa_post,post_slug,'.$post->id],
-            'post_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png'],
+            'post_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'],
             'post_content' => ['required', 'string'],
             'post_shareable' => ['nullable'],
             'post_commentable' => ['nullable'],
@@ -177,6 +201,10 @@ class PostController extends Controller
             } else {
                 $post->post_published = null;
             }
+        }
+        if($request->hasFile('post_thumbnail')){
+            Storage::delete($this->file_location.'/'.$post->post_thumbnail);
+            $post->post_thumbnail = $this->imageUpload($request->post_thumbnail);
         }
 
         if($post->isDirty()){

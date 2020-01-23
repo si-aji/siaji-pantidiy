@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Storage;
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    protected $file_location = 'img/event';
+    
+    /**
+     * Image Upload
+     * 
+     * @param files
+     */
+    private function imageUpload($file)
+    {
+        if(is_file($file)){
+            $uploadedFile = $file;        
+            $filename = 'event-'.(Carbon::now()->timestamp+rand(1,1000));
+            $path = $uploadedFile->storeAs($this->file_location, $filename.'.'.$uploadedFile->getClientOriginalExtension());
+            return $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+        }
+
+        return null;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +64,7 @@ class EventController extends Controller
         $request->validate([
             'event_title' => ['required', 'string', 'max:191', 'unique:sa_event,event_title'],
             'event_slug' => ['required', 'string', 'max:191', 'unique:sa_event,event_slug'],
-            'event_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png'],
+            'event_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'],
             'event_description' => ['required', 'string'],
             'event_start' => ['required'],
             'event_end' => ['required'],
@@ -56,6 +78,9 @@ class EventController extends Controller
         $event->event_start = date('Y-m-d H:i:00', strtotime($request->event_start));
         $event->event_end = date('Y-m-d H:i:00', strtotime($request->event_end));
         $event->event_place = $request->event_place;
+        if($request->hasFile('event_thumbnail')){
+            $event->event_thumbnail = $this->imageUpload($request->event_thumbnail);
+        }
         $event->save();
 
         return redirect()->route('dashboard.event.index')->with([
@@ -105,7 +130,7 @@ class EventController extends Controller
         $request->validate([
             'event_title' => ['required', 'string', 'max:191', 'unique:sa_event,event_title,'.$event->id],
             'event_slug' => ['required', 'string', 'max:191', 'unique:sa_event,event_slug,'.$event->id],
-            'event_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png'],
+            'event_thumbnail' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'],
             'event_description' => ['required', 'string'],
             'event_start' => ['required'],
             'event_end' => ['required'],
@@ -118,6 +143,10 @@ class EventController extends Controller
         $event->event_start = date('Y-m-d H:i:00', strtotime($request->event_start));
         $event->event_end = date('Y-m-d H:i:00', strtotime($request->event_end));
         $event->event_place = $request->event_place;
+        if($request->hasFile('event_thumbnail')){
+            Storage::delete($this->file_location.'/'.$event->event_thumbnail);
+            $event->event_thumbnail = $this->imageUpload($request->event_thumbnail);
+        }
         $event->save();
 
         return redirect()->route('dashboard.event.index')->with([

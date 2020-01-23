@@ -176,11 +176,15 @@
 <script src="{{ mix('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <!-- Tempus Dominus -->
 <script src="{{ mix('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ mix('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        bsCustomFileInput.init();
+        
         $("#field-page_content").summernote({
             'height': 300,
             'placeholder': 'Start writing or type...',

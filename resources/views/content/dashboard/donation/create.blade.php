@@ -84,7 +84,7 @@
         <div class="form-row">
             <div class="col-12 col-md-6 form-group" id="form-donation_start">
                 <label for="field-donation_start">Start{!! printRequired() !!}</label>
-                <input type="text" name="donation_start" id="field-donation_start" class="form-control @error('donation_start') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_start">
+                <input type="text" name="donation_start" id="field-donation_start" class="form-control @error('donation_start') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_start" autocomplete="off">
                 @error('donation_start')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -99,7 +99,7 @@
                         </span>
                     </div>
 
-                    <input type="text" name="donation_end" id="field-donation_end" class="form-control @error('donation_end') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_end" {{ old('donation_hasdeadline') != 'true' ? 'disabled' : '' }}>
+                    <input type="text" name="donation_end" id="field-donation_end" class="form-control @error('donation_end') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_end" {{ old('donation_hasdeadline') != 'true' ? 'disabled' : '' }} autocomplete="off">
                     @error('donation_end')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

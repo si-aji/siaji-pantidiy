@@ -72,7 +72,7 @@
             @enderror
         </div>
 
-        <div class="form-group" id="field-donation_description">
+        <div class="form-group" id="form-donation_description">
             <label for="donation_description">Description{!! printRequired() !!}</label>
             <textarea name="donation_description" id="field-donation_description" class="form-control @error('donation_description') is-invalid @enderror">{!! $donation->donation_description !!}</textarea>
             
@@ -84,7 +84,7 @@
         <div class="form-row">
             <div class="col-12 col-md-6 form-group" id="form-donation_start">
                 <label for="field-donation_start">Start{!! printRequired() !!}</label>
-                <input type="text" name="donation_start" id="field-donation_start" class="form-control @error('donation_start') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_start">
+                <input type="text" name="donation_start" id="field-donation_start" class="form-control @error('donation_start') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_start" autocomplete="off">
                 @error('donation_start')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -99,7 +99,7 @@
                         </span>
                     </div>
 
-                    <input type="text" name="donation_end" id="field-donation_end" class="form-control @error('donation_end') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_end" {{ $donation->donation_hasdeadline ? '' : 'disabled' }}>
+                    <input type="text" name="donation_end" id="field-donation_end" class="form-control @error('donation_end') is-invalid @enderror datetimepicker-input" data-toggle="datetimepicker" data-target="#field-donation_end" {{ $donation->donation_hasdeadline ? '' : 'disabled' }} autocomplete="off">
                     @error('donation_end')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -156,7 +156,7 @@
             $('#field-donation_start').datetimepicker('maxDate', e.date);
         });
 
-        $("#donation_description").summernote({
+        $("#field-donation_description").summernote({
             'height': 250,
             'placeholder': 'Start writing or type...',
         });
