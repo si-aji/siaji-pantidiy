@@ -102,6 +102,7 @@
                                     </div>
     
                                     <div class="custom-file">
+                                        <input type="hidden" name="gallery[{{ $gallery_start }}][validate]" value="{{ $value->gallery_filename }}" readonly>
                                         <input type="file" class="custom-file-input @error('gallery.'.$key.'.file') is-invalid @enderror" name="gallery[{{ $gallery_start }}][file]" id="customFile_{{ $gallery_start }}" onchange="generatePreview($(this), 'panti_image_{{ $gallery_start }}')">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     

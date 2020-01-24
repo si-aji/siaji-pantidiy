@@ -154,6 +154,10 @@ mix.styles([
     // Owl Carousel
     'resources/assets/adminlte/plugins/owlcarousel/assets/owl.theme.default.min.css'
 ], 'public/adminlte/plugins/owlcarousel/owl.theme.default.min.css').version();
+mix.styles([
+    // Lightcase
+    'resources/assets/adminlte/plugins/lightcase/css/lightcase.css'
+], 'public/adminlte/plugins/lightcase/css/lightcase.css').version();
 
 // AdminLTE Js
 mix.scripts([
@@ -209,3 +213,7 @@ mix.scripts([
     // Owl Carousel
     'resources/assets/adminlte/plugins/owlcarousel/owl.carousel.min.js'
 ], 'public/adminlte/plugins/owlcarousel/owl.carousel.min.js').version();
+mix.scripts([
+    // Lightcase
+    'resources/assets/adminlte/plugins/lightcase/js/lightcase.js'
+], 'public/adminlte/plugins/lightcase/js/lightcase.js').version();

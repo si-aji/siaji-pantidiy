@@ -47,7 +47,6 @@
 }
 .sa-preview .img-preview {
     width: 100%;
-    max-width: 300px;
     max-height: 175px;
     object-fit: cover;
     object-position: center;

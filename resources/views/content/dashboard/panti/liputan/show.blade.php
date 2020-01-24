@@ -34,6 +34,11 @@
 @section('plugins_css')
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ mix('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+<!-- Owl Carousel -->
+<link rel="stylesheet" href="{{ mix('adminlte/plugins/owlcarousel/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ mix('adminlte/plugins/owlcarousel/owl.theme.default.min.css') }}">
+<!-- Lightcase -->
+<link rel="stylesheet" href="{{ mix('adminlte/plugins/lightcase/css/lightcase.css') }}">
 @endsection
 
 @section('content')
@@ -53,7 +58,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-bordered table-hover table-striped mb-4">
+        <table class="table table-bordered table-hover table-striped mb-4" style="table-layout:fixed">
             <tr>
                 <th width="30%">Name</th>
                 <td>{{ $liputan->panti->panti_name }}</td>
@@ -72,6 +77,24 @@
                 <td>{{ $liputan->editor->name }}</td>
             </tr>
             @endif
+            <tr>
+                <th>Gallery</th>
+                <td>
+                    @if($liputan->pantiLiputanGallery()->exists())
+                    <div class="owl-carousel owl-theme w-100">
+                        @foreach($liputan->pantiLiputanGallery as $value)
+                        <div class="item" style="width:250px">
+                            <a href="{{ asset('img/panti/liputan'.'/'.$value->gallery_fullname) }}" data-rel="lightcase:collection" title="Liputan {{ $liputan->liputan_date }} - {{ $value->gallery_filename }}">
+                                <img src="{{ asset('img/panti/liputan'.'/'.$value->gallery_fullname) }}" class="img img-responsive" style="height:200px;object-fit:cover;">
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                    @else
+                    -
+                    @endif
+                </td>
+            </tr>
             <tr>
                 <th>Content</th>
                 <td>{!! $liputan->liputan_content !!}</td>
@@ -105,10 +128,31 @@
 <!-- Datatable -->
 <script src="{{ mix('adminlte/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ mix('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<!-- Owl Carousel -->
+<script src="{{ mix('adminlte/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
+<!-- Lightcase -->
+<script src="{{ mix('adminlte/plugins/lightcase/js/lightcase.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
+    $(document).ready(function(){
+        $('a[data-rel^=lightcase]').lightcase();
+    });
+
+    $('.owl-carousel').owlCarousel({
+        items:3,
+        loop:false,
+        margin:10,
+        dots:true,
+        autoWidth:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    });
+
     let liputan_table = $("#liputan_table").DataTable({
         order: [0, 'desc'],
         processing: true,

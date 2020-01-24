@@ -199,6 +199,29 @@ class PantiLiputanController extends Controller
         $liputan->save();
 
         // PantiGallery
+        if($liputan->pantiLiputanGallery()->exists()){
+            $old_gallery = array();
+            $new_gallery = array();
+            foreach($liputan->pantiLiputanGallery as $value){
+                array_push($old_gallery, $value->gallery_filename);
+            }
+            if(!empty($request->gallery)){
+                foreach($request->gallery as $gallery){
+                    if(!empty($gallery['validate'])){
+                        array_push($new_gallery, $gallery['validate']);
+                    }
+                }
+            }
+
+            // Delete Removed Data
+            if(!empty(arr_diff($new_gallery, $old_gallery, 'remove'))){
+                foreach(arr_diff($new_gallery, $old_gallery, 'remove') as $key => $delete){
+                    $remove = PantiLiputanGallery::where('gallery_filename', $delete)->first();
+                    Storage::delete($this->file_location.'/'.$remove->gallery_fullname);
+                    $remove->delete();
+                }
+            }
+        }
         if(!empty($request->gallery)){
             $gallery = $this->imageUpload($request->gallery, $liputan->id);
             if(!empty($gallery)){

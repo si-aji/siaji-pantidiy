@@ -33,6 +33,8 @@
 <!-- Owl Carousel -->
 <link rel="stylesheet" href="{{ mix('adminlte/plugins/owlcarousel/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ mix('adminlte/plugins/owlcarousel/owl.theme.default.min.css') }}">
+<!-- Lightcase -->
+<link rel="stylesheet" href="{{ mix('adminlte/plugins/lightcase/css/lightcase.css') }}">
 @endsection
 
 @section('content')
@@ -65,7 +67,9 @@
                     <div class="owl-carousel owl-theme w-100">
                         @foreach($panti->pantiGallery as $value)
                         <div class="item" style="width:250px">
-                            <img src="{{ asset('img/panti'.'/'.$value->gallery_fullname) }}" class="img img-responsive w-100" style="max-width:235px;">
+                            <a href="{{ asset('img/panti'.'/'.$value->gallery_fullname) }}" data-rel="lightcase:collection" title="Panti {{ $panti->panti_name }} - {{ $value->gallery_filename }}">
+                                <img src="{{ asset('img/panti'.'/'.$value->gallery_fullname) }}" class="img img-responsive w-100" style="height:200px;object-fit:cover;">
+                            </a>
                         </div>
                         @endforeach
                     </div>
@@ -155,29 +159,28 @@
 <script src="{{ mix('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
 <!-- Owl Carousel -->
 <script src="{{ mix('adminlte/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
+<!-- Lightcase -->
+<script src="{{ mix('adminlte/plugins/lightcase/js/lightcase.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
+    $(document).ready(function(){
+        $('a[data-rel^=lightcase]').lightcase();
+    });
+
     $('.owl-carousel').owlCarousel({
         items:3,
-        loop:{{ $panti->pantiGallery()->exists() ? ($panti->pantiGallery->count() > 3 ? 'true' : 'false') : 'false' }},
+        loop:false,
         margin:10,
         dots:true,
-        autoplay:true,
-        autoplayTimeout:3000,
-        autoplayHoverPause:true,
-        center:{{ $panti->pantiGallery()->exists() ? ($panti->pantiGallery->count() > 3 ? 'false' : 'true') : 'true' }},
         autoWidth:true,
         responsive:{
             0:{
                 items:1
             },
-            600:{
-                items:3
-            },
         }
-    })
+    });
 
     let liputan_table = $("#liputan_table").DataTable({
         order: [0, 'desc'],
