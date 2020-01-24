@@ -39,6 +39,10 @@ class Panti extends Model
     {
         return $this->hasMany('App\Models\PantiContact', 'panti_id');
     }
+    public function pantiGallery()
+    {
+        return $this->hasMany('App\Models\PantiGallery', 'panti_id');
+    }
     public function donation()
     {
         return $this->hasMany('App\Models\Donation', 'panti_id');

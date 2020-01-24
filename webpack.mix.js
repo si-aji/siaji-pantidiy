@@ -146,6 +146,14 @@ mix.styles([
     // Tempus Dominus
     'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css'
 ], 'public/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css').version();
+mix.styles([
+    // Owl Carousel
+    'resources/assets/adminlte/plugins/owlcarousel/assets/owl.carousel.min.css'
+], 'public/adminlte/plugins/owlcarousel/owl.carousel.min.css').version();
+mix.styles([
+    // Owl Carousel
+    'resources/assets/adminlte/plugins/owlcarousel/assets/owl.theme.default.min.css'
+], 'public/adminlte/plugins/owlcarousel/owl.theme.default.min.css').version();
 
 // AdminLTE Js
 mix.scripts([
@@ -197,3 +205,7 @@ mix.scripts([
     // Tempus Dominus
     'resources/assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js'
 ], 'public/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js').version();
+mix.scripts([
+    // Owl Carousel
+    'resources/assets/adminlte/plugins/owlcarousel/owl.carousel.min.js'
+], 'public/adminlte/plugins/owlcarousel/owl.carousel.min.js').version();

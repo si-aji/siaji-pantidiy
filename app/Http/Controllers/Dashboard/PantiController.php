@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Storage;
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Provinsi;
 use App\Models\Panti;
+use App\Models\PantiGallery;
 use App\Models\PantiContact;
 use App\Models\PantiLiputan;
 
 class PantiController extends Controller
 {
     protected $contact_type;
+    protected $file_location = 'img/panti';
 
     public function __construct()
     {
@@ -25,6 +30,59 @@ class PantiController extends Controller
             'whatsapp',
             'phone'
         ];
+    }
+
+    /**
+     * Image Upload for Panti Gallery
+     * 
+     */
+    private function imageUpload($files, $panti_id = 0)
+    {
+        $arr_data = array();
+        if(!empty($files)){
+            foreach($files as $key => $file){
+                if(!empty($file['validate'])){
+                    // Modify Existing File/Data
+                    $panti_gallery = PantiGallery::where('gallery_filename', $file['validate'])->first();
+                    if(!empty($file['file'])){
+                        // Remove old File
+                        Storage::delete($this->file_location.'/'.$panti_gallery->gallery_fullname);
+
+                        // Upload new File
+                        $uploadedFile = $file['file'];        
+                        $filename = 'panti_'.$panti_id.'-'.(Carbon::now()->timestamp+rand(1,1000));
+                        $fullname = $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+                        $filesize = $uploadedFile->getSize();
+                        $path = $uploadedFile->storeAs($this->file_location, $fullname);
+
+                        // Save new Data
+                        $panti_gallery->gallery_filename = $filename;
+                        $panti_gallery->gallery_fullname = $fullname;
+                        $panti_gallery->gallery_filesize = $filesize;
+                    }
+                    $panti_gallery->is_thumb = !empty($file['is_thumb']) ? true : false;
+                    $panti_gallery->save();
+                } else {
+                    // Insert new File/Data
+                    if(!empty($file['file'])){
+                        $uploadedFile = $file['file'];        
+                        $filename = 'panti_'.$panti_id.'-'.(Carbon::now()->timestamp+rand(1,1000));
+                        $fullname = $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+                        $filesize = $uploadedFile->getSize();
+                        $path = $uploadedFile->storeAs($this->file_location, $fullname);
+    
+                        $arr_data[] = new PantiGallery([
+                            'gallery_filename' => $filename,
+                            'gallery_fullname' => $fullname,
+                            'gallery_filesize' => $filesize,
+                            'is_thumb' => !empty($file['is_thumb']) ? true : false
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return $arr_data;
     }
 
     /**
@@ -63,19 +121,26 @@ class PantiController extends Controller
         ($request->kecamatan_id == 'none' ? $request->merge(['kecamatan_id' => null]) : '');
         ($request->panti_description == '<p><br/></p>' ? $request->merge(['panti_description' => null]) : '');
 
+        $vgallery = ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'];
         $vprovinsi_id = $vkabupaten_id = $vkecamatan_id = ['nullable'];
         if(!empty($request->provinsi_id)){
             $vprovinsi_id = $vkabupaten_id = $vkecamatan_id = ['required'];
         }
+        if(!empty($request->gallery)){
+            $vgallery = ['required', 'mimes:jpg,jpeg,png', 'max:2048'];
+        }
+
         $request->validate([
             'provinsi_id' => $vprovinsi_id,
             'kabupaten_id' => $vkabupaten_id,
             'kecamatan_id' => $vkecamatan_id,
+            'gallery.*.file' => $vgallery,
 
             'panti_name' => ['required', 'string', 'max:255'],
             'panti_slug' => ['required', 'string', 'max:255', 'unique:sa_panti,panti_slug'],
+            'panti_address' => ['required', 'string'],
             'panti_description' => ['required', 'string'],
-            'data_contact.*.contact_value' => ['required']
+            'data_contact.*.contact_value' => ['required'],
         ]);
 
         $panti = new Panti;
@@ -87,6 +152,14 @@ class PantiController extends Controller
         $panti->panti_alamat = $request->panti_address;
         $panti->panti_description = $request->panti_description;
         $panti->save();
+
+        // PantiGallery
+        if(!empty($request->gallery)){
+            $gallery = $this->imageUpload($request->gallery, $panti->id);
+            if(!empty($gallery)){
+                $panti->pantiGallery()->saveMany($gallery);
+            }
+        }
 
         // PantiContact
         $panti->pantiContact()->saveMany($this->pantiContact($request->data_contact));
@@ -141,17 +214,26 @@ class PantiController extends Controller
         ($request->kecamatan_id == 'none' ? $request->merge(['kecamatan_id' => null]) : '');
         ($request->panti_description == '<p><br/></p>' ? $request->merge(['panti_description' => null]) : '');
 
+        $vgallery = ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'];
         $vprovinsi_id = $vkabupaten_id = $vkecamatan_id = ['nullable'];
         if(!empty($request->provinsi_id)){
             $vprovinsi_id = $vkabupaten_id = $vkecamatan_id = ['required'];
         }
+        if(!empty($request->gallery)){
+            $vgallery = ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'];
+        }
+
         $request->validate([
             'provinsi_id' => $vprovinsi_id,
             'kabupaten_id' => $vkabupaten_id,
             'kecamatan_id' => $vkecamatan_id,
+            'gallery.*.file' => $vgallery,
 
             'panti_name' => ['required', 'string', 'max:255'],
-            'panti_slug' => ['required', 'string', 'max:255', 'unique:sa_panti,panti_slug,'.$id]
+            'panti_slug' => ['required', 'string', 'max:255', 'unique:sa_panti,panti_slug,'.$id],
+            'panti_address' => ['required', 'string'],
+            'panti_description' => ['required', 'string'],
+            'data_contact.*.contact_value' => ['required'],
         ]);
 
         $panti = Panti::findOrFail($id);
@@ -163,6 +245,22 @@ class PantiController extends Controller
         $panti->panti_alamat = $request->panti_address;
         $panti->panti_description = $request->panti_description;
         $panti->save();
+
+        // PantiGallery
+        if(!empty($request->gallery)){
+            $gallery = $this->imageUpload($request->gallery, $panti->id);
+            if(!empty($gallery)){
+                $panti->pantiGallery()->saveMany($gallery);
+            }
+        } else {
+            if($panti->pantiGallery()->exists()){
+                foreach($panti->pantiGallery as $value){
+                    Storage::delete($this->file_location.'/'.$value->gallery_fullname);
+                }
+                // Delete All Gallery
+                $panti->pantiGallery()->delete();
+            }
+        }
 
         if($request->has('data_contact')){
             // Request has Data Contact

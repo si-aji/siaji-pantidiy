@@ -37,7 +37,7 @@
 @endsection
 
 @section('content')
-<form class="card" action="{{ route('dashboard.panti.store') }}" method="POST">
+<form class="card" action="{{ route('dashboard.panti.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="card-header card-primary card-outline">
@@ -69,7 +69,7 @@
 
         <div class="form-group" id="form-panti_address">
             <label for="field-panti_address">Address</label>
-            <textarea name="panti_address" class="form-control @error('panti_slug') is-invalid @enderror" id="field-panti_address" placeholder="Panti Address">{{ old('panti_address') }}</textarea>
+            <textarea name="panti_address" class="form-control @error('panti_address') is-invalid @enderror" id="field-panti_address" placeholder="Panti Address">{{ old('panti_address') }}</textarea>
             
             @error('panti_address')
             <div class='invalid-feedback'>{{ $message }}</div>
@@ -110,6 +110,59 @@
                 <div class='invalid-feedback'>{{ $message }}</div>
                 @enderror
             </div>
+        </div>
+
+        <div class="card" id="form-panti_gallery">
+            <div class="card-header card-primary card-outline">
+                <h1 class="card-title">Panti Gallery</h1>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-xs" id="panti-gallery_add">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+            @if(old('gallery'))
+                @php $gallery_start = 0; @endphp
+            <div class="card-body">
+                <div class="row" id="panti-body">
+                    @foreach(old('gallery') as $key => $value)
+                    <div class="panti-gallery_item col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group" id="form-panti_image_{{ $gallery_start }}">
+                                    <div class="sa-preview mb-2">
+                                        <button type="button" class="btn btn-sm btn-danger d-block mb-2 mx-auto btn-preview_remove" onclick="removePreview($(this), '', 'panti_image_{{ $gallery_start }}')" disabled>Reset Preview</button>
+                                        <img class="img-responsive img-preview">
+                                    </div>
+    
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input @error('gallery.'.$key.'.file') is-invalid @enderror" name="gallery[{{ $gallery_start }}][file]" id="customFile_{{ $gallery_start }}" onchange="generatePreview($(this), 'panti_image_{{ $gallery_start }}')">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    
+                                        @error('gallery.'.$key.'.file')
+                                        <div class='invalid-feedback'>{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-0">
+                                    <div class="custom-control custom-checkbox">
+                                    <input type="hidden" name="gallery[{{ $gallery_start }}][validate]" readonly>
+                                    <input class="custom-control-input gallery_isthumb" onchange="checkIsthumb()" type="checkbox" name="gallery[{{ $gallery_start }}][is_thumb]" id="is_thumb-{{ $gallery_start }}" value="yes" {{ !empty(old('gallery.'.$key.'.is_thumb')) ? 'checked' : (find_multidimensionKey(old('gallery'), 'is_thumb') ? 'disabled' : '') }}>
+                                        <label for="is_thumb-{{ $gallery_start }}" class="custom-control-label">Set as Thumbnail</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer clearfix">
+                                <button type="button" class="btn btn-warning btn-sm float-right gallery-remove"><i class="fas fa-times"></i> Remove item</button>
+                            </div>
+                        </div>
+                    </div>
+                        @php $gallery_start++; @endphp
+                    @endforeach
+                </div>
+            </div>
+            @endif
         </div>
 
         <div class="form-group" id="form-panti_description">
@@ -177,11 +230,15 @@
 <script src="{{ mix('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- Summernote -->
 <script src="{{ mix('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ mix('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        bsCustomFileInput.init();
+
         // console.log("Lama {{ old('kabupaten_id') }}");
         checkProvince();
 
@@ -189,6 +246,85 @@
         $("#field-panti_description").summernote({
             'height': 170,
             'placeholder': 'Description about Panti',
+        });
+
+        // Add more Gallery
+        let gallery_start = {{ old('gallery') ? $gallery_start : '0' }};
+        let gallery_wrap = $("#form-panti_gallery");
+        let gallery_add = $("#panti-gallery_add");
+        let gallery_file = 'gallery_file';
+        let gallery_length = {{ old('gallery') ? $gallery_start : '0' }};
+        let gallery_fieldform = null;
+        let gallery_null = "''";
+
+        gallery_add.click(function(e){
+            e.preventDefault();
+            console.log("Gallery Add More is running...");
+            gallery_fieldform = "'panti_image_"+gallery_start+"'";
+            // console.log(gallery_fieldform);
+            // console.log("start : "+gallery_start);
+
+            if(gallery_length <= 0){
+                $(
+                    '<div class="card-body" style="display:none;"><div class="row" id="panti-body"></div></div>'
+                ).appendTo(gallery_wrap).slideDown();
+            }
+
+            $(
+                '<div class="panti-gallery_item col-12 col-lg-4" style="display:none">'
+                    +'<div class="card">'
+                        +'<div class="card-body">'
+                            +'<div class="form-group" id="form-panti_image_'+gallery_start+'">'
+                                +'<div class="sa-preview mb-2">'
+                                    +'<button type="button" class="btn btn-sm btn-danger d-block mb-2 mx-auto btn-preview_remove" onclick="removePreview($(this), '+gallery_null+', '+gallery_fieldform+')" disabled>Reset Preview</button>'
+                                    +'<img class="img-responsive img-preview">'
+                                +'</div>'
+
+                                +'<div class="custom-file">'
+                                    +'<input type="hidden" name="gallery['+gallery_start+'][validate]" readonly>'
+                                    +'<input type="file" class="custom-file-input" name="gallery['+gallery_start+'][file]" id="customFile_'+gallery_start+'" onchange="generatePreview($(this), '+gallery_fieldform+')">'
+                                    +'<label class="custom-file-label" for="customFile">Choose file</label>'
+                                +'</div>'
+                            +'</div>'
+
+                            +'<div class="form-group mb-0">'
+                                +'<div class="custom-control custom-checkbox">'
+                                    +'<input class="custom-control-input gallery_isthumb" onchange="checkIsthumb()" type="checkbox" name="gallery['+gallery_start+'][is_thumb]" id="is_thumb-'+gallery_start+'" value="yes">'
+                                    +'<label for="is_thumb-'+gallery_start+'" class="custom-control-label">Set as Thumbnail</label>'
+                                +'</div>'
+                            +'</div>'
+                        +'</div>'
+                        +'<div class="card-footer clearfix">'
+                            +'<button type="button" class="btn btn-warning btn-sm float-right gallery-remove"><i class="fas fa-times"></i> Remove item</button>'
+                        +'</div>'
+                    +'</div>'
+                +'</div>'
+            ).appendTo('#panti-body').slideDown();
+
+            // console.log("start After Append : "+gallery_start);
+
+            gallery_length++;
+            gallery_start++;
+            console.log(gallery_length);
+            checkIsthumb();
+        });
+        gallery_wrap.on('click','.gallery-remove', function(e){
+            console.log("Panti Gallery is being removed via wrap");
+            e.preventDefault();
+
+            $(this).closest('.panti-gallery_item').slideUp(function(){
+                $(this).remove();
+                gallery_length--;
+
+                setTimeout(function(){
+                    if(gallery_length <= 0){
+                        $('#form-panti_gallery .card-body').slideUp(function(){
+                            $(this).remove();
+                        })
+                    }
+                });
+                console.log(gallery_length);
+            });
         });
 
         // Add more Contact
@@ -253,6 +389,17 @@
             });
         });
     });
+
+    function checkIsthumb(){
+        console.log("Gallery Thumb is running...");
+        if($(".gallery_isthumb:checkbox:checked").length == 1){
+            console.log("There is Checked Thumb");
+            $(".gallery_isthumb:checkbox:not(:checked)").prop('disabled', true);
+        } else {
+            console.log("There is no Checked Thumb");
+            $(".gallery_isthumb:checkbox:not(:checked)").prop('disabled', false);
+        }
+    }
 
     function checkProvince(){
         // console.log('Check Province is running...');

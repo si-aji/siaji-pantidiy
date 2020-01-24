@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use DB;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +28,10 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $settings = Settings::all();
+        $settings = null;
+        if(DB::connection()->getPdo()){
+            $settings = Settings::all();
+        }
 
         View::composer('*', function ($view) use ($settings) {
             $wtitle = $wdesc = $wlogo = $wfavicon = null;
@@ -91,18 +96,20 @@ class ViewServiceProvider extends ServiceProvider
                 ]
             ]);
 
-            foreach($settings as $setting){
-                if($setting->setting_key == 'title'){
-                    $wtitle = $setting->setting_value;
-                }
-                if($setting->setting_key == 'description'){
-                    $wdesc = $setting->setting_value;
-                }
-                if($setting->setting_key == 'logo'){
-                    $wlogo = $setting->setting_value;
-                }
-                if($setting->setting_key == 'favicon'){
-                    $wfavicon = $setting->setting_value;
+            if(!empty($settings) || !$settings->isEmpty()){
+                foreach($settings as $setting){
+                    if($setting->setting_key == 'title'){
+                        $wtitle = $setting->setting_value;
+                    }
+                    if($setting->setting_key == 'description'){
+                        $wdesc = $setting->setting_value;
+                    }
+                    if($setting->setting_key == 'logo'){
+                        $wlogo = $setting->setting_value;
+                    }
+                    if($setting->setting_key == 'favicon'){
+                        $wfavicon = $setting->setting_value;
+                    }
                 }
             }
 

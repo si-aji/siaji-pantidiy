@@ -48,6 +48,9 @@
 .sa-preview .img-preview {
     width: 100%;
     max-width: 300px;
+    max-height: 175px;
+    object-fit: cover;
+    object-position: center;
     background: #e9ecef !important;
     padding: .25rem;
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.25);

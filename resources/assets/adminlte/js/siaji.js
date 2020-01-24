@@ -58,25 +58,32 @@ function generateSlug(source, destination){
 
 function generatePreview(input, form_field = 'thumbnail'){
     console.log("Generate Preview is running...");
-    console.log("Form Field : "+form_field);
+    console.log("Form Field : #form-"+form_field);
+    console.log(input);
 
     let preview_container = input.closest('#form-'+form_field).find('.sa-preview .img-preview');
     let preview_remove = input.closest('#form-'+form_field).find('.btn-preview_remove');
+    let fileName;
+    let fileLabel = input.closest('#form-'+form_field).find('.custom-file-label');
 
-    // console.log(preview_container);
-    // console.log(preview_remove);
+    console.log(preview_container);
+    console.log(preview_remove);
 
     if (input[0].files[0] && input[0].files[0]) {
         let reader = new FileReader();
+        fileName = input[0].files[0].name;
         reader.onload = function(e) {
             preview_container.attr('src', e.target.result);
         }
 
+        console.log("Filename : "+fileName);
         reader.readAsDataURL(input[0].files[0]);
         preview_remove.prop('disabled', false);
     } else {
+        fileName = 'Choose File';
         $(preview_remove).click();
     }
+    $(fileLabel).text(fileName);
 }
 function removePreview(input, old_value = '', form_field = 'thumbnail'){
     console.log("Remove Preview is running...");
