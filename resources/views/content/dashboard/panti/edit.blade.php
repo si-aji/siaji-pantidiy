@@ -233,11 +233,15 @@
 <script src="{{ mix('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- Summernote -->
 <script src="{{ mix('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ mix('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 @endsection
 
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        bsCustomFileInput.init();
+        
         console.log("Lama {{ old('kabupaten_id') }}");
         checkProvince();
 

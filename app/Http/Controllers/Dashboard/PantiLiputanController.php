@@ -2,14 +2,71 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Storage;
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Panti;
 use App\Models\PantiLiputan;
+use App\Models\PantiLiputanGallery;
 
 class PantiLiputanController extends Controller
 {
+    protected $file_location = 'img/panti/liputan';
+
+    /**
+     * Image Upload for Panti Gallery
+     * 
+     */
+    private function imageUpload($files, $liputan_id = 0)
+    {
+        $arr_data = array();
+        if(!empty($files)){
+            foreach($files as $key => $file){
+                if(!empty($file['validate'])){
+                    // Modify Existing File/Data
+                    $panti_gallery = PantiLiputanGallery::where('gallery_filename', $file['validate'])->first();
+                    if(!empty($file['file'])){
+                        // Remove old File
+                        Storage::delete($this->file_location.'/'.$panti_gallery->gallery_fullname);
+
+                        // Upload new File
+                        $uploadedFile = $file['file'];        
+                        $filename = 'pantiliputan_'.$liputan_id.'-'.(Carbon::now()->timestamp+rand(1,1000));
+                        $fullname = $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+                        $filesize = $uploadedFile->getSize();
+                        $path = $uploadedFile->storeAs($this->file_location, $fullname);
+
+                        // Save new Data
+                        $panti_gallery->gallery_filename = $filename;
+                        $panti_gallery->gallery_fullname = $fullname;
+                        $panti_gallery->gallery_filesize = $filesize;
+                        $panti_gallery->save();
+                    }
+                } else {
+                    // Insert new File/Data
+                    if(!empty($file['file'])){
+                        $uploadedFile = $file['file'];        
+                        $filename = 'pantiliputan_'.$liputan_id.'-'.(Carbon::now()->timestamp+rand(1,1000));
+                        $fullname = $filename.'.'.strtolower($uploadedFile->getClientOriginalExtension());
+                        $filesize = $uploadedFile->getSize();
+                        $path = $uploadedFile->storeAs($this->file_location, $fullname);
+    
+                        $arr_data[] = new PantiLiputanGallery([
+                            'gallery_filename' => $filename,
+                            'gallery_fullname' => $fullname,
+                            'gallery_filesize' => $filesize,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return $arr_data;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,9 +102,14 @@ class PantiLiputanController extends Controller
         $panti = Panti::where('panti_slug', $slug)->first();
         
         ($request->liputan_content == '<p><br/></p>' ? $request->merge(['liputan_content' => null]) : '');
+        $vgallery = ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'];
+        if(!empty($request->gallery)){
+            $vgallery = ['required', 'mimes:jpg,jpeg,png', 'max:2048'];
+        }
         $request->validate([
             'liputan_date' => ['required'],
-            'liputan_content' => ['required', 'string']
+            'liputan_content' => ['required', 'string'],
+            'gallery.*.file' => $vgallery,
         ]);
 
         $liputan = new PantiLiputan;
@@ -57,6 +119,14 @@ class PantiLiputanController extends Controller
         $liputan->liputan_date = $request->liputan_date;
         $liputan->liputan_content = $request->liputan_content;
         $liputan->save();
+
+        // PantiGallery
+        if(!empty($request->gallery)){
+            $gallery = $this->imageUpload($request->gallery, $liputan->id);
+            if(!empty($gallery)){
+                $liputan->pantiLiputanGallery()->saveMany($gallery);
+            }
+        }
 
         return redirect()->route('dashboard.panti.show', $panti->panti_slug)->with([
             'action' => 'Liputan Store',
@@ -105,9 +175,14 @@ class PantiLiputanController extends Controller
         $panti = Panti::findOrFail($request->panti_id);
 
         ($request->liputan_content == '<p><br/></p>' ? $request->merge(['liputan_content' => null]) : '');
+        $vgallery = ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'];
+        if(!empty($request->gallery)){
+            $vgallery = ['nullable', 'mimes:jpg,jpeg,png', 'max:2048'];
+        }
         $request->validate([
             'liputan_date' => ['required'],
-            'liputan_content' => ['required', 'string']
+            'liputan_content' => ['required', 'string'],
+            'gallery.*.file' => $vgallery,
         ]);
 
         $liputan->panti_id = $request->panti_id;
@@ -122,6 +197,22 @@ class PantiLiputanController extends Controller
             }
         }
         $liputan->save();
+
+        // PantiGallery
+        if(!empty($request->gallery)){
+            $gallery = $this->imageUpload($request->gallery, $liputan->id);
+            if(!empty($gallery)){
+                $liputan->pantiLiputanGallery()->saveMany($gallery);
+            }
+        } else {
+            if($liputan->pantiLiputanGallery()->exists()){
+                foreach($liputan->pantiLiputanGallery as $value){
+                    Storage::delete($this->file_location.'/'.$value->gallery_fullname);
+                }
+                // Delete All Gallery
+                $liputan->pantiLiputanGallery()->delete();
+            }
+        }
 
         return redirect()->route('dashboard.panti.show', $panti->panti_slug)->with([
             'action' => 'Liputan Store',

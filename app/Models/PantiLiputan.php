@@ -30,4 +30,9 @@ class PantiLiputan extends Model
     {
         return $this->belongsTo('App\User', 'editor_id');
     }
+
+    public function pantiLiputanGallery()
+    {
+        return $this->hasMany('App\Models\PantiLiputanGallery', 'liputan_id');
+    }
 }
