@@ -41,7 +41,7 @@
 <div class="card">
     <div class="card-header card-secondary card-outline">
         <h1 class="card-title">Detail {{ $panti->panti_name }}</h1>
-        <div class="card-tools">
+        <div class="card-tools btn-group">
             <a href="{{ route('dashboard.panti.edit', $panti->panti_slug) }}" class="btn btn-warning btn-sm">
                 <i class="fas fa-edit"></i> Edit
             </a>

@@ -38,7 +38,7 @@
 <div class="card">
     <div class="card-header card-primary card-outline">
         <h1 class="card-title">Detail {{ $category->category_title }}</h1>
-        <div class="card-tools">
+        <div class="card-tools btn-group">
             <a href="{{ route('dashboard.category.index') }}" class="btn btn-secondary btn-sm">
                 <i class="fas fa-chevron-circle-left"></i> Back
             </a>

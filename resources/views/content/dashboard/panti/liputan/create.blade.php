@@ -43,12 +43,15 @@
     @csrf
     <div class="card-header card-secondary card-outline">
         <h1 class="card-title">Liputan {{ $panti->panti_name }}</h1>
-        <div class="card-tools">
+        <div class="card-tools btn-group">
+            <a href="{{ route('dashboard.panti.liputan.index') }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-chevron-circle-left"></i> Back
+            </a>
             <a href="{{ route('dashboard.panti.show', $panti->panti_slug) }}" class="btn btn-primary btn-sm">
-                <i class="fas fa-eye"></i> Detail
+                <i class="fas fa-eye"></i> Detail Panti
             </a>
             <a href="{{ route('dashboard.panti.edit', $panti->panti_slug) }}" class="btn btn-warning btn-sm">
-                <i class="fas fa-edit"></i> Edit
+                <i class="fas fa-edit"></i> Edit Panti
             </a>
         </div>
     </div>
