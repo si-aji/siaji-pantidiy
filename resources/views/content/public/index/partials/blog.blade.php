@@ -1,5 +1,5 @@
 <!-- ***** Blog Area Start ***** -->
-<section class="fancy-blog-area section-padding-100-70">
+<section class="fancy-blog-area section-padding-100-70" id="blog-area">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -14,20 +14,29 @@
             <!-- Blog Content -->
             @if($articles->isNotEmpty())
                 @foreach($articles as $article)
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 blog-item">
                 <div class="single-blog-area wow fadeInUp" data-wow-delay="0.5s">
-                    <img src="{{ asset('fancy/img/blog-img/blog-1.jpg') }}" alt="">
+                    <a href="{{ route('public.page.show', ['article', $article->post_slug]) }}" class="thumb-link">
+                        <img class="blog-thumb" src="{{ !empty($article->post_thumbnail) ? asset('/img/post'.'/'.$article->post_thumbnail) : asset('no-image.jpg') }}" alt="">
+                    </a>
                     <div class="blog-content">
-                        <h5>
-                            <a href="{{ route('public.page', ['article', $article->post_slug]) }}">{{ $article->post_title }}</a>
+                        <h5 class="blog-title">
+                            <a href="{{ route('public.page.show', ['article', $article->post_slug]) }}">{{ $article->post_title }}</a>
                         </h5>
 
-                        {!! strip_tags(str_limit($article->post_content, 250, ' ...')) !!}
-                        <a href="{{ route('public.page', ['article', $article->post_slug]) }}">Learn More</a>
+                        {!! str_limit(strip_tags($article->post_content), 250, '...') !!}
+                        <a href="{{ route('public.page.show', ['article', $article->post_slug]) }}" class="blog-more">Read More <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                    <div class="blog-info">
+                        <small><span class="published-time"><i class="fa fa-clock-o"></i> {{ $article->post_published }}</span></small>
                     </div>
                 </div>
             </div>
                 @endforeach
+                
+                @if($article->count() >= 3)
+            <a href="{{ route('public.page', ['article']) }}" class="blog-all">More Articles...</a>
+                @endif
             @endif
         </div>
     </div>
