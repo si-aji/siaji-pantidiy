@@ -58,7 +58,7 @@
     margin: 0;
     font-size: 29px;
     color: #232d37;
-    border-radius: .25rem;
+    border-radius: 1rem;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     border-bottom-left-radius: unset;
@@ -95,7 +95,7 @@
     position: relative;
 }
 #panti-area .panti-container {
-    border-radius: .25rem;
+    border-radius: 1rem;
     transition: all 500ms;
     box-shadow: 0px 0px 2px rgba(19, 22, 39, .3);
     background: linear-gradient(to right, #7450fe 0%, #21d397 100%), linear-gradient(to right, #7450fe 0%, #21d397 100%);
@@ -110,18 +110,18 @@
     width: 170px;
     height: 100%;
     object-fit: cover;
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 }
 #panti-area .panti-container .panti-content {
     background: #fff;
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 #panti-area .panti-container .panti-content .panti-title {
     padding: .5rem 1rem;
     background: #ebebeb;
-    border-top-right-radius: .25rem;
+    border-top-right-radius: 1rem;
     color: #000;
     display: block;
     transition: all .5s;
@@ -137,7 +137,7 @@
 }
 #panti-area .panti-container .panti-content .panti-desc {
     padding: .5rem 1rem;
-    border-bottom-right-radius: .25rem;
+    border-bottom-right-radius: 1rem;
 }
 
 /* Home - Blog Area */
@@ -325,16 +325,16 @@
         width: 100%;
         height: auto;
         object-fit: cover;
-        border-top-left-radius: .25rem;
-        border-top-right-radius: .25rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
     #panti-area .panti-container .panti-content {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        border-bottom-right-radius: .25rem;
-        border-bottom-left-radius: .25rem;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
     }
     #panti-area .panti-container .panti-content .panti-title {
     }

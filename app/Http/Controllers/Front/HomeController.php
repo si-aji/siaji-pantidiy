@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use App\Models\Provinsi;
+use App\Models\Donation;
 
 class HomeController extends Controller
 {
@@ -20,10 +21,11 @@ class HomeController extends Controller
     {
         $provinsi = Provinsi::orderBy('provinsi_name', 'asc')->get();
         $articles = Post::getPublishedArticles()->take(3)->get();
+        $donation = Donation::getDonation()->get();
 
-        // return response()->json([
-        //     'articles' => $articles
-        // ]);
+        return response()->json([
+            'donation' => $donation
+        ]);
 
         return view('content.public.index.index', compact(
             'provinsi',

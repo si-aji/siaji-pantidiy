@@ -2,7 +2,7 @@
     @foreach($panti as $value)
     <div class="panti-container d-sm-flex mb-4">
         <div class="panti-thumb">
-            <img src="{{ asset('fancy/img/blog-img/blog-1.jpg') }}" alt="">
+            <img src="{{ count($value->pantiGallery) > 0 ? asset('img/panti'.'/'.$value->pantiGallery[0]->gallery_fullname) : asset('no-image.jpg') }}" alt="">
         </div>
         <div class="panti-content media-body">
             <a href="{{ route('public.panti.show', $value->panti_slug) }}" class="panti-title">
@@ -40,22 +40,6 @@
                 </li>
             </ul>
         </nav>
-
-        <form class="paginate-info">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Page</span>
-                </div>
-                <select name="page" class="form-control">
-                    @for($i = 1; $i <= $panti->lastPage(); $i++)
-                    <option value="{{ $i }}" {{ $panti->currentPage() == $i ? 'selected' : '' }}>{{ $i }}</option>
-                    @endfor
-                </select>
-                <div class="input-group-append">
-                    <span class="input-group-text">{{ $panti->lastPage() }}</span>
-                </div>
-            </div>
-        </form>
     </div>
     @endif
 @else

@@ -21,7 +21,9 @@ class PantiController extends Controller
     {
         $kabupaten = $kecamatan = null;
         $provinsi = Provinsi::orderBy('provinsi_name', 'asc')->get();
-        $panti = Panti::orderBy('id', 'desc');
+        $panti = Panti::with(array('pantiGallery' => function($query){
+            $query->where('is_thumb', true);
+        }))->orderBy('id', 'desc');
 
         if(isset($_GET['provinsi'])){
             if($_GET['provinsi'] != 'all'){
@@ -44,6 +46,8 @@ class PantiController extends Controller
             }
         }
         $panti = $panti->paginate(4);
+
+        // return response()->json($panti);
 
         return view('content.public.panti.index', compact(
             'provinsi',

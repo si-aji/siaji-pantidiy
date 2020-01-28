@@ -22,4 +22,9 @@ class Donation extends Model
     {
         return $this->belongsTo('App\Models\Panti', 'panti_id');
     }
+
+    public function scopeGetDonation()
+    {
+        return $this->orderBy('created_at', 'asc');
+    }
 }
